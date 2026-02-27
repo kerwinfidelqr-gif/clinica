@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clínica Hipólito Unanue | Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #005b96;
+            --secondary-color: #03396c;
+            --accent-color: #6497b1;
+            --bg-color: #f4f7f6;
+            --text-color: #333;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Encabezado */
+        header {
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            color: white;
+            width: 100%;
+            padding: 40px 0;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin-bottom: 50px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            margin: 10px 0 0;
+            font-size: 1.1rem;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        /* Contenedor de las tarjetas */
+        .modulos-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            max-width: 1200px;
+            padding: 0 20px;
+        }
+
+        /* Tarjetas interactivas */
+        .card {
+            background: white;
+            width: 300px;
+            padding: 40px 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-bottom: 5px solid var(--accent-color);
+        }
+
+        /* Efecto Hover (Al pasar el ratón) */
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,91,150,0.15);
+            border-bottom: 5px solid var(--primary-color);
+        }
+
+        .card i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            margin: 0 0 15px;
+            color: var(--secondary-color);
+            font-size: 1.4rem;
+        }
+
+        .card p {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        /* Botones */
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Alerta flotante del sistema */
+        .status-badge {
+            margin-top: 50px;
+            background-color: #e1f5fe;
+            color: #0288d1;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Clínica Hipólito Unanue</h1>
+        <p>Sistema Integrado de Gestión Hospitalaria</p>
+    </header>
+
+    <div class="modulos-container">
+        
+        <div class="card">
+            <i class="fa-solid fa-calendar-check"></i>
+            <h3>Realizar Reservas</h3>
+            <p>Gestión de citas médicas, disponibilidad de consultorios y programación de especialistas.</p>
+            <button class="btn" onclick="mostrarAlerta('Módulo de Reservas')">Ingresar</button>
+        </div>
+
+        <div class="card">
+            <i class="fa-solid fa-file-medical"></i>
+            <h3>Historial Médico</h3>
+            <p>Acceso seguro a expedientes, diagnósticos, recetas y evolución clínica de pacientes.</p>
+            <button class="btn" onclick="mostrarAlerta('Módulo de Historial Médico')">Ingresar</button>
+        </div>
+
+        <div class="card">
+            <i class="fa-solid fa-boxes-stacked"></i>
+            <h3>Control de Almacén</h3>
+            <p>Inventario de medicamentos, insumos médicos y alertas de stock en tiempo real.</p>
+            <button class="btn" onclick="mostrarAlerta('Módulo de Almacén')">Ingresar</button>
+        </div>
+
+    </div>
+
+    <div class="status-badge">
+        <i class="fa-solid fa-code"></i> Versión 1.0 - Entorno de Desarrollo
+    </div>
+
+    <script>
+        function mostrarAlerta(modulo) {
+            alert("¡Hola! Estás intentando acceder al " + modulo + ".\n\nEste módulo se encuentra actualmente en fase de desarrollo por el equipo de ingeniería. ¡Pronto estará disponible!");
+        }
+    </script>
+
+</body>
+</html>
