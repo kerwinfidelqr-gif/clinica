@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head><title>HIPÓLITO UNANUE</title></head>
+<body>
+    <h1>LOGIN</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Ingresar</button>
+    </form>
+</body>
+</html>
