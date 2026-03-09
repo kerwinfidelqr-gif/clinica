@@ -126,3 +126,4 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 # Actualización forzosa para Render - Intento Final
+STATIC_ROOT = BASE_DIR / 'staticfiles'
