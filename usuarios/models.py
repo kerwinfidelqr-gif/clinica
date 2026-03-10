@@ -3,9 +3,7 @@ from django.contrib.auth.models import AbstractUser
 
 class Usuario(AbstractUser):
     usuario_id = models.AutoField(primary_key=True)
-    # Dejamos nom_usuario por si el tutorial lo usa más adelante
     nom_usuario = models.CharField(max_length=100, blank=True, null=True) 
-    # Agregamos tu password tal como estaba en el video:
     password = models.CharField(max_length=100)
 
     class Meta:
