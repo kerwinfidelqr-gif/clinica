@@ -21,6 +21,5 @@ class Login(AuthenticationForm):
 
     class Meta:
         model = Usuario
-        fields = ['nom_usuario', 'password']
-
-     
+        # CORRECCIÓN: Le decimos que use 'username' en lugar de 'nom_usuario'
+        fields = ['username', 'password']
