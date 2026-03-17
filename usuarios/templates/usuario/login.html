@@ -1,12 +1,108 @@
 <!DOCTYPE html>
-<html>
-<head><title>HIPÓLITO UNANUE</title></head>
-<body>
-    <h1>LOGIN</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Ingresar</button>
-    </form>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clínica Hipólito Unanue</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .login-card {
+            backdrop-filter: blur(10px);
+            background: white;
+            animation: fadeIn .6s ease;
+        }
+        .input-group {
+            position: relative;
+        }
+        .input-group i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6187d4;
+        }
+        .input-group input {
+            width: 100%;
+            padding: .8rem 1rem .8rem 2.5rem;
+            border: 1px solid #d1d5db;
+            border-radius: .7rem;
+            transition: .25s;
+        }
+        .input-group input:focus {
+            outline: none;
+            border-color: #233b6e;
+            box-shadow: 0 0 0 3px rgba(35, 59, 110, .15);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen m-0 p-0">
+
+    <div class="flex min-h-screen w-full">
+
+        <div class="w-full lg:w-1/2 flex items-center justify-center px-4 sm:px-8" style="background: linear-gradient(135deg, #e8eef8, #d8e3f5, #eef2f7);">
+            
+            <div class="login-card p-10 rounded-2xl shadow-2xl w-full max-w-md">
+                <div class="flex justify-center mb-5">
+                    <div class="bg-[#233b6e] w-14 h-14 flex items-center justify-center rounded-full shadow-lg text-white text-xl">
+                        <i class="fa-solid fa-stethoscope"></i>
+                    </div>
+                </div>
+                <h1 class="text-2xl font-bold text-center text-gray-800">
+                    Clínica Hipólito Unanue
+                </h1>
+                <p class="text-center text-gray-500 text-sm mb-7">
+                    Acceso al sistema médico
+                </p>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="space-y-4">
+                        <div class="input-group">
+                            <i class="fa-solid fa-user"></i>
+                            {{ form.username }}
+                        </div>
+                        <div class="input-group">
+                            <i class="fa-solid fa-lock"></i>
+                            {{ form.password }}
+                        </div>
+                    </div>
+                    {% if form.errors %}
+                    <div class="bg-red-50 border-l-4 border-red-500 text-red-700 p-3 mt-4 rounded text-sm">
+                        {{ form.non_field_errors }}
+                    </div>
+                    {% endif %}
+                    <button type="submit" class="w-full mt-6 bg-[#233b6e] text-white font-semibold py-3 rounded-lg shadow-md hover:bg-[#1c305a] hover:shadow-lg transition duration-300">
+                        Ingresar al sistema
+                    </button>
+                </form>
+                <p class="text-center text-xs text-gray-400 mt-6">
+                    Sistema interno • Acceso exclusivo para personal autorizado
+                </p>
+            </div>    
+        </div>
+        <div class="hidden lg:block lg:w-1/2 relative bg-gray-200">
+            <img 
+                src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=2053&auto=format&fit=crop" 
+                alt="Imagen de la Clínica" 
+                class="absolute inset-0 w-full h-full object-cover"
+            >
+            <div class="absolute inset-0 bg-[#233b6e] mix-blend-multiply opacity-20"></div>
+        </div>
+    </div>
 </body>
 </html>

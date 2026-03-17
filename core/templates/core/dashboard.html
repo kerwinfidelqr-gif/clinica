@@ -1,64 +1,61 @@
-<html>HIPÓLITO UNANUE</html>
-
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Dashboard{% endblock %}
 {% block content %}
-<nav>
-    <a href="#">CLINICA HIPÓLITO UNANUE</a>
-    <span>Bienvenido, {{ usuario.first_name|default:usuario.username }}</span> |
-    <a href="{% url 'logout' %}">Cerrar Sesión</a>
-</nav>
-
-<h2>Inicio</h2>
-<p>Role Asignado: <strong> {{ roles|join:", "}}</strong></p>
-
-<div style="display: flex; flex-wrap: wrap; gap: 10px;">
-
+<h2 class="text-3xl font-bold text-gray-800 mb-2">Inicio</h2>
+<p class="mb-6 border-b-2 border-gray-400 pb-4 text-gray-700">
+    Rol Asignado: <strong>{{ roles|join:", " }}</strong>
+</p>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
     {% if permissions.pacientes > 0 %}
-    <div style="border: 1px solid #000; padding: 10px; width: 200px;">
-        <h3>Pacientes</h3>
-        <p>{% if permissions.pacientes == 1 %}View only{% else %}Read and write{% endif %}</p>
-        <a href="#">Acceso</a>
-    </div>
+    <a href="#" class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+        <div class="flex flex-col items-center text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#5e28f0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart-handshake-icon lucide-heart-handshake"><path d="M19.414 14.414C21 12.828 22 11.5 22 9.5a5.5 5.5 0 0 0-9.591-3.676.6.6 0 0 1-.818.001A5.5 5.5 0 0 0 2 9.5c0 2.3 1.5 4 3 5.5l5.535 5.362a2 2 0 0 0 2.879.052 2.12 2.12 0 0 0-.004-3 2.124 2.124 0 1 0 3-3 2.124 2.124 0 0 0 3.004 0 2 2 0 0 0 0-2.828l-1.881-1.882a2.41 2.41 0 0 0-3.409 0l-1.71 1.71a2 2 0 0 1-2.828 0 2 2 0 0 1 0-2.828l2.823-2.762"/></svg>
+            <h3 class="text-xl font-semibold text-gray-800">Pacientes</h3>
+            <p class="text-gray-500 text-sm mt-1">{% if permissions.pacientes == 1 %}View only{% else %}Read and write{% endif %}</p>
+        </div>
+    </a>
     {% endif %}
-
-    {% if permissions.proveedores > 0 %}
-    <div style="border: 1px solid #000; padding: 10px; width: 200px;">
-        <h3>Proveedores</h3>
-        <p>{% if permissions.proveedores == 1 %}View only{% else %}Read and write{% endif %}</p>
-        <a href="#">Acceso</a>
-    </div>
-    {% endif %}
-
-    {% if permissions.inventario > 0 %}
-    <div style="border: 1px solid #000; padding: 10px; width: 200px;">
-        <h3>Inventario</h3>
-        <p>{% if permissions.inventario == 1 %}View only{% else %}Read and write{% endif %}</p>
-        <a href="#">Acceso</a>
-    </div>
-    {% endif %}
-
-    {% if permissions.h_clinico > 0 %}
-    <div style="border: 1px solid #000; padding: 10px; width: 200px;">
-        <h3>Historial Clinico</h3>
-        <p>{% if permissions.h_clinico == 1 %}View only{% else %}Read and write{% endif %}</p>
-        <a href="#">Acceso</a>
-    </div>
-    {% endif %}
-
     {% if permissions.citas > 0 %}
-    <div style="border: 1px solid #000; padding: 10px; width: 200px;">
-        <h3>Citas</h3>
-        <p>{% if permissions.citas == 1 %}View only{% else %}Read and write{% endif %}</p>
-        <a href="#">Acceso</a>
+    <a href="#" class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+        <div class="flex flex-col items-center text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#2875f0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clipboard-clock-icon lucide-clipboard-clock"><path d="M16 14v2.2l1.6 1"/><path d="M16 4h2a2 2 0 0 1 2 2v.832"/><path d="M8 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h2"/><circle cx="16" cy="16" r="6"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg>
+            <h3 class="text-xl font-semibold text-gray-800">Citas</h3>
+            <p class="text-gray-500 text-sm mt-1">{% if permissions.citas == 1 %}View only{% else %}Read and write{% endif %}</p>
+        </div>
+    </a>
+    {% endif %}
+    {% if permissions.proveedores > 0 %}
+    <a href="#" class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+        <div class="flex flex-col items-center text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#eb790f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-package-open-icon lucide-package-open"><path d="M12 22v-9"/><path d="M15.17 2.21a1.67 1.67 0 0 1 1.63 0L21 4.57a1.93 1.93 0 0 1 0 3.36L8.82 14.79a1.655 1.655 0 0 1-1.64 0L3 12.43a1.93 1.93 0 0 1 0-3.36z"/><path d="M20 13v3.87a2.06 2.06 0 0 1-1.11 1.83l-6 3.08a1.93 1.93 0 0 1-1.78 0l-6-3.08A2.06 2.06 0 0 1 4 16.87V13"/><path d="M21 12.43a1.93 1.93 0 0 0 0-3.36L8.83 2.2a1.64 1.64 0 0 0-1.63 0L3 4.57a1.93 1.93 0 0 0 0 3.36l12.18 6.86a1.636 1.636 0 0 0 1.63 0z"/></svg>
+            <h3 class="text-xl font-semibold text-gray-800">Proveedores</h3>
+            <p class="text-gray-500 text-sm mt-1">{% if permissions.proveedores == 1 %}View only{% else %}Read and write{% endif %}</p>
+        </div>
+    </a>
+    {% endif %}
+    {% if permissions.inventario > 0 %}
+    <a href="#" class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+        <div class="flex flex-col items-center text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#018303" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shelving-unit-icon lucide-shelving-unit"><path d="M12 12V9a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"/><path d="M16 20v-3a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v3"/><path d="M20 22V2"/><path d="M4 12h16"/><path d="M4 20h16"/><path d="M4 2v20"/><path d="M4 4h16"/></svg>
+            <h3 class="text-xl font-semibold text-gray-800">Inventario</h3>
+            <p class="text-gray-500 text-sm mt-1">{% if permissions.inventario == 1 %}View only{% else %}Read and write{% endif %}</p>
+        </div>
+    </a>
+    {% endif %}
+    {% if permissions.h_clinico > 0 %}
+    <a href="#" class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+        <div class="flex flex-col items-center text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#830140" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clipboard-list-icon lucide-clipboard-list"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg>
+            <h3 class="text-xl font-semibold text-gray-800">Historial Clinico</h3>
+            <p class="text-gray-500 text-sm mt-1">{% if permissions.h_clinico == 1 %}View only{% else %}Read and write{% endif %}</p>
+        </div>
+    </a>
+    {% endif %}
+    {% if permissions.citas == 0 and permissions.pacientes == 0 and permissions.proveedores == 0 and permissions.inventario == 0 and permissions.h_clinico == 0   %}
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-md mt-8">
+        <h4 class="font-bold">No cuentas con los permisos para acceder al módulo del sistema.</h4>
     </div>
     {% endif %}
-
 </div>
-
-{% if permissions.pacientes == 0 and permissions.proveedores == 0 and permissions.inventario == 0 and permissions.h_clinico == 0 and permissions.citas == 0 %}
-<div style="border: 1px solid red; padding: 10px; margin-top: 20px;">
-    <h4>No se han asignado permisos</h4>
-    <p>No cuentas con los permisos para acceder al módulo del sistema.</p>
-</div>
-{% endif %}
-
 {% endblock %}
