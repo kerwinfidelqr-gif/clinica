@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.cache import never_cache  # <-- Añade esto
 from usuarios.models import UsuarioRol
 
 @login_required
+@never_cache
 def dashboard_view(request):
     roles_usuarios = UsuarioRol.objects.filter(usuario_id=request.user)
 
