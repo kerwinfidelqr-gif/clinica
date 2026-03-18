@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -10,14 +11,14 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         body {
             font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
         }
         .login-card {
-            backdrop-filter: blur(10px);
-            background: white;
+            backdrop-filter: blur(8px);
+            background: rgba(255, 255, 255, 0.9); 
             animation: fadeIn .6s ease;
-        }
-        .input-group {
-            position: relative;
         }
         .input-group i {
             position: absolute;
@@ -40,27 +41,28 @@
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(15px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
-<body class="min-h-screen m-0 p-0">
-
-    <div class="flex min-h-screen w-full">
-
-        <div class="w-full lg:w-1/2 flex items-center justify-center px-4 sm:px-8" style="background: linear-gradient(135deg, #e8eef8, #d8e3f5, #eef2f7);">
+<body class="min-h-screen relative bg-gray-200">
+    
+    <div class="absolute inset-0 z-0">
+        <img 
+            src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=2053&auto=format&fit=crop" 
+            alt="Fondo Hospital" 
+            class="w-full h-full object-cover"
+        >
+    </div>
+    <div class="flex min-h-screen w-full relative z-10">
+        <div class="w-full lg:w-1/2 flex items-center justify-center px-4 sm:px-8 bg-[#233b6e]/70 backdrop-blur-lg border-r border-white/10">
             
-            <div class="login-card p-10 rounded-2xl shadow-2xl w-full max-w-md">
+            <div class="login-card p-10 rounded-2xl shadow-2xl w-full max-w-md border border-white/20">
+                
                 <div class="flex justify-center mb-5">
-                    <div class="bg-[#233b6e] w-14 h-14 flex items-center justify-center rounded-full shadow-lg text-white text-xl">
-                        <i class="fa-solid fa-stethoscope"></i>
+                    <div class="bg-[#233b6e] w-14 h-14 flex items-center justify-center rounded-full shadow-lg overflow-hidden border-2 border-[#233b6e]">
+                        <img src="{% static 'img/LogoClinica.png' %}" alt="Logo" class="w-full h-full object-contain p-2">
                     </div>
                 </div>
                 <h1 class="text-2xl font-bold text-center text-gray-800">
@@ -72,11 +74,11 @@
                 <form method="post">
                     {% csrf_token %}
                     <div class="space-y-4">
-                        <div class="input-group">
+                        <div class="relative input-group">
                             <i class="fa-solid fa-user"></i>
                             {{ form.username }}
                         </div>
-                        <div class="input-group">
+                        <div class="relative input-group">
                             <i class="fa-solid fa-lock"></i>
                             {{ form.password }}
                         </div>
@@ -91,18 +93,12 @@
                     </button>
                 </form>
                 <p class="text-center text-xs text-gray-400 mt-6">
-                    Sistema interno • Acceso exclusivo para personal autorizado
+                    Sistema interno • Acceso exclusivo
                 </p>
             </div>    
         </div>
-        <div class="hidden lg:block lg:w-1/2 relative bg-gray-200">
-            <img 
-                src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=2053&auto=format&fit=crop" 
-                alt="Imagen de la Clínica" 
-                class="absolute inset-0 w-full h-full object-cover"
-            >
-            <div class="absolute inset-0 bg-[#233b6e] mix-blend-multiply opacity-20"></div>
-        </div>
+        <div class="hidden lg:block lg:w-1/2 z-20">
+            </div>
     </div>
 </body>
 </html>
