@@ -46,3 +46,4 @@ class UsuarioRol(models.Model):
     
     def __str__(self):
         return f"{self.usuario_id.username} - {self.rol.nombre_rol}"
+    
