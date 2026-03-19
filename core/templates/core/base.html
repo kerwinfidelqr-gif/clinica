@@ -1,19 +1,22 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}HIPOLITO UNANUE{% endblock %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="bg-gray-100 font-sans">
     <nav class="bg-[#233b6e] text-white shadow-md">
         <div
             class="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <a href="{% url 'dashboard' %}"
                 class="flex items-center space-x-3 text-2xl font-bold rounded-lg px-2 py-1 transition-all hover:bg-white/10">
-                <img src="https://lh3.googleusercontent.com/u/0/d/1VXIEEV39JySjehYhGT6Btw7f7nRufIC-" alt="HIPOLITO UNANUE" class="h-8 w-8 object-contain">
+                <img src="https://lh3.googleusercontent.com/u/0/d/1VXIEEV39JySjehYhGT6Btw7f7nRufIC-"
+                    alt="HIPOLITO UNANUE" class="h-8 w-8 object-contain">
                 <span>Hipolito Unanue</span>
             </a>
             <div class="relative w-full md:w-1/2 group">
@@ -45,8 +48,7 @@
                         </svg>
                     </button>
                     <div id="user-menu-dropdown"
-                        class="user-dropdown-menu absolute right-0 mt-2 w-48 bg-white text-gray-800 rounded-md shadow-lgpy-1 z-50"
-                        **hidden**>
+                        class="user-dropdown-menu absolute right-0 mt-2 w-48 bg-white text-gray-800 rounded-md shadow-lgpy-1 z-50 hidden">
                         <a href="#perfil" class="flex items-center px-4 py-2 hover:bg-gray-200">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -96,4 +98,5 @@
     </main>
     <script src="{% static 'js/script.js' %}"></script>
 </body>
+
 </html>
