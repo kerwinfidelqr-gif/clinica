@@ -19,7 +19,7 @@ class Rol(models.Model):
     ]
 
     nombre_rol = models.CharField(max_length=100, primary_key=True)
-
+    
     pacientes = models.IntegerField(choices=PERMISSION_CHOICES, default=0)
     proveedores = models.IntegerField(choices=PERMISSION_CHOICES, default=0)
     inventario = models.IntegerField(choices=PERMISSION_CHOICES, default=0)

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.cache import never_cache  # <-- Añade esto
+from django.views.decorators.cache import never_cache 
 from usuarios.models import UsuarioRol
 
 @login_required
