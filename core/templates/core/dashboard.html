@@ -14,7 +14,7 @@
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
     {% if permissions.pacientes > 0 %}
-    <a href="#" class="group bg-white rounded-lg border border-gray-200 border-l-4 border-l-[#2875f0] shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col h-full">
+    <a href="{% url 'pacientes:paciente_list' %}" class="group bg-white rounded-lg border border-gray-200 border-l-4 border-l-[#2875f0] shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col h-full">
         <div class="p-5 flex-grow">
             <div class="flex justify-between items-start mb-4">
                 <div>

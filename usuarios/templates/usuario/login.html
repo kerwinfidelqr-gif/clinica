@@ -46,19 +46,16 @@
         }
     </style>
 </head>
-<body class="min-h-screen relative bg-gray-200">
-    
-    <div class="absolute inset-0 z-0">
-        <img 
-            src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=2053&auto=format&fit=crop" 
-            alt="Fondo Hospital" 
-            class="w-full h-full object-cover"
-        >
-    </div>
-    <div class="flex min-h-screen w-full relative z-10">
-        <div class="w-full lg:w-1/2 flex items-center justify-center px-4 sm:px-8 bg-[#233b6e]/70 backdrop-blur-lg border-r border-white/10">
-            
-            <div class="login-card p-10 rounded-2xl shadow-2xl w-full max-w-md border border-white/20">
+<body class="min-h-screen bg-gray-200">
+    <div class="flex min-h-screen w-full">
+        <div class="w-full lg:w-1/2 relative flex items-center justify-center px-4 sm:px-8 overflow-hidden">
+            <img 
+                src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=2053&auto=format&fit=crop" 
+                alt="Difuminado" 
+                class="absolute inset-0 w-full h-full object-cover blur-md scale-105 z-0"
+            >
+            <div class="absolute inset-0 bg-[#233b6e]/70 z-0"></div>
+            <div class="login-card p-10 rounded-2xl shadow-2xl w-full max-w-md border border-white/20 relative z-10">
                 
                 <div class="flex justify-center mb-5">
                     <div class="bg-[#233b6e] w-14 h-14 flex items-center justify-center rounded-full shadow-lg overflow-hidden border-2 border-[#233b6e]">
@@ -97,8 +94,28 @@
                 </p>
             </div>    
         </div>
-        <div class="hidden lg:block lg:w-1/2 z-20">
-            </div>
+        <div class="hidden lg:block lg:w-1/2 relative bg-gray-900 overflow-hidden">          
+            <img src="https://i.postimg.cc/ZnpL1MMR/Imagen-1.png" class="carousel-img absolute inset-0 w-full h-full object-cover opacity-100 transition-opacity duration-1000 ease-in-out z-10" alt="Clínica 1">      
+            <img src="https://i.postimg.cc/QCGz91LN/imagen-2.jpg" class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000 ease-in-out z-10" alt="Clínica 2">         
+            <img src="https://i.postimg.cc/fTvPyV84/imagen-3.jpg" class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000 ease-in-out z-10" alt="Clínica 3">
+            <img src="https://i.postimg.cc/rpDZfQMX/imagen-4.jpg" class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000 ease-in-out z-10" alt="Clínica 4">
+            <div class="absolute inset-0 bg-black/10 z-20"></div>
+        </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const images = document.querySelectorAll('.carousel-img');
+            let currentIndex = 0;
+            if(images.length > 0) {
+                setInterval(() => {
+                    images[currentIndex].classList.remove('opacity-100');
+                    images[currentIndex].classList.add('opacity-0');
+                    currentIndex = (currentIndex + 1) % images.length;
+                    images[currentIndex].classList.remove('opacity-0');
+                    images[currentIndex].classList.add('opacity-100');
+                }, 4000); 
+            }
+        });
+    </script>
 </body>
 </html>
