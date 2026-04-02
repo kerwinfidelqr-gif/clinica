@@ -1,74 +1,62 @@
-from django.shortcuts import render, redirect
+import csv
+from django.http import HttpResponse
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Paciente
 from .forms import PacienteForm
 from django.core.paginator import Paginator
-from django.db import models
-from usuarios.models import UsuarioRol
 
-# 1. Vista de Listado
 @login_required
-def paciente_list(request): # Renombrado para mantener coherencia
-
-    # CORRECCIÓN RBAC: Tu tabla usa 'usuario_id' y tu Rol usa 'pacientes'
-    max_permission = UsuarioRol.objects.filter(usuario_id=request.user).aggregate(
-        max_p=models.Max('rol__pacientes')
-    )['max_p'] or 0
-
-    if max_permission == 0:
-        return redirect('dashboard')
+def paciente_list(request):
+    pacientes_list = Paciente.objects.all().order_by('-id')
     
-    pacientes_list = Paciente.objects.all()
-
-    # CORRECCIÓN SINTAXIS: request.GET debe ser en mayúsculas
-    id_paciente = request.GET.get('id_paciente')
     nombre = request.GET.get('nombre')
     DNI = request.GET.get('DNI')
-    estado_civil = request.GET.get('estado_civil') # El modelo Paciente no tiene 'estado', tiene 'estado_civil'
-
-    # CORRECCIÓN FILTROS: Se debe usar doble guion bajo (__) y reasignar la variable
-    if id_paciente:
-        pacientes_list = pacientes_list.filter(id_paciente__icontains=id_paciente)
     if nombre:
         pacientes_list = pacientes_list.filter(nombre__icontains=nombre)
     if DNI:
         pacientes_list = pacientes_list.filter(DNI__icontains=DNI)
-    if estado_civil:
-        pacientes_list = pacientes_list.filter(estado_civil__icontains=estado_civil)
 
-    # CORRECCIÓN VARIABLES: Se debe pasar pacientes_list, no material_list
+    if 'export' in request.GET:
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="pacientes.csv"'
+        writer = csv.writer(response)
+        writer.writerow(['ID', 'Nombre', 'DNI', 'Edad', 'Celular'])
+        for p in pacientes_list:
+            writer.writerow([p.id_paciente, p.nombre, p.DNI, p.edad, p.celular])
+        return response
+
     paginator = Paginator(pacientes_list, 10)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-
+    page_obj = paginator.get_page(request.GET.get('page'))
     return render(request, 'pacientes/pacientes_lista.html', {'page_obj': page_obj})
 
-
-# 2. Vista de Creación
 @login_required
 def paciente_create(request):
-
-    # CORRECCIÓN RBAC: Misma lógica de consulta a tu base de datos
-    max_permission = UsuarioRol.objects.filter(usuario_id=request.user).aggregate(
-        max_p=models.Max('rol__pacientes'))['max_p'] or 0
-
-    if max_permission == 1:
-        redirect('pacientes:paciente_list')
-    if max_permission == 0:
-        return redirect('dashboard')
-    
     if request.method == 'POST':
         form = PacienteForm(request.POST)
         if form.is_valid():
             paciente = form.save(commit=False)
-            
-            # CORRECCIÓN AUTENTICACIÓN: Django siempre usa request.user en las sesiones
-            paciente.created_by = request.user 
+            paciente.created_by = request.user
             paciente.save()
-
             return redirect('pacientes:paciente_list')
     else:
-        # CORRECCIÓN INDENTACIÓN: El else debe ir alineado con el 'if request.method'
         form = PacienteForm()
-
     return render(request, 'pacientes/paciente_form.html', {'form': form})
+
+@login_required
+def paciente_edit(request, pk):
+    paciente = get_object_or_404(Paciente, pk=pk)
+    if request.method == 'POST':
+        form = PacienteForm(request.POST, instance=paciente)
+        if form.is_valid():
+            form.save()
+            return redirect('pacientes:paciente_list')
+    else:
+        form = PacienteForm(instance=paciente)
+    return render(request, 'pacientes/paciente_form.html', {'form': form, 'paciente': paciente})
+
+@login_required
+def paciente_delete(request, pk):
+    paciente = get_object_or_404(Paciente, pk=pk)
+    paciente.delete()
+    return redirect('pacientes:paciente_list')

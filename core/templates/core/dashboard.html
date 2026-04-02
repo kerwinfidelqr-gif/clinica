@@ -106,7 +106,7 @@
     </a>
     {% endif %}
     {% if permissions.h_clinico > 0 %}
-    <a href="#" class="group bg-white rounded-lg border border-gray-200 border-l-4 border-l-[#830140] shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col h-full">
+    <a href="{% url 'historial_cl:historial_dashboard' %}" class="group bg-white rounded-lg border border-gray-200 border-l-4 border-l-[#830140] shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col h-full">
         <div class="p-5 flex-grow">
             <div class="flex justify-between items-start mb-4">
                 <div>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        @page { size: A4; margin: 1cm 1.5cm; }
+        body { font-family: 'Helvetica', sans-serif; color: #000; font-size: 10pt; }
+        
+        /* Colores inspirados en tu formato físico */
+        .color-primary { color: #1e73be; }
+        .bg-light-blue { background-color: #e6f2ff; }
+        .border-box { border: 1.5px solid #1e73be; border-radius: 8px; }
+        
+        /* Estilos de tablas para alinear todo perfecto */
+        table { width: 100%; border-collapse: collapse; }
+        td { padding: 4px 0; vertical-align: bottom; }
+        
+        /* Líneas punteadas para llenar a mano */
+        .label { font-weight: bold; color: #1e73be; font-size: 9pt; white-space: nowrap; padding-right: 5px; }
+        .dotted-line { border-bottom: 1.5px dotted #666; width: 100%; padding-left: 5px; color: #000; }
+        
+        /* Cajas de título superior */
+        .top-box { border: 1.5px solid #1e73be; background-color: #e6f2ff; padding: 5px 10px; text-align: center; font-weight: bold; color: #1e73be; border-radius: 6px; margin-bottom: 5px; }
+        
+        /* Contenedores de Enfermedad y Examen */
+        .text-area-box { border: 1.5px solid #1e73be; padding: 10px; margin-top: 15px; height: 250px; }
+        .text-area-title { color: #1e73be; font-weight: bold; font-size: 11pt; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+    <table style="margin-bottom: 15px;">
+        <tr>
+            <td width="30%" style="vertical-align: top;">
+                <h2 class="color-primary" style="margin: 0; font-size: 12pt;">⚕️ CLÍNICA HIPÓLITO UNANUE</h2>
+            </td>
+            <td width="40%" style="text-align: center; vertical-align: top;">
+                <h1 class="color-primary" style="margin: 0; font-size: 16pt;">HISTORIA CLÍNICA</h1>
+            </td>
+            <td width="30%" style="vertical-align: top;">
+                <div class="top-box">
+                    HISTORIA CLÍNICA<br>
+                    <span style="color: #000; font-size: 12pt;">N° {{ historial.numero_historial }}</span>
+                </div>
+                <div class="top-box" style="margin-top: 5px;">
+                    ESPECIALIDAD<br>
+                    <span style="color: #000;">{{ historial.especialidad|default:"&nbsp;" }}</span>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <table>
+        <tr>
+            <td class="label" style="width: 20%;">NOMBRES Y APELLIDOS:</td>
+            <td class="dotted-line" colspan="3">{{ paciente.nombre|default:"&nbsp;" }}</td>
+        </tr>
+        <tr>
+            <td class="label" style="width: 20%;">LUGAR DE NACIMIENTO:</td>
+            <td class="dotted-line" style="width: 50%;">{{ paciente.lugar_nacimiento|default:"&nbsp;" }}</td>
+            <td class="label" style="width: 10%; text-align: right;">SEXO:</td>
+            <td class="dotted-line" style="width: 20%;">{{ paciente.sexo|default:"&nbsp;" }}</td>
+        </tr>
+        <tr>
+            <td class="label" style="width: 10%;">EDAD:</td>
+            <td class="dotted-line" colspan="3">{{ paciente.edad|default:"&nbsp;" }}</td>
+        </tr>
+        <tr>
+            <td class="label" style="width: 18%;">DOMICILIO ACTUAL:</td>
+            <td class="dotted-line" colspan="3">{{ paciente.domicilio_actual|default:"&nbsp;" }}</td>
+        </tr>
+    </table>
+
+    <table>
+        <tr>
+            <td class="label" style="width: 25%;">DOMICILIO DE PROCEDENCIA:</td>
+            <td class="dotted-line" style="width: 35%;">{{ paciente.domicilio_procedencia|default:"&nbsp;" }}</td>
+            <td class="label" style="width: 25%; text-align: right;">DOCUMENTO DE IDENTIDAD:</td>
+            <td class="dotted-line" style="width: 15%;">{{ paciente.DNI|default:"&nbsp;" }}</td>
+        </tr>
+        <tr>
+            <td class="label" style="width: 10%;">TELÉFONO:</td>
+            <td class="dotted-line" style="width: 40%;">{{ paciente.celular|default:"&nbsp;" }}</td>
+            <td class="label" style="width: 25%; text-align: right;">GRADO DE INSTRUCCIÓN:</td>
+            <td class="dotted-line" style="width: 25%;">{{ historial.grado_instruccion|default:"&nbsp;" }}</td>
+        </tr>
+        <tr>
+            <td class="label" style="width: 15%;">ESTADO CIVIL:</td>
+            <td class="dotted-line" colspan="3">{{ paciente.estado_civil|default:"&nbsp;" }}</td>
+        </tr>
+        <tr>
+            <td class="label" style="width: 12%;">OCUPACIÓN:</td>
+            <td class="dotted-line" style="width: 58%;">{{ paciente.ocupacion|default:"&nbsp;" }}</td>
+            <td class="label" style="width: 10%; text-align: right;">HORA:</td>
+            <td class="dotted-line" style="width: 20%;">{{ historial.hora|time:"H:i"|default:"&nbsp;" }}</td>
+        </tr>
+        <tr>
+            <td class="label" style="width: 18%;">FECHA DE INGRESO:</td>
+            <td class="dotted-line" colspan="3">{{ paciente.fecha_ingreso|date:"d/m/Y"|default:"&nbsp;" }}</td>
+        </tr>
+    </table>
+
+    <div class="border-box" style="margin-top: 20px; position: relative; padding: 25px 15px 15px 15px;">
+        <div style="position: absolute; top: -10px; text-align: center; width: 100%;">
+            <span class="color-primary" style="background-color: white; padding: 0 10px; font-weight: bold; font-size: 11pt;">FUNCIONES VITALES</span>
+        </div>
+        
+        <table style="width: 100%;">
+            <tr>
+                <td class="label" style="width: 5%;">P/A:</td> <td class="dotted-line" style="width: 15%;">{{ historial.pa|default:"&nbsp;" }}</td>
+                <td class="label" style="width: 8%; text-align: right;">PULSO:</td> <td class="dotted-line" style="width: 12%;">{{ historial.pulso|default:"&nbsp;" }}</td>
+                <td class="label" style="width: 15%; text-align: right;">TEMPERATURA:</td> <td class="dotted-line" style="width: 15%;">{{ historial.temperatura|default:"&nbsp;" }}</td>
+                <td class="label" style="width: 15%; text-align: right;">F/RESPIRATORIA:</td> <td class="dotted-line" style="width: 15%;">{{ historial.f_respiratoria|default:"&nbsp;" }}</td>
+            </tr>
+            <tr>
+                <td class="label" style="width: 5%; padding-top: 15px;">PESO:</td> <td class="dotted-line" style="width: 15%;">{{ historial.peso|default:"&nbsp;" }}</td>
+                <td class="label" style="width: 8%; text-align: right;">TALLA:</td> <td class="dotted-line" style="width: 12%;">{{ historial.talla|default:"&nbsp;" }}</td>
+                <td class="label" style="width: 10%; text-align: right;">IMC:</td> <td class="dotted-line" style="width: 20%;">{{ historial.imc|default:"&nbsp;" }}</td>
+                <td class="label" style="width: 10%; text-align: right;">ALERGIAS:</td> <td class="dotted-line" style="width: 20%;">{{ historial.alergias|default:"&nbsp;" }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="text-area-box">
+        <div class="text-area-title">➢ ENFERMEDAD ACTUAL:</div>
+        <div style="line-height: 1.5; font-size: 11pt;">
+            {{ historial.enfermedad_actual|default:"" }}
+        </div>
+    </div>
+
+    <div class="text-area-box">
+        <div class="text-area-title">➢ EXAMEN FÍSICO:</div>
+        <div style="line-height: 1.5; font-size: 11pt;">
+            {{ historial.examen_fisico|default:"" }}
+        </div>
+    </div>
+
+</body>
+</html>

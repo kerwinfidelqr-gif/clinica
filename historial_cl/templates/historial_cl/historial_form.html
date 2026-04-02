@@ -1,0 +1,212 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block title %}{% if historial %}Editar{% else %}Crear{% endif %} Historia Clínica{% endblock %}
+{% block content %}
+
+<div class="max-w-5xl mx-auto bg-white p-8 rounded-lg shadow-2xl mt-6 border-t-8 border-[#233b6e]">
+    
+    <div class="flex flex-col md:flex-row justify-between items-center mb-8 border-b-2 border-gray-200 pb-4">
+        <h2 class="text-3xl font-bold text-[#233b6e] flex items-center">
+            <i class="fa-solid fa-file-medical mr-3"></i> 
+            {% if historial %}EDITAR HISTORIA CLÍNICA{% else %}NUEVA HISTORIA CLÍNICA{% endif %}
+        </h2>
+        
+        <div class="w-full md:w-1/3 mt-4 md:mt-0 relative">
+            <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Buscar Paciente por DNI:</label>
+            <div class="flex items-center">
+                {{ form.buscar_dni }}
+            </div>
+            <span class="text-xs text-gray-400 mt-1 block italic">* Presione Enter tras escribir</span>
+        </div>
+    </div>
+
+    <form method="post" id="form-historial">
+        {% csrf_token %}
+        
+        <input type="hidden" name="paciente" id="id_paciente_oculto" value="{{ paciente.id|default:'' }}" required>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            
+            <div class="space-y-4 bg-gray-50 p-4 rounded-lg border border-gray-200">
+                <h3 class="font-bold text-[#233b6e] border-b border-gray-300 pb-1 mb-3">DATOS PERSONALES</h3>
+                
+                <div>
+                    <label class="text-xs font-bold text-gray-600 uppercase">Nombres y Apellidos</label>
+                    <input type="text" id="display_nombre" value="{{ paciente.nombre|default:'' }}" class="w-full bg-transparent border-b border-gray-400 focus:outline-none text-gray-800" readonly>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="text-xs font-bold text-gray-600 uppercase">Lugar de Nacimiento</label>
+                        <input type="text" id="display_lugar_nacimiento" value="{{ paciente.lugar_nacimiento|default:'' }}" class="w-full bg-transparent border-b border-gray-400 focus:outline-none text-gray-800" readonly>
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-gray-600 uppercase">Edad</label>
+                        <input type="text" id="display_edad" value="{{ paciente.edad|default:'' }}" class="w-full bg-transparent border-b border-gray-400 focus:outline-none text-gray-800" readonly>
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="text-xs font-bold text-gray-600 uppercase">Domicilio Actual</label>
+                    <input type="text" id="display_domicilio" value="{{ paciente.domicilio_actual|default:'' }}" class="w-full bg-transparent border-b border-gray-400 focus:outline-none text-gray-800" readonly>
+                </div>
+                <div>
+                    <label class="text-xs font-bold text-gray-600 uppercase">Dom. Procedencia</label>
+                    <input type="text" id="display_procedencia" value="{{ paciente.domicilio_procedencia|default:'' }}" class="w-full bg-transparent border-b border-gray-400 focus:outline-none text-gray-800" readonly>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="text-xs font-bold text-gray-600 uppercase">Teléfono / Celular</label>
+                        <input type="text" id="display_telefono" value="{{ paciente.celular|default:'' }}" class="w-full bg-transparent border-b border-gray-400 focus:outline-none text-gray-800" readonly>
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-gray-600 uppercase">Estado Civil</label>
+                        <input type="text" id="display_estado_civil" value="{{ paciente.estado_civil|default:'' }}" class="w-full bg-transparent border-b border-gray-400 focus:outline-none text-gray-800" readonly>
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="text-xs font-bold text-gray-600 uppercase">Ocupación</label>
+                    <input type="text" id="display_ocupacion" value="{{ paciente.ocupacion|default:'' }}" class="w-full bg-transparent border-b border-gray-400 focus:outline-none text-gray-800" readonly>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <div class="bg-blue-50 p-4 rounded-lg border border-blue-200 shadow-inner">
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="text-xs font-bold text-[#233b6e] uppercase">N° Historia Clínica</label>
+                            {{ form.numero_historial }}
+                        </div>
+                        <div>
+                            <label class="text-xs font-bold text-[#233b6e] uppercase">Especialidad</label>
+                            {{ form.especialidad }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="text-xs font-bold text-gray-600 uppercase">Sexo</label>
+                        <input type="text" id="display_sexo" value="{{ paciente.sexo|default:'' }}" class="w-full bg-gray-50 border-b border-gray-400 focus:outline-none text-gray-800 px-2 py-1" readonly>
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-gray-600 uppercase">Documento de Identidad</label>
+                        <input type="text" id="display_dni" value="{{ paciente.DNI|default:'' }}" class="w-full bg-gray-50 border-b border-gray-400 focus:outline-none text-gray-800 px-2 py-1" readonly>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 mt-2">
+                    <div>
+                        <label class="text-xs font-bold text-gray-600 uppercase">Grado de Instrucción</label>
+                        {{ form.grado_instruccion }}
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-gray-600 uppercase">Hora de Ingreso</label>
+                        {{ form.hora }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-8 p-6 border-2 border-cyan-500 rounded-xl bg-cyan-50 relative">
+            <h3 class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-white px-4 font-extrabold text-cyan-700 uppercase tracking-widest text-sm border-2 border-cyan-500 rounded-full">
+                Funciones Vitales
+            </h3>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-4 mt-4">
+                <div class="flex items-end"><span class="text-xs font-bold text-gray-700 mr-2 w-10">P/A:</span> {{ form.pa }}</div>
+                <div class="flex items-end"><span class="text-xs font-bold text-gray-700 mr-2 w-16">PULSO:</span> {{ form.pulso }}</div>
+                <div class="flex items-end"><span class="text-xs font-bold text-gray-700 mr-2 w-14">TEMP:</span> {{ form.temperatura }}</div>
+                <div class="flex items-end"><span class="text-xs font-bold text-gray-700 mr-2 w-20">F/RESP:</span> {{ form.f_respiratoria }}</div>
+                
+                <div class="flex items-end"><span class="text-xs font-bold text-gray-700 mr-2 w-10">PESO:</span> {{ form.peso }}</div>
+                <div class="flex items-end"><span class="text-xs font-bold text-gray-700 mr-2 w-16">TALLA:</span> {{ form.talla }}</div>
+                <div class="flex items-end"><span class="text-xs font-bold text-gray-700 mr-2 w-14">IMC:</span> {{ form.imc }}</div>
+                <div class="flex items-end"><span class="text-xs font-bold text-gray-700 mr-2 w-20">ALERGIAS:</span> {{ form.alergias }}</div>
+            </div>
+        </div>
+
+        <div class="space-y-6 mb-8 border border-gray-300 p-6 rounded-lg">
+            <div>
+                <label class="font-bold text-[#233b6e] flex items-center mb-2 uppercase text-sm">
+                    <i class="fa-solid fa-play text-xs mr-2"></i> Enfermedad Actual:
+                </label>
+                {{ form.enfermedad_actual }}
+            </div>
+            
+            <div>
+                <label class="font-bold text-[#233b6e] flex items-center mb-2 uppercase text-sm">
+                    <i class="fa-solid fa-play text-xs mr-2"></i> Examen Físico:
+                </label>
+                {{ form.examen_fisico }}
+            </div>
+        </div>
+
+        <div class="flex justify-end space-x-4 border-t-2 pt-6">
+            <a href="{% url 'historial_cl:historial_dashboard' %}" class="bg-gray-200 text-gray-700 font-bold py-3 px-6 rounded-lg hover:bg-gray-300 transition duration-300">
+                Cancelar
+            </a>
+            
+            <button type="submit" onclick="document.getElementById('form-historial').target='_self';" class="bg-[#233b6e] text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-[#1a2c53] transition duration-300 flex items-center">
+                <i class="fa-solid fa-floppy-disk mr-2"></i> Guardar
+            </button>
+            
+            <button type="submit" name="print" value="print" 
+                onclick="document.getElementById('form-historial').target='_blank'; setTimeout(function(){ window.location.href = '{% url 'historial_cl:historial_dashboard' %}'; }, 1000);" 
+                class="bg-green-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-green-700 transition duration-300 flex items-center">
+                <i class="fa-solid fa-file-pdf mr-2"></i> Generar PDF
+            </button>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.getElementById('buscar_dni_input').addEventListener('change', function() {
+        let dni = this.value;
+        if (!dni) return;
+
+        let url = `{% url 'historial_cl:buscar_paciente_api' %}?dni=` + dni;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                if(data.encontrado) {
+                    document.getElementById('id_paciente_oculto').value = data.id_interno;
+                    document.getElementById('display_nombre').value = data.nombre_completo;
+                    document.getElementById('display_dni').value = dni; 
+                    document.getElementById('display_lugar_nacimiento').value = data.lugar_nacimiento;
+                    document.getElementById('display_edad').value = data.edad;
+                    document.getElementById('display_sexo').value = data.sexo;
+                    document.getElementById('display_domicilio').value = data.domicilio_actual;
+                    document.getElementById('display_procedencia').value = data.domicilio_procedencia;
+                    document.getElementById('display_telefono').value = data.celular;
+                    document.getElementById('display_estado_civil').value = data.estado_civil;
+                    document.getElementById('display_ocupacion').value = data.ocupacion;
+                    
+                    this.classList.remove('border-red-500');
+                    this.classList.add('border-green-500', 'bg-green-50');
+                    setTimeout(() => { this.classList.remove('border-green-500', 'bg-green-50'); }, 2000);
+                    
+                } else {
+                    alert(data.mensaje);
+                    document.getElementById('id_paciente_oculto').value = '';
+                    document.getElementById('display_nombre').value = '';
+                    document.getElementById('display_dni').value = '';
+                    document.getElementById('display_lugar_nacimiento').value = '';
+                    document.getElementById('display_edad').value = '';
+                    document.getElementById('display_sexo').value = '';
+                    document.getElementById('display_domicilio').value = '';
+                    document.getElementById('display_procedencia').value = '';
+                    document.getElementById('display_telefono').value = '';
+                    document.getElementById('display_estado_civil').value = '';
+                    document.getElementById('display_ocupacion').value = '';
+                    
+                    this.classList.add('border-red-500');
+                }
+            })
+            .catch(err => console.error("Error conectando con la BD:", err));
+    });
+</script>
+{% endblock %}

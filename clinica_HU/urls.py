@@ -23,5 +23,6 @@ urlpatterns = [
     path('', RedirectView.as_view(url='login/', permanent=False)),
     path('', include('usuarios.urls')),
     path('', include('core.urls')),
-    path('pacientes/', include('pacientes.urls')),   
+    path('pacientes/', include('pacientes.urls')),
+    path('historial/', include('historial_cl.urls')),
 ]
