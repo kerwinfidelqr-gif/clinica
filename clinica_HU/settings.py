@@ -86,7 +86,16 @@ WSGI_APPLICATION = 'clinica_HU.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-# Si detecta que estamos en Render (porque existe la variable DATABASE_URL), cambia a PostgreSQL
+# 1. Primero creamos la variable DATABASES con SQLite por defecto
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
+# 2. Luego verificamos si estamos en Render para cambiarla a PostgreSQL
+
 DATABASE_URL = os.environ.get('DATABASE_URL')
 if DATABASE_URL:
     DATABASES['default'] = dj_database_url.config(
@@ -94,7 +103,6 @@ if DATABASE_URL:
         conn_max_age=600,
         conn_health_checks=True,
     )
-
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
