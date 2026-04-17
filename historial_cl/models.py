@@ -52,3 +52,6 @@ class HistoriaClinica(models.Model):
 
     def __str__(self):
         return f"Historial {self.numero_historial} - {self.paciente.nombre}"
+
+
+        

@@ -22,7 +22,7 @@ def historial_dashboard(request):
     ]
 
     historiales = HistoriaClinica.objects.all().order_by('-created_at')
-    
+
     query = request.GET.get('q')
     if query:
         historiales = historiales.filter(paciente__DNI__icontains=query) | \
