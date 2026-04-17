@@ -1,0 +1,48 @@
+{% extends 'core/base.html' %} 
+
+{% block content %}
+<div class="max-w-7xl mx-auto p-6">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-bold text-gray-800">Pacientes Hospitalizados</h1>
+        <a href="{% url 'crear_ingreso' %}" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300">
+            + Nuevo Ingreso
+        </a>
+    </div>
+
+    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <table class="min-w-full text-left text-sm font-light">
+            <thead class="border-b bg-gray-100 font-medium text-gray-700">
+                <tr>
+                    <th scope="col" class="px-6 py-4">Historia Clínica</th>
+                    <th scope="col" class="px-6 py-4">Paciente</th>
+                    <th scope="col" class="px-6 py-4">Servicio / Cama</th>
+                    <th scope="col" class="px-6 py-4">Fecha de Ingreso</th>
+                    <th scope="col" class="px-6 py-4">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ingreso in ingresos %}
+                <tr class="border-b hover:bg-gray-50 transition duration-150">
+                    <td class="whitespace-nowrap px-6 py-4 font-semibold">{{ ingreso.numero_historia_clinica }}</td>
+                    <td class="whitespace-nowrap px-6 py-4">{{ ingreso.paciente.nombre }} {{ ingreso.paciente.apellido }}</td>
+                    <td class="whitespace-nowrap px-6 py-4">
+                        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-bold">{{ ingreso.servicio }}</span> 
+                        - Cama {{ ingreso.cama }}
+                    </td>
+                    <td class="whitespace-nowrap px-6 py-4">{{ ingreso.fecha_ingreso|date:"d/m/Y" }}</td>
+                    <td class="whitespace-nowrap px-6 py-4">
+                        <a href="{% url 'detalle_ingreso' ingreso.pk %}" class="text-blue-600 hover:text-blue-800 font-medium underline">
+                            Ver Expediente
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center py-8 text-gray-500">No hay pacientes hospitalizados registrados en este momento.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

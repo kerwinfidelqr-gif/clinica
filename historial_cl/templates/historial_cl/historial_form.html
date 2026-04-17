@@ -155,10 +155,80 @@
 </style>
 
 <script>
-    document.getElementById('btn-guardar').addEventListener('click', function() { document.getElementById('form-historial').target = '_self'; });
+    // 1. Botones de guardado e impresión
+    document.getElementById('btn-guardar').addEventListener('click', function() { 
+        document.getElementById('form-historial').target = '_self'; 
+    });
+    
     document.getElementById('btn-generar-pdf').addEventListener('click', function() {
         document.getElementById('form-historial').target = '_blank';
         setTimeout(function() { window.location.href = "{% url 'historial_cl:historial_dashboard' %}"; }, 1000);
+    });
+
+    // 2. Búsqueda por DNI (A prueba de balas)
+    document.addEventListener("DOMContentLoaded", function() {
+        // Usamos name="" en lugar de id="" porque es más seguro en Django
+        const inputDni = document.querySelector('input[name="buscar_dni"]'); 
+        
+        if (!inputDni) {
+            console.error("ATENCIÓN: No se encontró el campo de búsqueda de DNI en el HTML.");
+            return;
+        }
+
+        console.log("Campo de DNI detectado correctamente.");
+
+        inputDni.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // Evita recargar la página
+                const dni = this.value.trim();
+                
+                console.log("Enter presionado. Buscando DNI:", dni);
+                
+                if (dni.length > 0) {
+                    buscarPacienteAJAX(dni);
+                } else {
+                    alert("Por favor, ingrese un número de DNI.");
+                }
+            }
+        });
+
+        function buscarPacienteAJAX(dni) {
+            const url = "{% url 'historial_cl:buscar_paciente_api' %}?dni=" + dni;
+            console.log("Consultando URL:", url);
+
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) throw new Error("Error en el servidor: " + response.status);
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Respuesta recibida:", data);
+                    
+                    if (data.encontrado) {
+                        // Llenamos los datos
+                        document.getElementById('id_paciente_oculto').value = data.id_interno || "";
+                        document.getElementById('display_nombre').value = data.nombre_completo || "";
+                        document.getElementById('display_lugar_nacimiento').value = data.lugar_nacimiento || "";
+                        document.getElementById('display_edad').value = data.edad || "";
+                        document.getElementById('display_sexo').value = data.sexo || "";
+                        document.getElementById('display_dni').value = dni;
+                        document.getElementById('display_domicilio').value = data.domicilio_actual || "";
+                        document.getElementById('display_procedencia').value = data.domicilio_procedencia || "";
+                        document.getElementById('display_telefono').value = data.celular || "";
+                        document.getElementById('display_estado_civil').value = data.estado_civil || "";
+                        document.getElementById('display_ocupacion').value = data.ocupacion || "";
+                        
+                        alert("Paciente cargado con éxito.");
+                    } else {
+                        alert(" " + (data.mensaje || "Paciente no encontrado."));
+                        document.getElementById('id_paciente_oculto').value = "";
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fatal del Fetch:', error);
+                    alert("Ocurrió un error de conexión al buscar el paciente.");
+                });
+        }
     });
 </script>
 {% endblock %}

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Examen Clínico</title>
+    <style>
+        @page { size: A4; margin: 1.5cm; }
+        body { font-family: Arial, sans-serif; font-size: 11px; color: #333; }
+        .header { text-align: center; border-bottom: 2px solid #0e0183; margin-bottom: 15px; padding-bottom: 10px; }
+        .title { font-size: 16px; font-weight: bold; color: #0e0183; }
+        .section-title { background: #f0f0f0; padding: 5px; font-weight: bold; margin-top: 15px; border: 1px solid #ccc; }
+        table { width: 100%; border-collapse: collapse; margin-top: 5px; }
+        td { padding: 4px; border: 1px solid #eee; }
+        .label { font-weight: bold; color: #555; width: 25%; }
+        .signos-vitales td { width: 16%; text-align: center; }
+        .signos-vitales .label { width: auto; background: #fafafa; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="title">CLÍNICA HIPÓLITO UNANUE</div>
+        <div>EXAMEN CLÍNICO INICIAL</div>
+    </div>
+
+    <table>
+        <tr>
+            <td class="label">Paciente:</td>
+            <td>{{ ingreso.paciente.nombre }} {{ ingreso.paciente.apellido }}</td>
+            <td class="label">H.C. N°:</td>
+            <td>{{ ingreso.numero_historia_clinica }}</td>
+        </tr>
+        <tr>
+            <td class="label">Servicio:</td>
+            <td>{{ ingreso.servicio }}</td>
+            <td class="label">Cama:</td>
+            <td>{{ ingreso.cama }}</td>
+        </tr>
+    </table>
+
+    <div class="section-title">I. EXAMEN FÍSICO GENERAL</div>
+    <table class="signos-vitales">
+        <tr>
+            <td class="label">P.A.</td>
+            <td>{{ examen.presion_arterial|default:"---" }}</td>
+            <td class="label">F.C.</td>
+            <td>{{ examen.frecuencia_cardiaca|default:"---" }}</td>
+            <td class="label">F.R.</td>
+            <td>{{ examen.frecuencia_respiratoria|default:"---" }}</td>
+        </tr>
+        <tr>
+            <td class="label">Temp.</td>
+            <td>{{ examen.temperatura|default:"---" }}</td>
+            <td class="label">Peso</td>
+            <td>{{ examen.peso|default:"---" }}</td>
+            <td class="label">Talla</td>
+            <td>{{ examen.talla|default:"---" }}</td>
+        </tr>
+    </table>
+
+    <table>
+        <tr>
+            <td class="label">Estado General:</td>
+            <td>{{ examen.estado_general }}</td>
+        </tr>
+        <tr>
+            <td class="label">Piel y Mucosas:</td>
+            <td>{{ examen.piel_mucosas }}</td>
+        </tr>
+    </table>
+
+    <div class="section-title">II. EXAMEN FÍSICO REGIONAL</div>
+    <table>
+        <tr>
+            <td class="label">Cabeza y Cuello:</td>
+            <td>{{ examen.cabeza_cuello }}</td>
+        </tr>
+        <tr>
+            <td class="label">Tórax y Pulmones:</td>
+            <td>{{ examen.torax_pulmones }}</td>
+        </tr>
+        <tr>
+            <td class="label">Cardiovascular:</td>
+            <td>{{ examen.cardiovascular }}</td>
+        </tr>
+        <tr>
+            <td class="label">Abdomen:</td>
+            <td>{{ examen.abdomen }}</td>
+        </tr>
+        <tr>
+            <td class="label">Genitourinario:</td>
+            <td>{{ examen.genitourinario }}</td>
+        </tr>
+        <tr>
+            <td class="label">Neurológico:</td>
+            <td>{{ examen.neurologico }}</td>
+        </tr>
+    </table>
+
+    <div class="section-title">III. CONCLUSIONES</div>
+    <table>
+        <tr>
+            <td class="label">Impresión Diagnóstica:</td>
+            <td style="height: 60px;">{{ examen.impresion_diagnostica }}</td>
+        </tr>
+        <tr>
+            <td class="label">Plan de Trabajo:</td>
+            <td style="height: 60px;">{{ examen.plan_trabajo }}</td>
+        </tr>
+    </table>
+
+    <div style="margin-top: 50px; text-align: right;">
+        <p>___________________________</p>
+        <p>Firma y Sello del Médico</p>
+    </div>
+</body>
+</html>
