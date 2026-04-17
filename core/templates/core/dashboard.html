@@ -128,5 +128,26 @@
         </div>
     </a>
     {% endif %}
+    <a href="#" class="group bg-white rounded-lg border border-gray-200 border-l-4 border-l-[#0e0183] shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col h-full">
+        <div class="p-5 flex-grow">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <h3 class="text-lg font-bold text-gray-800 group-hover:text-[#0e0183] transition-colors">Historial de Hospitalizacion</h3>
+                    <p class="text-xs text-gray-500 mt-1">Consulta de expedientes médicos en hospitalizacion.</p>
+                </div>
+                <div class="p-2 bg-[#0e0183]/10 rounded text-[#0e0183] group-hover:bg-[#0e0183] group-hover:text-white transition-all duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-newspaper-icon lucide-newspaper"><path d="M15 18h-5"/><path d="M18 14h-8"/><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-4 0v-9a2 2 0 0 1 2-2h2"/><rect width="8" height="4" x="10" y="6" rx="1"/></svg>
+                </div>
+            </div>
+        </div>
+        <div class="bg-gray-50 px-5 py-3 border-t border-gray-100 flex items-center justify-between rounded-b-lg group-hover:bg-red-50/50 transition-colors">
+            <span class="text-xs font-medium text-gray-500 uppercase tracking-wider">Permisos</span>
+            {% if permissions.h_clinico == 1 %}
+                <span class="px-2 py-1 text-[11px] font-bold rounded bg-gray-200 text-gray-600 border border-gray-300">SOLO LECTURA</span>
+            {% else %}
+                <span class="px-2 py-1 text-[11px] font-bold rounded bg-[#0e0183]/10 text-[#0e0183] border border-[#0e0183]/20">ACCESO TOTAL</span>
+            {% endif %}
+        </div>
+    </a>
 </div>
 {% endblock %}

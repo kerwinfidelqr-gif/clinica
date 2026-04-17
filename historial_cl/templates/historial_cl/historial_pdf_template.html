@@ -2,137 +2,266 @@
 <html>
 <head>
     <style>
-        @page { size: A4; margin: 1cm 1.5cm; }
-        body { font-family: 'Helvetica', sans-serif; color: #000; font-size: 10pt; }
-        
-        /* Colores inspirados en tu formato físico */
-        .color-primary { color: #1e73be; }
-        .bg-light-blue { background-color: #e6f2ff; }
-        .border-box { border: 1.5px solid #1e73be; border-radius: 8px; }
-        
-        /* Estilos de tablas para alinear todo perfecto */
-        table { width: 100%; border-collapse: collapse; }
-        td { padding: 4px 0; vertical-align: bottom; }
-        
-        /* Líneas punteadas para llenar a mano */
-        .label { font-weight: bold; color: #1e73be; font-size: 9pt; white-space: nowrap; padding-right: 5px; }
-        .dotted-line { border-bottom: 1.5px dotted #666; width: 100%; padding-left: 5px; color: #000; }
-        
-        /* Cajas de título superior */
-        .top-box { border: 1.5px solid #1e73be; background-color: #e6f2ff; padding: 5px 10px; text-align: center; font-weight: bold; color: #1e73be; border-radius: 6px; margin-bottom: 5px; }
-        
-        /* Contenedores de Enfermedad y Examen */
-        .text-area-box { border: 1.5px solid #1e73be; padding: 10px; margin-top: 15px; height: 250px; }
-        .text-area-title { color: #1e73be; font-weight: bold; font-size: 11pt; margin-bottom: 10px; }
+        @page {
+            size: A4;
+            margin: 1cm 1.5cm;
+        }
+        body {
+            font-family: 'Helvetica', 'Arial', sans-serif;
+            color: #1e293b;
+            font-size: 9.5pt;
+            line-height: 1.3;
+        }
+
+        .color-primary {
+            color: #1e73be;
+        }
+
+        .bg-light-blue {
+            background-color: #f4f9ff;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .top-box {
+            border: 1.5px solid #1e73be;
+            background-color: #f4f9ff;
+            padding: 4px 8px;
+            text-align: center;
+            font-weight: bold;
+            color: #1e73be;
+            border-radius: 4px;
+            margin-bottom: 5px;
+            font-size: 8.5pt;
+        }
+
+        .info-table td {
+            padding-top: 6px;
+            padding-bottom: 2px;
+            vertical-align: bottom;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #1e73be;
+            font-size: 8pt;
+            white-space: nowrap;
+            padding-right: 6px;
+        }
+
+        .data {
+            border-bottom: 1px solid #94a3b8;
+            color: #0f172a;
+            font-size: 9.5pt;
+            padding-bottom: 1px;
+            padding-left: 4px;
+        }
+
+        .vital-table {
+            margin-top: 12px;
+            border: 1.5px solid #1e73be;
+        }
+
+        .vital-table th {
+            background-color: #1e73be;
+            color: white;
+            padding: 5px;
+            font-size: 9pt;
+            text-align: center;
+            letter-spacing: 1px;
+            border: 1.5px solid #1e73be;
+        }
+
+        .vital-table td {
+            border: 1px solid #1e73be;
+            padding: 6px 4px;
+            vertical-align: middle;
+        }
+
+        .vital-label {
+            background-color: #f4f9ff;
+            color: #1e73be;
+            font-weight: bold;
+            font-size: 8pt;
+            text-align: right;
+            width: 10%;
+        }
+
+        .vital-value {
+            text-align: center;
+            color: #1e293b;
+            font-weight: bold;
+            font-size: 9.5pt;
+            width: 15%;
+        }
+
+        .text-box-table {
+            width: 100%;
+            margin-top: 12px;
+            border: 1.5px solid #1e73be;
+            border-radius: 4px;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .text-box-title {
+            color: #1e73be;
+            font-weight: bold;
+            font-size: 9pt;
+            padding: 6px 10px;
+            border-bottom: 1px solid #e2e8f0;
+            background-color: #f8fafc;
+        }
+
+        .text-box-content {
+            padding: 10px;
+            height: 120px;
+            vertical-align: top;
+            font-size: 9.5pt;
+            line-height: 1.4;
+        }
+
+        .footer-note {
+            margin-top: 25px;
+            font-size: 7.5pt;
+            color: #94a3b8;
+            text-align: center;
+            border-top: 0.5px solid #e2e8f0;
+            padding-top: 8px;
+        }
     </style>
 </head>
 <body>
-
-    <table style="margin-bottom: 15px;">
+    <table style="margin-bottom: 10px; width: 100%;">
         <tr>
-            <td width="30%" style="vertical-align: top;">
-                <h2 class="color-primary" style="margin: 0; font-size: 12pt;">⚕️ CLÍNICA HIPÓLITO UNANUE</h2>
+            <td width="35%" style="vertical-align: middle; padding: 0;">
+                <table style="width: auto; border-collapse: collapse; margin: 0; padding: 0;">
+                    <tr>
+                        <td style="vertical-align: middle; padding: 0; padding-right: 10px; width: 60px;">
+                            <img src="https://i.postimg.cc/XJBXcSKR/logo.png" style="height: 55px; width: auto;">
+                        </td>
+                        <td style="vertical-align: middle; padding: 0;">
+                            <h2 class="color-primary" style="margin: 0; font-size: 9.5pt; font-weight: bold; text-decoration: underline; line-height: 1.1; white-space: nowrap;">
+                                CLÍNICA HIPÓLITO UNANUE
+                            </h2>
+                            <p class="color-primary" style="margin: 0; margin-top: 2px; font-size: 6.5pt; line-height: 1; white-space: nowrap;">
+                                Cuidando tu salud con calidad humana
+                            </p>
+                        </td>
+                    </tr>
+                </table>
             </td>
-            <td width="40%" style="text-align: center; vertical-align: top;">
-                <h1 class="color-primary" style="margin: 0; font-size: 16pt;">HISTORIA CLÍNICA</h1>
+            <td width="30%" style="text-align: center; vertical-align: middle; padding: 0;">
+                <h1 class="color-primary" style="margin: 0; font-size: 13pt;">HISTORIA CLÍNICA</h1>
             </td>
-            <td width="30%" style="vertical-align: top;">
-                <div class="top-box">
-                    HISTORIA CLÍNICA<br>
-                    <span style="color: #000; font-size: 12pt;">N° {{ historial.numero_historial }}</span>
+            <td width="35%" style="vertical-align: middle; padding: 0;">
+                <div style="float: right; width: 85%;">
+                    <div class="top-box" style="margin-bottom: 4px;">
+                        HISTORIA CLÍNICA<br>
+                        <span style="color: #1e293b; font-size: 10pt;">N° {{ historial.numero_historial }}</span>
+                    </div>
+                    <div class="top-box" style="margin-bottom: 0;">
+                        ESPECIALIDAD<br>
+                        <span style="color: #1e293b; font-size: 9.5pt;">{{ historial.especialidad|default:"&nbsp;" }}</span>
+                    </div>
                 </div>
-                <div class="top-box" style="margin-top: 5px;">
-                    ESPECIALIDAD<br>
-                    <span style="color: #000;">{{ historial.especialidad|default:"&nbsp;" }}</span>
-                </div>
             </td>
         </tr>
     </table>
-
-    <table>
+    <table class="info-table">
         <tr>
-            <td class="label" style="width: 20%;">NOMBRES Y APELLIDOS:</td>
-            <td class="dotted-line" colspan="3">{{ paciente.nombre|default:"&nbsp;" }}</td>
+            <td class="label" style="width: 18%;">NOMBRES Y APELLIDOS:</td>
+            <td class="data" colspan="5">{{ paciente.nombre|default:"&nbsp;" }}</td>
         </tr>
         <tr>
-            <td class="label" style="width: 20%;">LUGAR DE NACIMIENTO:</td>
-            <td class="dotted-line" style="width: 50%;">{{ paciente.lugar_nacimiento|default:"&nbsp;" }}</td>
-            <td class="label" style="width: 10%; text-align: right;">SEXO:</td>
-            <td class="dotted-line" style="width: 20%;">{{ paciente.sexo|default:"&nbsp;" }}</td>
+            <td class="label" style="width: 18%;">LUGAR DE NACIMIENTO:</td>
+            <td class="data" style="width: 42%;">{{ paciente.lugar_nacimiento|default:"&nbsp;" }}</td>
+            <td class="label" style="width: 5%; text-align: right;">SEXO:</td>
+            <td class="data" style="width: 15%;">{{ paciente.sexo|default:"&nbsp;" }}</td>
+            <td class="label" style="width: 8%; text-align: right;">EDAD:</td>
+            <td class="data" style="width: 12%;">{{ paciente.edad|default:"&nbsp;" }}</td>
         </tr>
         <tr>
-            <td class="label" style="width: 10%;">EDAD:</td>
-            <td class="dotted-line" colspan="3">{{ paciente.edad|default:"&nbsp;" }}</td>
+            <td class="label">DOMICILIO ACTUAL:</td>
+            <td class="data" colspan="5">{{ paciente.domicilio_actual|default:"&nbsp;" }}</td>
         </tr>
         <tr>
-            <td class="label" style="width: 18%;">DOMICILIO ACTUAL:</td>
-            <td class="dotted-line" colspan="3">{{ paciente.domicilio_actual|default:"&nbsp;" }}</td>
-        </tr>
-    </table>
-
-    <table>
-        <tr>
-            <td class="label" style="width: 25%;">DOMICILIO DE PROCEDENCIA:</td>
-            <td class="dotted-line" style="width: 35%;">{{ paciente.domicilio_procedencia|default:"&nbsp;" }}</td>
-            <td class="label" style="width: 25%; text-align: right;">DOCUMENTO DE IDENTIDAD:</td>
-            <td class="dotted-line" style="width: 15%;">{{ paciente.DNI|default:"&nbsp;" }}</td>
+            <td class="label">DOMICILIO PROCEDENCIA:</td>
+            <td class="data" colspan="3">{{ paciente.domicilio_procedencia|default:"&nbsp;" }}</td>
+            <td class="label" style="text-align: right;">DNI:</td>
+            <td class="data">{{ paciente.DNI|default:"&nbsp;" }}</td>
         </tr>
         <tr>
-            <td class="label" style="width: 10%;">TELÉFONO:</td>
-            <td class="dotted-line" style="width: 40%;">{{ paciente.celular|default:"&nbsp;" }}</td>
-            <td class="label" style="width: 25%; text-align: right;">GRADO DE INSTRUCCIÓN:</td>
-            <td class="dotted-line" style="width: 25%;">{{ historial.grado_instruccion|default:"&nbsp;" }}</td>
+            <td class="label">TELÉFONO:</td>
+            <td class="data">{{ paciente.celular|default:"&nbsp;" }}</td>
+            <td class="label" style="text-align: right;" colspan="2">GRADO DE INSTRUCCIÓN:</td>
+            <td class="data" colspan="2">{{ historial.grado_instruccion|default:"&nbsp;" }}</td>
         </tr>
         <tr>
-            <td class="label" style="width: 15%;">ESTADO CIVIL:</td>
-            <td class="dotted-line" colspan="3">{{ paciente.estado_civil|default:"&nbsp;" }}</td>
+            <td class="label">ESTADO CIVIL:</td>
+            <td class="data" colspan="5">{{ paciente.estado_civil|default:"&nbsp;" }}</td>
         </tr>
         <tr>
-            <td class="label" style="width: 12%;">OCUPACIÓN:</td>
-            <td class="dotted-line" style="width: 58%;">{{ paciente.ocupacion|default:"&nbsp;" }}</td>
-            <td class="label" style="width: 10%; text-align: right;">HORA:</td>
-            <td class="dotted-line" style="width: 20%;">{{ historial.hora|time:"H:i"|default:"&nbsp;" }}</td>
+            <td class="label">OCUPACIÓN:</td>
+            <td class="data" colspan="3">{{ paciente.ocupacion|default:"&nbsp;" }}</td>
+            <td class="label" style="text-align: right;">HORA:</td>
+            <td class="data">{{ historial.hora|time:"H:i"|default:"&nbsp;" }}</td>
         </tr>
         <tr>
-            <td class="label" style="width: 18%;">FECHA DE INGRESO:</td>
-            <td class="dotted-line" colspan="3">{{ paciente.fecha_ingreso|date:"d/m/Y"|default:"&nbsp;" }}</td>
+            <td class="label">FECHA DE INGRESO:</td>
+            <td class="data" colspan="5">{{ paciente.fecha_ingreso|date:"d/m/Y"|default:"&nbsp;" }}</td>
         </tr>
     </table>
-
-    <div class="border-box" style="margin-top: 20px; position: relative; padding: 25px 15px 15px 15px;">
-        <div style="position: absolute; top: -10px; text-align: center; width: 100%;">
-            <span class="color-primary" style="background-color: white; padding: 0 10px; font-weight: bold; font-size: 11pt;">FUNCIONES VITALES</span>
-        </div>
-        
-        <table style="width: 100%;">
-            <tr>
-                <td class="label" style="width: 5%;">P/A:</td> <td class="dotted-line" style="width: 15%;">{{ historial.pa|default:"&nbsp;" }}</td>
-                <td class="label" style="width: 8%; text-align: right;">PULSO:</td> <td class="dotted-line" style="width: 12%;">{{ historial.pulso|default:"&nbsp;" }}</td>
-                <td class="label" style="width: 15%; text-align: right;">TEMPERATURA:</td> <td class="dotted-line" style="width: 15%;">{{ historial.temperatura|default:"&nbsp;" }}</td>
-                <td class="label" style="width: 15%; text-align: right;">F/RESPIRATORIA:</td> <td class="dotted-line" style="width: 15%;">{{ historial.f_respiratoria|default:"&nbsp;" }}</td>
-            </tr>
-            <tr>
-                <td class="label" style="width: 5%; padding-top: 15px;">PESO:</td> <td class="dotted-line" style="width: 15%;">{{ historial.peso|default:"&nbsp;" }}</td>
-                <td class="label" style="width: 8%; text-align: right;">TALLA:</td> <td class="dotted-line" style="width: 12%;">{{ historial.talla|default:"&nbsp;" }}</td>
-                <td class="label" style="width: 10%; text-align: right;">IMC:</td> <td class="dotted-line" style="width: 20%;">{{ historial.imc|default:"&nbsp;" }}</td>
-                <td class="label" style="width: 10%; text-align: right;">ALERGIAS:</td> <td class="dotted-line" style="width: 20%;">{{ historial.alergias|default:"&nbsp;" }}</td>
-            </tr>
-        </table>
+    <table class="vital-table">
+        <tr>
+            <th colspan="8">FUNCIONES VITALES</th>
+        </tr>
+        <tr>
+            <td class="vital-label">P/A:</td>
+            <td class="vital-value">{{ historial.pa|default:"&nbsp;" }}</td>
+            <td class="vital-label">PULSO:</td>
+            <td class="vital-value">{{ historial.pulso|default:"&nbsp;" }}</td>
+            <td class="vital-label">TEMP:</td>
+            <td class="vital-value">{{ historial.temperatura|default:"&nbsp;" }}</td>
+            <td class="vital-label">F. RESP:</td>
+            <td class="vital-value">{{ historial.f_respiratoria|default:"&nbsp;" }}</td>
+        </tr>
+        <tr>
+            <td class="vital-label">PESO:</td>
+            <td class="vital-value">{{ historial.peso|default:"&nbsp;" }}</td>
+            <td class="vital-label">TALLA:</td>
+            <td class="vital-value">{{ historial.talla|default:"&nbsp;" }}</td>
+            <td class="vital-label">IMC:</td>
+            <td class="vital-value">{{ historial.imc|default:"&nbsp;" }}</td>
+            <td class="vital-label">ALERGIAS:</td>
+            <td class="vital-value">{{ historial.alergias|default:"&nbsp;" }}</td>
+        </tr>
+    </table>
+    <table class="text-box-table">
+        <tr>
+            <td class="text-box-title">➢ ENFERMEDAD ACTUAL:</td>
+        </tr>
+        <tr>
+            <td class="text-box-content">
+                {{ historial.enfermedad_actual|default:"" }}
+            </td>
+        </tr>
+    </table>
+    <table class="text-box-table">
+        <tr>
+            <td class="text-box-title">➢ EXAMEN FÍSICO:</td>
+        </tr>
+        <tr>
+            <td class="text-box-content">
+                {{ historial.examen_fisico|default:"" }}
+            </td>
+        </tr>
+    </table>
+    <div class="footer-note">
+        Documento generado electrónicamente por el sistema de gestión de la Clínica Hipólito Unanue.
     </div>
-
-    <div class="text-area-box">
-        <div class="text-area-title">➢ ENFERMEDAD ACTUAL:</div>
-        <div style="line-height: 1.5; font-size: 11pt;">
-            {{ historial.enfermedad_actual|default:"" }}
-        </div>
-    </div>
-
-    <div class="text-area-box">
-        <div class="text-area-title">➢ EXAMEN FÍSICO:</div>
-        <div style="line-height: 1.5; font-size: 11pt;">
-            {{ historial.examen_fisico|default:"" }}
-        </div>
-    </div>
-
 </body>
 </html>

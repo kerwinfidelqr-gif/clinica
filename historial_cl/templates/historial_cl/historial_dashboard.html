@@ -1,17 +1,25 @@
 {% extends "core/base.html" %}
 {% load static %}
-
 {% block title %}Dashboard Historial Clínico{% endblock %}
-
 {% block content %}
 <div class="max-w-7xl mx-auto p-4 sm:p-6">
-    <div class="flex flex-col md:flex-row justify-between items-center mb-6 border-b-2 border-gray-200 pb-4">
-        <h2 class="text-3xl font-bold text-[#233b6e] flex items-center">
-            <i class="fa-solid fa-notes-medical mr-3"></i> Historias Clínicas
-        </h2>
+    <div class="mb-4 animate-fade-in-left">
+        <a href="{% url 'dashboard' %}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-200 rounded-xl text-sm font-bold text-gray-500 hover:text-[#233b6e] hover:border-gray-300 hover:bg-gray-50 hover:shadow-sm transition-all duration-300 group w-fit">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2 text-gray-400 group-hover:text-[#233b6e] group-hover:-translate-x-1 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+            </svg>
+            Volver al Menú Principal
+        </a>
     </div>
-    
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 border-b-2 border-gray-200 pb-4 animate-fade-in-left">
+        <div>
+            <h2 class="text-3xl font-bold text-[#233b6e] flex items-center">
+                <i class="fa-solid fa-notes-medical mr-3"></i> Historias Clínicas
+            </h2>
+            <p class="text-gray-500 text-sm mt-2 ml-10">Gestione los historiales de los pacientes por especialidad o busque en el directorio general.</p>
+        </div>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10 animate-fade-in-up">
         {% for esp in especialidades %}
         <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col">
             <div class="{{ esp.color }} p-6 flex justify-center items-center h-28 relative overflow-hidden">
@@ -29,33 +37,33 @@
         </div>
         {% endfor %}
     </div>
-
-    <h3 class="text-2xl font-bold text-[#233b6e] mb-4 border-b pb-2">
+    <h3 class="text-2xl font-bold text-[#233b6e] mb-4 border-b pb-2 animate-fade-in-up delay-100">
         <i class="fa-solid fa-list-ul mr-2"></i> Directorio de Historiales
     </h3>
-
-    <div class="mb-6 p-4 border rounded-lg bg-gray-50 shadow-sm">
-        <form method="get" action="{% url 'historial_cl:historial_dashboard' %}" class="grid grid-cols-1 md:grid-cols-4 items-end gap-4">
-            <div class="col-span-1 md:col-span-2">
-                <label class="block text-sm font-medium text-gray-700">Buscar por DNI, Nombre o N° Historial</label>
-                <input type="text" name="q" value="{{ query|default:'' }}" placeholder="Ej: 12345678 o Juan Perez"
-                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#233b6e] focus:ring-[#233b6e] px-3 py-2">
-            </div>
-            
-            <div class="col-span-1 md:col-span-2 mt-2">
-                <div class="flex items-center space-x-2">
-                    <button type="submit" class="bg-[#233b6e] text-white px-6 py-2 rounded-lg shadow-md hover:bg-[#1a2c53] transition-colors duration-300">
-                        Buscar
-                    </button>
-                    <a href="{% url 'historial_cl:historial_dashboard' %}" class="bg-gray-500 text-white px-6 py-2 rounded-lg shadow-md hover:bg-gray-600 transition-colors duration-300">
-                        Limpiar
-                    </a>
+    <div class="mb-6 p-5 border border-gray-100 rounded-2xl bg-white shadow-sm animate-fade-in-up delay-100">
+        <form method="get" action="{% url 'historial_cl:historial_dashboard' %}" class="flex flex-col lg:flex-row items-end gap-4">
+            <div class="w-full lg:flex-grow">
+                <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2.5">Buscar por DNI, Nombre o N° Historial</label>
+                <div class="relative group/input">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 transform -translate-y-1/2 text-gray-400 group-focus-within/input:text-[#233b6e] transition-colors duration-300"></i>
+                    <input type="text" name="q" value="{{ query|default:'' }}" placeholder="Ej: 12345678 o Juan Perez"
+                        class="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-800 placeholder-gray-400 focus:bg-white focus:outline-none focus:border-[#233b6e] focus:ring-4 focus:ring-[#233b6e]/10 transition-all duration-300">
                 </div>
+            </div>
+            <div class="w-full lg:w-auto flex flex-col sm:flex-row gap-3">
+                <a href="{% url 'historial_cl:historial_dashboard' %}" class="w-full sm:w-auto px-6 py-3 bg-gray-100 border border-gray-200 text-gray-700 rounded-xl text-sm font-bold hover:bg-gray-200 hover:border-gray-300 transition-all duration-300 flex items-center justify-center">
+                    <i class="fa-solid fa-eraser mr-2"></i> Limpiar
+                </a>
+                <button type="submit" class="w-full sm:w-auto px-8 py-3 bg-[#233b6e] text-white rounded-xl text-sm font-bold shadow-md hover:bg-[#1a2c53] hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                    </svg>
+                    Aplicar
+                </button>
             </div>
         </form>
     </div>
-
-    <div class="bg-white p-6 rounded-lg shadow-md overflow-x-auto border border-gray-100">
+    <div class="bg-white p-6 rounded-lg shadow-md overflow-x-auto border border-gray-100 animate-fade-in-up delay-200">
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
                 <tr>
@@ -79,7 +87,6 @@
                        </span>
                    </td> 
                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{h.created_at|date:"d/m/Y H:i"}}</td> 
-                   
                    <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
                         <div class="flex justify-center items-center space-x-4">
                             <a href="{% url 'historial_cl:generar_pdf' h.pk %}" target="_blank" class="text-green-600 hover:text-green-800 font-bold transition-colors">PDF</a>
@@ -92,24 +99,21 @@
             <tr>
                 <td colspan="6" class="px-6 py-8 whitespace-nowrap text-sm text-gray-500 text-center">
                     <i class="fa-solid fa-folder-open text-3xl text-gray-300 mb-2 block"></i>
-                    No se encontraron historiales clínicos registrados.
+                    <p class="mt-2">No se encontraron historiales clínicos registrados.</p>
                 </td>
             </tr>
             {% endfor %}
             </tbody>
         </table>
-        
         {% if page_obj.has_other_pages %}
         <div class="flex justify-center mt-6">
             <nav class="relative z-0 inline-flex rounded-md shadow-sm space-x-px">
                 {% if page_obj.has_previous %}
                 <a href="?page={{ page_obj.previous_page_number }}&q={{ query|default:'' }}" class="relative inline-flex items-center px-3 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 rounded-l-md">&lsaquo; Anterior</a>
                 {% endif %}
-                
                 <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-[#233b6e] text-sm font-medium text-white">
                     Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
                 </span>
-                
                 {% if page_obj.has_next %}
                 <a href="?page={{ page_obj.next_page_number }}&q={{ query|default:'' }}" class="relative inline-flex items-center px-3 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 rounded-r-md">Siguiente &rsaquo;</a>
                 {% endif %}
@@ -118,4 +122,23 @@
         {% endif %}
     </div>
 </div>
+<style>
+    @keyframes fadeInLeft {
+        0% { opacity: 0; transform: translateX(-20px); }
+        100% { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes fadeInUp {
+        0% { opacity: 0; transform: translateY(20px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in-left {
+        animation: fadeInLeft 0.5s ease-out forwards;
+    }
+    .animate-fade-in-up {
+        animation: fadeInUp 0.5s ease-out forwards;
+        opacity: 0; 
+    }
+    .delay-100 { animation-delay: 0.1s; }
+    .delay-200 { animation-delay: 0.2s; }
+</style>
 {% endblock content %}

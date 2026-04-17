@@ -2,30 +2,29 @@ import csv
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from .models import Paciente
 from .forms import PacienteForm
-from django.core.paginator import Paginator
 
 @login_required
 def paciente_list(request):
     pacientes_list = Paciente.objects.all().order_by('-id')
-    
     nombre = request.GET.get('nombre')
-    DNI = request.GET.get('DNI')
+    dni_filter = request.GET.get('DNI')  # Evitamos usar 'DNI' en mayúscula como variable
     if nombre:
         pacientes_list = pacientes_list.filter(nombre__icontains=nombre)
-    if DNI:
-        pacientes_list = pacientes_list.filter(DNI__icontains=DNI)
+    if dni_filter:
+        pacientes_list = pacientes_list.filter(DNI__icontains=dni_filter)
 
     if 'export' in request.GET:
-        response = HttpResponse(content_type='text/csv')
+        response = HttpResponse(content_type='text/csv; charset=utf-8')
         response['Content-Disposition'] = 'attachment; filename="pacientes.csv"'
-        writer = csv.writer(response)
+        response.write(u'\ufeff'.encode('utf8'))
+        writer = csv.writer(response, delimiter=';')
         writer.writerow(['ID', 'Nombre', 'DNI', 'Edad', 'Celular'])
         for p in pacientes_list:
             writer.writerow([p.id_paciente, p.nombre, p.DNI, p.edad, p.celular])
         return response
-
     paginator = Paginator(pacientes_list, 10)
     page_obj = paginator.get_page(request.GET.get('page'))
     return render(request, 'pacientes/pacientes_lista.html', {'page_obj': page_obj})
