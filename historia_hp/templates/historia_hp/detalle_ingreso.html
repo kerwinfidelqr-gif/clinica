@@ -1,0 +1,168 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto p-6">
+    
+    <div class="bg-white rounded-lg shadow-md p-6 mb-6 border-l-4 border-blue-600">
+        <h2 class="text-2xl font-bold text-gray-800 mb-2">Expediente Clínico: {{ ingreso.paciente.nombre }} {{ ingreso.paciente.apellido }}</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-gray-600 mt-4">
+            <p><span class="font-bold">N° Historia:</span> {{ ingreso.numero_historia_clinica }}</p>
+            <p><span class="font-bold">Servicio:</span> {{ ingreso.servicio }}</p>
+            <p><span class="font-bold">Cama:</span> {{ ingreso.cama }}</p>
+            <p><span class="font-bold">Ingreso:</span> {{ ingreso.fecha_ingreso|date:"d/m/Y" }} a las {{ ingreso.hora_ingreso }}</p>
+            <p><span class="font-bold">Médico a cargo:</span> {{ ingreso.created_by.username }}</p>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        
+        {% if not tiene_filiacion %}
+        <a href="{% url 'agregar_filiacion' ingreso.pk %}" class="block text-center bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold py-3 rounded-lg border border-gray-300 transition">
+            + Agregar Filiación
+        </a>
+        {% else %}
+        <div class="flex">
+            <button class="w-2/3 bg-gray-100 text-gray-500 font-semibold py-3 rounded-l-lg border-y border-l border-gray-200 cursor-not-allowed" disabled>
+                Filiación Lista
+            </button>
+            <a href="{% url 'imprimir_filiacion' ingreso.pk %}" target="_blank" class="w-1/3 flex items-center justify-center bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-r-lg border-y border-r border-gray-300 transition" title="Imprimir Filiación">
+                🖨️
+            </a>
+        </div>
+        {% endif %}
+
+        {% if not tiene_examen %}
+        <a href="{% url 'agregar_examen' ingreso.pk %}" class="block text-center bg-blue-50 hover:bg-blue-100 text-blue-700 font-semibold py-3 rounded-lg border border-blue-300 transition">
+            + Examen Clínico
+        </a>
+        {% else %}
+        <div class="flex">
+            <button class="w-2/3 bg-blue-50 text-blue-600 font-semibold py-3 rounded-l-lg border-y border-l border-blue-200 cursor-not-allowed" disabled>
+                Examen Listo
+            </button>
+            <a href="{% url 'imprimir_examen' ingreso.pk %}" target="_blank" class="w-1/3 flex items-center justify-center bg-blue-400 hover:bg-blue-500 text-white rounded-r-lg border-y border-r border-blue-500 transition" title="Imprimir Examen">
+                🖨️
+            </a>
+        </div>
+        {% endif %}
+
+        <a href="{% url 'agregar_evolucion' ingreso.pk %}" class="block text-center bg-green-50 hover:bg-green-100 text-green-700 font-semibold py-3 rounded-lg border border-green-300 transition">
+            + Nueva Evolución
+        </a>
+        <a href="{% url 'agregar_enfermeria' ingreso.pk %}" class="block text-center bg-teal-50 hover:bg-teal-100 text-teal-700 font-semibold py-3 rounded-lg border border-teal-300 transition">
+            + Nota Enfermería
+        </a>
+        <a href="{% url 'agregar_terapia' ingreso.pk %}" class="block text-center bg-purple-50 hover:bg-purple-100 text-purple-700 font-semibold py-3 rounded-lg border border-purple-300 transition">
+            + Prescribir Terapia
+        </a>
+
+        {% if not tiene_informe %}
+        <a href="{% url 'agregar_informe_op' ingreso.pk %}" class="block text-center bg-red-50 hover:bg-red-100 text-red-700 font-semibold py-3 rounded-lg border border-red-300 transition">
+            + Informe Operatorio
+        </a>
+        {% else %}
+        <button class="bg-red-50 text-red-300 font-semibold py-3 rounded-lg border border-red-200 cursor-not-allowed" disabled>
+            Inf. Operatorio (Completado)
+        </button>
+        {% endif %}
+
+        {% if not tiene_consentimiento %}
+        <a href="{% url 'agregar_consentimiento' ingreso.pk %}" class="block text-center bg-yellow-50 hover:bg-yellow-100 text-yellow-700 font-semibold py-3 rounded-lg border border-yellow-300 transition">
+            + Consentimiento
+        </a>
+        {% else %}
+        <div class="flex">
+            <button class="w-2/3 bg-yellow-50 text-yellow-600 font-semibold py-3 rounded-l-lg border-y border-l border-yellow-200 cursor-not-allowed" disabled>
+                Consentimiento Listo
+            </button>
+            <a href="{% url 'imprimir_consentimiento' ingreso.pk %}" target="_blank" class="w-1/3 flex items-center justify-center bg-yellow-400 hover:bg-yellow-500 text-yellow-900 rounded-r-lg border-y border-r border-yellow-500 transition" title="Imprimir Consentimiento">
+                🖨️
+            </a>
+        </div>
+        {% endif %}
+
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h3 class="text-xl font-bold text-gray-800 mb-4 border-b pb-2">🩺 Evoluciones Médicas</h3>
+            <div class="space-y-4 max-h-[500px] overflow-y-auto pr-2">
+                {% for evo in evoluciones %}
+                <div class="bg-gray-50 rounded p-4 border-l-4 border-green-500 shadow-sm">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="font-bold text-gray-700">{{ evo.fecha_hora|date:"d/m/Y H:i" }}</span>
+                        <span class="text-sm text-gray-500">Dr/Dra. {{ evo.firma_medico }}</span>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
+                        <div>
+                            <h4 class="text-xs font-bold text-gray-500 uppercase">Ap. Subjetiva</h4>
+                            <p class="text-gray-700 text-sm mt-1">{{ evo.apreciacion_subjetiva }}</p>
+                        </div>
+                        <div>
+                            <h4 class="text-xs font-bold text-gray-500 uppercase">Ap. Objetiva</h4>
+                            <p class="text-gray-700 text-sm mt-1">{{ evo.apreciacion_objetiva }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-gray-500 italic">Aún no hay evoluciones médicas registradas.</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h3 class="text-xl font-bold text-gray-800 mb-4 border-b pb-2">👩‍⚕️ Notas de Enfermería</h3>
+            <div class="space-y-4 max-h-[500px] overflow-y-auto pr-2">
+                {% for nota in notas_enfermeria %}
+                <div class="bg-gray-50 p-4 rounded border-l-4 border-teal-500 shadow-sm">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="font-bold text-gray-700">{{ nota.fecha_hora|date:"d/m/Y H:i" }}</span>
+                    </div>
+                    <p class="text-sm text-gray-700 mt-2">{{ nota.anotacion }}</p>
+                    <div class="flex gap-4 mt-3 pt-2 border-t border-gray-200 text-xs font-bold text-blue-600">
+                        <span>Ingresos: {{ nota.ingresos_liquidos|default:"-" }}</span>
+                        <span>Egresos: {{ nota.egresos_liquidos|default:"-" }}</span>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-gray-500 italic">Aún no hay notas de enfermería registradas.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-6 bg-white rounded-lg shadow-md p-6">
+        <h3 class="text-xl font-bold text-gray-800 mb-4 border-b pb-2">📋 Plan Terapéutico / Medicación</h3>
+        <div class="overflow-x-auto">
+            <table class="min-w-full text-sm text-left text-gray-600">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+                    <tr>
+                        <th class="px-6 py-3 rounded-tl-lg">Fecha / Hora</th>
+                        <th class="px-6 py-3">Terapia / Medicamento</th>
+                        <th class="px-6 py-3">Vía de Admin.</th>
+                        <th class="px-6 py-3 rounded-tr-lg">Horario</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for terapia in terapias %}
+                    <tr class="bg-white border-b hover:bg-gray-50 transition">
+                        <td class="px-6 py-4 font-medium whitespace-nowrap">{{ terapia.fecha_hora_prescripcion|date:"d/m/Y H:i" }}</td>
+                        <td class="px-6 py-4">{{ terapia.terapia }}</td>
+                        <td class="px-6 py-4">
+                            <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs font-bold">{{ terapia.via_administracion }}</span>
+                        </td>
+                        <td class="px-6 py-4 font-bold text-gray-800">{{ terapia.horario }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="px-6 py-8 text-center text-gray-500 italic">No hay terapias prescritas actualmente.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Consentimiento Informado</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #333;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #0e0183; /* El azul de tu clínica */
+            font-size: 18px;
+            margin: 0;
+            text-transform: uppercase;
+        }
+        .header h2 {
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        .info-table {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .info-table td {
+            padding: 5px;
+            border-bottom: 1px dotted #999;
+        }
+        .content-section {
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        .signatures {
+            width: 100%;
+            margin-top: 80px;
+            text-align: center;
+        }
+        .signatures td {
+            width: 33%;
+            vertical-align: bottom;
+        }
+        .linea-firma {
+            border-top: 1px solid #000;
+            margin: 0 20px;
+            padding-top: 5px;
+            font-weight: bold;
+        }
+        .huella-box {
+            width: 70px;
+            height: 90px;
+            border: 1px solid #000;
+            margin: 0 auto 10px auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Clínica Hipólito Unanue</h1>
+        <p>Cuidando tu salud con calidad humana</p>
+        <h2>FORMULARIO DE CONSENTIMIENTO INFORMADO</h2>
+    </div>
+
+    <table class="info-table">
+        <tr>
+            <td width="70%"><strong>Yo (Paciente):</strong> {{ ingreso.paciente.nombre }} {{ ingreso.paciente.apellido }}</td>
+            <td width="30%"><strong>DNI:</strong> {{ ingreso.paciente.dni|default:"________________" }}</td>
+        </tr>
+        <tr>
+            <td><strong>Acompañante:</strong> {{ ingreso.historiafiliacion.acompanante_nombre|default:"________________________________" }}</td>
+            <td><strong>DNI:</strong> {{ ingreso.historiafiliacion.acompanante_dni|default:"________________" }}</td>
+        </tr>
+    </table>
+
+    <div class="content-section">
+        <p>He mantenido una reunión con el Dr(a): <strong>{{ consentimiento.medico_responsable }}</strong>, Médico de la Especialidad de: <strong>{{ consentimiento.especialidad }}</strong>.</p>
+        <p>Donde nos han informado sobre la enfermedad que presento y el diagnóstico es:</p>
+        <p><em>{{ ingreso.historiafiliacion.enfermedad_actual|default:"________________________________________________________________________________" }}</em></p>
+    </div>
+
+    <div class="content-section">
+        <p><strong>Y el tratamiento propuesto es:</strong></p>
+        <p><em>{{ ingreso.terapias.first.terapia|default:"________________________________________________________________________________" }}</em></p>
+    </div>
+
+    <div class="content-section">
+        <p><strong>Se nos ha informado sobre los Riesgos del procedimiento como pueden ser:</strong></p>
+        <p><em>{{ consentimiento.riesgos_procedimiento }}</em></p>
+    </div>
+
+    <div class="content-section">
+        <p><strong>También se nos ha informado sobre las consecuencias de no realizarse el Tratamiento que podrían ser:</strong></p>
+        <p><em>{{ consentimiento.consecuencias_no_realizar }}</em></p>
+    </div>
+
+    <div class="content-section">
+        <p>Hemos realizado las preguntas que consideramos oportunas, todas las cuales han sido resueltas y con respuestas suficientes y aceptables. Por tanto, en forma consciente y voluntaria damos el consentimiento para que se realice el acto médico propuesto.</p>
+    </div>
+
+    <table class="signatures">
+        <tr>
+            <td>
+                <div class="linea-firma">FIRMA DEL PACIENTE</div>
+                <p>DNI: {{ ingreso.paciente.dni|default:"________________" }}</p>
+            </td>
+            <td>
+                <div class="huella-box"></div>
+                <p>Huella Digital</p>
+            </td>
+            <td>
+                <div class="linea-firma">FIRMA DEL MÉDICO</div>
+                <p>CMP: ________________</p>
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>

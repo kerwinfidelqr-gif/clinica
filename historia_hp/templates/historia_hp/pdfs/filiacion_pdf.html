@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        @page { size: A4; margin: 1.5cm; }
+        body { font-family: Arial, sans-serif; font-size: 11px; }
+        .header { text-align: center; border-bottom: 2px solid #0e0183; margin-bottom: 15px; padding-bottom: 10px; }
+        .title { font-size: 16px; font-weight: bold; color: #0e0183; }
+        .section-title { background: #f0f0f0; padding: 5px; font-weight: bold; margin-top: 15px; border: 1px solid #ccc; }
+        table { width: 100%; border-collapse: collapse; margin-top: 5px; }
+        td { padding: 4px; border: 1px solid #eee; }
+        .label { font-weight: bold; color: #555; width: 30%; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="title">CLÍNICA HIPÓLITO UNANUE</div>
+        <div>HISTORIA DE FILIACIÓN Y ANTECEDENTES</div>
+    </div>
+
+    <table>
+        <tr>
+            <td class="label">Paciente:</td>
+            <td>{{ ingreso.paciente.nombre }} {{ ingreso.paciente.apellido }}</td>
+            <td class="label">H.C. N°:</td>
+            <td>{{ ingreso.numero_historia_clinica }}</td>
+        </tr>
+    </table>
+
+    <div class="section-title">I. DATOS DEL ACOMPAÑANTE</div>
+    <table>
+        <tr>
+            <td class="label">Nombre:</td>
+            <td colspan="3">{{ filiacion.acompanante_nombre }}</td>
+        </tr>
+        <tr>
+            <td class="label">DNI:</td>
+            <td>{{ filiacion.acompanante_dni }}</td>
+            <td class="label">Parentesco:</td>
+            <td>{{ filiacion.parentesco }}</td>
+        </tr>
+    </table>
+
+    <div class="section-title">II. ENFERMEDAD ACTUAL</div>
+    <table>
+        <tr>
+            <td class="label">Motivo de Ingreso:</td>
+            <td>{{ filiacion.motivo_ingreso }}</td>
+        </tr>
+        <tr>
+            <td class="label">Tiempo de Enfermedad:</td>
+            <td>{{ filiacion.tiempo_enfermedad }}</td>
+        </tr>
+        <tr>
+            <td class="label">Relato Cronológico:</td>
+            <td style="height: 80px;">{{ filiacion.enfermedad_actual }}</td>
+        </tr>
+    </table>
+
+    <div class="section-title">III. ANTECEDENTES</div>
+    <table>
+        <tr>
+            <td class="label">Personales:</td>
+            <td>{{ filiacion.antecedentes_personales }}</td>
+        </tr>
+        <tr>
+            <td class="label">Familiares:</td>
+            <td>{{ filiacion.antecedentes_familiares }}</td>
+        </tr>
+    </table>
+
+    <div style="margin-top: 50px; text-align: right;">
+        <p>___________________________</p>
+        <p>Firma y Sello del Médico Responsable</p>
+    </div>
+</body>
+</html>
