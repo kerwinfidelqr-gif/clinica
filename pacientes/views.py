@@ -21,9 +21,9 @@ def paciente_list(request):
         response['Content-Disposition'] = 'attachment; filename="pacientes.csv"'
         response.write(u'\ufeff'.encode('utf8'))
         writer = csv.writer(response, delimiter=';')
-        writer.writerow(['ID', 'Nombre', 'DNI', 'Edad', 'Celular'])
+        writer.writerow(['ID', 'Nombre', 'DNI', 'Edad', 'Celular','Ocupacion', 'L. Nacimiento', 'Sexo', 'Estado', 'Domicilio A.', 'Domicilio P.', 'Fecha de I.' ])
         for p in pacientes_list:
-            writer.writerow([p.id_paciente, p.nombre, p.DNI, p.edad, p.celular])
+            writer.writerow([p.id_paciente, p.nombre, p.DNI, p.edad, p.celular, p.ocupacion, p.lugar_nacimiento, p.sexo, p.estado_civil, p.domicilio_actual, p.domicilio_procedencia, p.fecha_ingreso])
         return response
     paginator = Paginator(pacientes_list, 10)
     page_obj = paginator.get_page(request.GET.get('page'))
