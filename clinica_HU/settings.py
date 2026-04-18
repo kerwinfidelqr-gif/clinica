@@ -143,3 +143,15 @@ STATIC_URL = 'static/'
 
 # Actualización forzosa para Render - Intento Final
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+
+#  Cerrar sesion automáticamente cuando el usuario cierra el navegador
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+# Tiempo máximo de inactividad en segundos (1800 segundos = 30 minutos)
+# Puedes cambiarlo a 900 si prefieres que se cierre en 15 minutos
+SESSION_COOKIE_AGE = 1800
+
+# Reiniciiar el temporizador cada vez quee el usuario hace un click o cambia de pagina
+# (Si no ponemos esto, la sesión se cerraría a los 30 min exactos aunque el doctor esté escribiendo)
+SESSION_SAVE_EVERY_REQUEST = True
