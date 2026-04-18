@@ -4,6 +4,8 @@
 {% if paciente %}Editar Paciente - Clínica Hipólito Unanue{% else %}Crear nuevo Paciente - Clínica Hipólito Unanue{% endif %}
 {% endblock %}
 {% block content %}
+<script src="https://unpkg.com/lucide@latest"></script>
+
 <div class="mb-6 md:mb-8 animate-fade-in-left">
     <div class="flex items-center space-x-3 mb-4 text-sm font-medium">
         <a href="{% url 'pacientes:paciente_list' %}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-200 rounded-xl text-sm font-bold text-gray-500 hover:text-[#233b6e] hover:border-gray-300 hover:bg-gray-50 shadow-sm hover:shadow-md transition-all duration-300 group">
@@ -14,6 +16,7 @@
         </a>
     </div>
 </div>
+
 <div class="max-w-4xl mx-auto bg-white p-6 md:p-10 rounded-3xl shadow-[0_25px_60px_-12px_rgba(0,0,0,0.18)] border border-gray-100 relative overflow-hidden animate-fade-in-up">
     <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-[#233b6e] via-[#3b5ba5] to-[#233b6e]"></div>
     <div class="text-center mt-2 mb-8 pb-6 border-b border-gray-100">
@@ -32,12 +35,13 @@
             {% endif %}
         </p>
     </div>
+
     <form method="post" class="space-y-8">
         {% csrf_token %}
         <div>
             <h3 class="text-lg font-bold text-[#233b6e] border-b border-gray-100 pb-3 mb-6 flex items-center group">
-                <div class="bg-blue-50 p-2 rounded-lg mr-3 group-hover:scale-110 transition-transform duration-300">
-                    <i class="fa-regular fa-id-badge text-[#233b6e]"></i>
+                <div class="bg-blue-50 p-2 rounded-lg mr-3 group-hover:scale-110 transition-transform duration-300 flex items-center justify-center w-10 h-10">
+                    <i data-lucide="id-card" class="text-[#233b6e] w-6 h-6"></i>
                 </div>
                 Identificación y Datos Personales
             </h3>
@@ -45,19 +49,19 @@
                 <div class="space-y-1.5 group/input">
                     <label for="{{ form.nombre.id_for_label }}" class="block text-[13px] font-bold text-gray-700 transition-colors group-focus-within/input:text-[#233b6e]">Nombre Completo <span class="text-red-500">*</span></label>
                     <div class="relative">
-                        <i class="fa-regular fa-user absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm transition-colors duration-300 group-focus-within/input:text-[#233b6e]"></i>
+                        <i data-lucide="user" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 transition-colors duration-300 group-focus-within/input:text-[#233b6e]"></i>
                         <input type="text" name="{{ form.nombre.html_name }}" id="{{ form.nombre.id_for_label }}" placeholder="Nombres y Apellidos"
                             value="{{ form.nombre.value|default_if_none:'' }}"
-                            class="w-full pl-10 pr-3 py-3 bg-gray-50/50 border border-gray-200 rounded-xl text-sm hover:bg-white hover:border-gray-300 focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#233b6e]/10 focus:border-[#233b6e] transition-all duration-300">
+                            class="custom-field pl-10 pr-3 py-3 w-full">
                     </div>
                 </div>
                 <div class="space-y-1.5 group/input">
                     <label for="{{ form.DNI.id_for_label }}" class="block text-[13px] font-bold text-gray-700 transition-colors group-focus-within/input:text-[#233b6e]">Documento de Identidad (DNI) <span class="text-red-500">*</span></label>
                     <div class="relative">
-                        <i class="fa-regular fa-id-card absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm transition-colors duration-300 group-focus-within/input:text-[#233b6e]"></i>
+                        <i data-lucide="fingerprint" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 transition-colors duration-300 group-focus-within/input:text-[#233b6e]"></i>
                         <input type="number" name="{{ form.DNI.html_name }}" id="{{ form.DNI.id_for_label }}" placeholder="Ej. 76543210"
                             value="{{ form.DNI.value|default_if_none:'' }}"
-                            class="w-full pl-10 pr-3 py-3 bg-gray-50/50 border border-gray-200 rounded-xl text-sm hover:bg-white hover:border-gray-300 focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#233b6e]/10 focus:border-[#233b6e] transition-all duration-300">
+                            class="custom-field pl-10 pr-3 py-3 w-full">
                     </div>
                 </div>
                 <div class="grid grid-cols-2 gap-4">
@@ -65,23 +69,23 @@
                         <label for="{{ form.edad.id_for_label }}" class="block text-[13px] font-bold text-gray-700 transition-colors group-focus-within/input:text-[#233b6e]">Edad</label>
                         <input type="number" name="{{ form.edad.html_name }}" id="{{ form.edad.id_for_label }}" placeholder="Años"
                             value="{{ form.edad.value|default_if_none:'' }}"
-                            class="w-full px-4 py-3 bg-gray-50/50 border border-gray-200 rounded-xl text-sm hover:bg-white hover:border-gray-300 focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#233b6e]/10 focus:border-[#233b6e] transition-all duration-300">
+                            class="custom-field px-4 py-3 w-full">
                     </div>
-                    <div class="space-y-1.5 group/input">
-                        <label for="{{ form.sexo.id_for_label }}" class="block text-[13px] font-bold text-gray-700 transition-colors group-focus-within/input:text-[#233b6e]">Sexo</label>
+                    <div class="space-y-1.5">
+                        <label for="{{ form.sexo.id_for_label }}" class="block text-[13px] font-bold text-gray-700">Sexo</label>
                         <select name="{{ form.sexo.html_name }}" id="{{ form.sexo.id_for_label }}"
-                            class="w-full px-4 py-3 bg-gray-50/50 border border-gray-200 rounded-xl text-sm hover:bg-white hover:border-gray-300 focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#233b6e]/10 focus:border-[#233b6e] transition-all duration-300 appearance-none cursor-pointer">
-                            <option value="" disabled {% if not form.sexo.value %}selected{% endif %} class="text-gray-400">Seleccione...</option>
+                            class="custom-field px-4 py-3 w-full appearance-none cursor-pointer">
+                            <option value="" disabled {% if not form.sexo.value %}selected{% endif %}>Seleccione...</option>
                             <option value="Femenino" {% if form.sexo.value == 'Femenino' %}selected{% endif %}>Femenino</option>
                             <option value="Masculino" {% if form.sexo.value == 'Masculino' %}selected{% endif %}>Masculino</option>
                         </select>
                     </div>
                 </div>
-                <div class="space-y-1.5 group/input">
-                    <label for="{{ form.estado_civil.id_for_label }}" class="block text-[13px] font-bold text-gray-700 transition-colors group-focus-within/input:text-[#233b6e]">Estado Civil</label>
+                <div class="space-y-1.5">
+                    <label for="{{ form.estado_civil.id_for_label }}" class="block text-[13px] font-bold text-gray-700">Estado Civil</label>
                     <select name="{{ form.estado_civil.html_name }}" id="{{ form.estado_civil.id_for_label }}"
-                        class="w-full px-4 py-3 bg-gray-50/50 border border-gray-200 rounded-xl text-sm hover:bg-white hover:border-gray-300 focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#233b6e]/10 focus:border-[#233b6e] transition-all duration-300 appearance-none cursor-pointer">
-                        <option value="" disabled {% if not form.estado_civil.value %}selected{% endif %} class="text-gray-400">Seleccione...</option>
+                        class="custom-field px-4 py-3 w-full appearance-none cursor-pointer">
+                        <option value="" disabled {% if not form.estado_civil.value %}selected{% endif %}>Seleccione...</option>
                         <option value="Soltero" {% if form.estado_civil.value == 'Soltero' %}selected{% endif %}>Soltero/a</option>
                         <option value="Casado" {% if form.estado_civil.value == 'Casado' %}selected{% endif %}>Casado/a</option>
                         <option value="Viudo" {% if form.estado_civil.value == 'Viudo' %}selected{% endif %}>Viudo/a</option>
@@ -91,57 +95,57 @@
                 <div class="space-y-1.5 group/input">
                     <label for="{{ form.lugar_nacimiento.id_for_label }}" class="block text-[13px] font-bold text-gray-700 transition-colors group-focus-within/input:text-[#233b6e]">Lugar de Nacimiento</label>
                     <div class="relative">
-                        <i class="fa-solid fa-map-pin absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm transition-colors duration-300 group-focus-within/input:text-[#233b6e]"></i>
+                        <i data-lucide="map-pin" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 transition-colors duration-300 group-focus-within/input:text-[#233b6e]"></i>
                         <input type="text" name="{{ form.lugar_nacimiento.html_name }}" id="{{ form.lugar_nacimiento.id_for_label }}" placeholder="Ciudad, Departamento"
                             value="{{ form.lugar_nacimiento.value|default_if_none:'' }}"
-                            class="w-full pl-10 pr-3 py-3 bg-gray-50/50 border border-gray-200 rounded-xl text-sm hover:bg-white hover:border-gray-300 focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#233b6e]/10 focus:border-[#233b6e] transition-all duration-300">
+                            class="custom-field pl-10 pr-3 py-3 w-full">
                     </div>
                 </div>
             </div>
         </div>
+
         <div>
             <h3 class="text-lg font-bold text-[#233b6e] border-b border-gray-100 pb-3 mb-6 mt-8 flex items-center group">
-                <div class="bg-blue-50 p-2 rounded-lg mr-3 group-hover:scale-110 transition-transform duration-300">
-                    <i class="fa-solid fa-address-book text-[#233b6e]"></i>
+                <div class="bg-blue-50 p-2 rounded-lg mr-3 group-hover:scale-110 transition-transform duration-300 flex items-center justify-center w-10 h-10">
+                    <i data-lucide="contact" class="text-[#233b6e] w-6 h-6"></i>
                 </div>
                 Contacto y Registro
             </h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
-                
                 <div class="space-y-1.5 group/input"> 
                     <label for="{{ form.domicilio_actual.id_for_label }}" class="block text-[13px] font-bold text-gray-700 transition-colors group-focus-within/input:text-[#233b6e]">Domicilio Actual</label>
                     <div class="relative">
-                        <i class="fa-solid fa-house absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm transition-colors duration-300 group-focus-within/input:text-[#233b6e]"></i>
+                        <i data-lucide="home" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 transition-colors duration-300 group-focus-within/input:text-[#233b6e]"></i>
                         <input type="text" name="{{ form.domicilio_actual.html_name }}" id="{{ form.domicilio_actual.id_for_label }}" placeholder="Dirección completa"
                             value="{{ form.domicilio_actual.value|default_if_none:'' }}"
-                            class="w-full pl-10 pr-3 py-3 bg-gray-50/50 border border-gray-200 rounded-xl text-sm hover:bg-white hover:border-gray-300 focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#233b6e]/10 focus:border-[#233b6e] transition-all duration-300">
+                            class="custom-field pl-10 pr-3 py-3 w-full">
                     </div>
                 </div>
                 <div class="space-y-1.5 group/input">
                     <label for="{{ form.domicilio_procedencia.id_for_label }}" class="block text-[13px] font-bold text-gray-700 transition-colors group-focus-within/input:text-[#233b6e]">Domicilio de Procedencia</label>
                     <div class="relative">
-                        <i class="fa-solid fa-route absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm transition-colors duration-300 group-focus-within/input:text-[#233b6e]"></i>
+                        <i data-lucide="navigation" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 transition-colors duration-300 group-focus-within/input:text-[#233b6e]"></i>
                         <input type="text" name="{{ form.domicilio_procedencia.html_name }}" id="{{ form.domicilio_procedencia.id_for_label }}" placeholder="Si es diferente al actual"
                             value="{{ form.domicilio_procedencia.value|default_if_none:'' }}"
-                            class="w-full pl-10 pr-3 py-3 bg-gray-50/50 border border-gray-200 rounded-xl text-sm hover:bg-white hover:border-gray-300 focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#233b6e]/10 focus:border-[#233b6e] transition-all duration-300">
+                            class="custom-field pl-10 pr-3 py-3 w-full">
                     </div>
                 </div>
                 <div class="space-y-1.5 group/input">
                     <label for="{{ form.celular.id_for_label }}" class="block text-[13px] font-bold text-gray-700 transition-colors group-focus-within/input:text-[#233b6e]">Celular</label>
                     <div class="relative">
-                        <i class="fa-solid fa-mobile-screen-button absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm transition-colors duration-300 group-focus-within/input:text-[#233b6e]"></i>
+                        <i data-lucide="smartphone" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 transition-colors duration-300 group-focus-within/input:text-[#233b6e]"></i>
                         <input type="number" name="{{ form.celular.html_name }}" id="{{ form.celular.id_for_label }}" placeholder="Número de contacto"
                             value="{{ form.celular.value|default_if_none:'' }}"
-                            class="w-full pl-10 pr-3 py-3 bg-gray-50/50 border border-gray-200 rounded-xl text-sm hover:bg-white hover:border-gray-300 focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#233b6e]/10 focus:border-[#233b6e] transition-all duration-300">
+                            class="custom-field pl-10 pr-3 py-3 w-full">
                     </div>
                 </div>
                 <div class="space-y-1.5 group/input">
                     <label for="{{ form.ocupacion.id_for_label }}" class="block text-[13px] font-bold text-gray-700 transition-colors group-focus-within/input:text-[#233b6e]">Ocupación</label>
                     <div class="relative">
-                        <i class="fa-solid fa-briefcase absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm transition-colors duration-300 group-focus-within/input:text-[#233b6e]"></i>
+                        <i data-lucide="briefcase" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 transition-colors duration-300 group-focus-within/input:text-[#233b6e]"></i>
                         <input type="text" name="{{ form.ocupacion.html_name }}" id="{{ form.ocupacion.id_for_label }}" placeholder="Trabajo o profesión"
                             value="{{ form.ocupacion.value|default_if_none:'' }}"
-                            class="w-full pl-10 pr-3 py-3 bg-gray-50/50 border border-gray-200 rounded-xl text-sm hover:bg-white hover:border-gray-300 focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#233b6e]/10 focus:border-[#233b6e] transition-all duration-300">
+                            class="custom-field pl-10 pr-3 py-3 w-full">
                     </div>
                 </div>
                 <div class="space-y-1.5 group/input">
@@ -149,47 +153,46 @@
                     <div class="relative">
                         <input type="date" name="{{ form.fecha_ingreso.html_name }}" id="{{ form.fecha_ingreso.id_for_label }}"
                             value="{{ form.fecha_ingreso.value|date:'Y-m-d'|default_if_none:'' }}"
-                            class="w-full px-4 py-3 bg-gray-50/50 border border-gray-200 rounded-xl text-sm hover:bg-white hover:border-gray-300 focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#233b6e]/10 focus:border-[#233b6e] transition-all duration-300 text-gray-600">
+                            class="custom-field px-4 py-3 w-full text-gray-600">
                     </div>
                 </div>
             </div>
         </div>
+
         <div class="flex flex-col-reverse sm:flex-row justify-end gap-3 pt-8 mt-4 border-t border-gray-100">
-            <a href="{% url 'pacientes:paciente_list' %}" class="w-full sm:w-auto text-center bg-white border border-gray-300 text-gray-700 font-bold py-3 px-6 rounded-xl transition-all duration-300 hover:bg-gray-50 hover:border-gray-400 text-sm shadow-sm">
+            <a href="{% url 'pacientes:paciente_list' %}" class="w-full sm:w-auto text-center bg-white border border-gray-300 text-gray-700 font-bold py-3 px-6 rounded-xl hover:bg-gray-50 text-sm shadow-sm transition-all">
                 Cancelar
             </a>
-            <button type="submit" class="w-full sm:w-auto bg-gradient-to-r from-[#233b6e] to-[#1a2c53] text-white font-bold py-3 px-8 rounded-xl transition-all duration-300 hover:shadow-[0_8px_20px_-6px_rgba(35,59,110,0.6)] hover:-translate-y-0.5 text-sm flex justify-center items-center relative overflow-hidden group">
-                <i class="fa-solid fa-check mr-2 transform group-hover:scale-110 transition-transform duration-300"></i> 
-                {% if paciente %}Actualizar Paciente{% else %}Guardar Paciente{% endif %}
-                <div class="absolute inset-0 w-full h-full bg-white/20 -translate-x-full group-hover:animate-shimmer"></div>
+            <button type="submit" class="w-full sm:w-auto bg-gradient-to-r from-[#233b6e] to-[#1a2c53] text-white font-bold py-3 px-8 rounded-xl hover:shadow-lg hover:-translate-y-0.5 transition-all text-sm flex justify-center items-center group relative overflow-hidden">
+                <i data-lucide="user-check" class="w-5 h-5 mr-2 group-hover:scale-110 transition-transform duration-300"></i> 
+                {% if paciente %}Actualizar expediente{% else %}Guardar Registro{% endif %}
+                <div class="absolute inset-0 w-full h-full bg-white/10 -translate-x-full group-hover:animate-shimmer"></div>
             </button>
         </div>
     </form>
 </div>
+
 <style>
-    @keyframes fadeInLeft {
-        0% { opacity: 0; transform: translateX(-20px); }
-        100% { opacity: 1; transform: translateX(0); }
+    .custom-field {
+        background-color: #f9fafb;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.75rem;
+        outline: none;
+        font-size: 0.875rem;
+        transition: all 0.3s ease;
     }
-    @keyframes fadeInUp {
-        0% { opacity: 0; transform: translateY(20px); }
-        100% { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes shimmer {
-        100% { transform: translateX(100%); }
-    }
-    .animate-fade-in-left { animation: fadeInLeft 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-    .animate-fade-in-up { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-    input[type="date"]::-webkit-calendar-picker-indicator {
-        cursor: pointer;
-        opacity: 0.6;
-        transition: 0.2s;
-    }
-    input[type="date"]::-webkit-calendar-picker-indicator:hover {
-        opacity: 1;
-    }
+    .custom-field:hover { background-color: #ffffff; border-color: #d1d5db; }
+    .custom-field:focus { background-color: #ffffff; border-color: #233b6e; box-shadow: 0 0 0 4px rgba(35, 59, 110, 0.1); }
+
+    @keyframes fadeInLeft { 0% { opacity: 0; transform: translateX(-20px); } 100% { opacity: 1; transform: translateX(0); } }
+    @keyframes fadeInUp { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
+    .animate-fade-in-left { animation: fadeInLeft 0.6s ease-out forwards; }
+    .animate-fade-in-up { animation: fadeInUp 0.6s ease-out forwards; }
 </style>
+
 <script>
+    lucide.createIcons();
+
     document.addEventListener('DOMContentLoaded', function() {
         const fechaInput = document.getElementById('{{ form.fecha_ingreso.id_for_label }}');
         if(fechaInput && !fechaInput.value) {
