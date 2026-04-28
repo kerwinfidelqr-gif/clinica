@@ -1,0 +1,237 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block title %}Ficha de Filiación - Clínica Hipólito Unanue{% endblock %}
+{% block content %}
+<script src="https://unpkg.com/lucide@latest"></script>
+<div class="mb-4 md:mb-8 animate-fade-in-left max-w-5xl mx-auto mt-4 md:mt-6">
+    <a href="{% url 'detalle_ingreso' pk=ingreso.pk %}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-200 rounded-xl text-sm font-bold text-gray-500 hover:text-[#233b6e] hover:border-gray-300 hover:bg-gray-50 shadow-sm transition-all duration-300 group">
+        <i data-lucide="arrow-left" class="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform"></i> Volver al Expediente
+    </a>
+</div>
+<div class="max-w-5xl mx-auto bg-white p-4 sm:p-5 md:p-10 rounded-3xl shadow-[0_25px_60px_-12px_rgba(0,0,0,0.18)] border border-gray-100 relative overflow-hidden animate-fade-in-up">
+    <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-[#233b6e] via-[#3b5ba5] to-[#233b6e]"></div>
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 md:mb-6 border-b-2 border-gray-100 pb-4 md:pb-6 mt-2 gap-4">
+        <div class="flex items-center flex-1">
+            <div class="bg-blue-50 p-2 md:p-3 rounded-xl mr-3 md:mr-4"><i data-lucide="file-text" class="text-[#3b82f6] w-6 h-6 md:w-8 md:h-8"></i></div>
+            <div>
+                <h2 class="text-lg md:text-3xl font-extrabold text-[#1e3a8a] tracking-tight uppercase leading-none">I. Ficha de Filiación</h2>
+                <p class="text-[#64748b] text-xs md:text-sm mt-1">Complete los datos para registrar la filiación.</p>
+            </div>
+        </div>
+        <div class="text-left md:text-right bg-gray-50 px-3 md:px-4 py-2 rounded-lg border border-gray-200 w-full md:w-auto">
+            <span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest block">Paciente</span>
+            <span class="text-sm font-extrabold text-[#233b6e]">{{ ingreso.paciente.nombre }} {{ ingreso.paciente.apellido }}</span>
+        </div>
+    </div>
+    <form method="post" class="space-y-5 md:space-y-8">
+        {% csrf_token %}
+        <div>
+            <h3 class="text-sm md:text-lg font-bold text-[#233b6e] border-b border-gray-100 pb-2 mb-3 md:mb-4 flex items-center">
+                <i data-lucide="id-card" class="text-[#233b6e] w-4 h-4 md:w-5 md:h-5 mr-2 bg-blue-50 p-1 rounded"></i> Datos Personales
+            </h3>
+            <div class="grid grid-cols-12 gap-x-2 gap-y-3 md:gap-x-6 md:gap-y-5">
+                <div class="col-span-12 md:col-span-7 space-y-1 group/input">
+                    <label class="block text-xs md:text-[13px] font-bold text-gray-700">Nombres y Apellidos</label>
+                    <div class="relative"><i data-lucide="user" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                        <input type="text" name="nombres_apellidos" value="{{ form.nombres_apellidos.value|default:'' }}" class="custom-field pl-9 pr-3 py-2 md:py-2.5 w-full">
+                    </div>
+                </div> 
+                <div class="col-span-12 md:col-span-5 space-y-1 group/input">
+                    <label class="block text-xs md:text-[13px] font-bold text-gray-700">Lugar y Fecha Nacimiento</label>
+                    <div class="relative"><i data-lucide="map-pin" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                        <input type="text" name="lugar_fecha_nacimiento" value="{{ form.lugar_fecha_nacimiento.value|default:'' }}" class="custom-field pl-9 pr-3 py-2 md:py-2.5 w-full">
+                    </div>
+                </div>
+                <div class="col-span-4 md:col-span-2 space-y-1">
+                    <label class="block text-xs md:text-[13px] font-bold text-gray-700">Edad</label>
+                    <input type="number" name="edad" value="{{ form.edad.value|default:'' }}" class="custom-field px-2 md:px-3 py-2 md:py-2.5 w-full text-center">
+                </div>
+                <div class="col-span-8 md:col-span-4 space-y-1">
+                    <label class="block text-xs md:text-[13px] font-bold text-gray-700">Sexo</label>
+                    <select name="sexo" class="custom-field px-2 md:px-3 py-2 md:py-2.5 w-full">
+                        <option value="">Seleccione...</option>
+                        <option value="M" {% if form.sexo.value == 'M' %}selected{% endif %}>Masculino</option>
+                        <option value="F" {% if form.sexo.value == 'F' %}selected{% endif %}>Femenino</option>
+                    </select>
+                </div>
+                <div class="col-span-6 md:col-span-3 space-y-1 group/input">
+                    <label class="block text-xs md:text-[13px] font-bold text-gray-700">Raza</label>
+                    <div class="relative"><i data-lucide="users" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                        <input type="text" name="raza" value="{{ form.raza.value|default:'' }}" class="custom-field pl-9 pr-3 py-2 md:py-2.5 w-full">
+                    </div>
+                </div>
+                <div class="col-span-6 md:col-span-3 space-y-1 group/input">
+                    <label class="block text-xs md:text-[13px] font-bold text-gray-700">Religión</label>
+                    <div class="relative"><i data-lucide="book" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                        <input type="text" name="religion" value="{{ form.religion.value|default:'' }}" class="custom-field pl-9 pr-3 py-2 md:py-2.5 w-full">
+                    </div>
+                </div>
+                <div class="col-span-12 md:col-span-6 space-y-1 group/input">
+                    <label class="block text-xs md:text-[13px] font-bold text-gray-700">Domicilio Actual</label>
+                    <div class="relative"><i data-lucide="home" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                        <input type="text" name="domicilio_actual" value="{{ form.domicilio_actual.value|default:'' }}" class="custom-field pl-9 pr-3 py-2 md:py-2.5 w-full">
+                    </div>
+                </div>
+                <div class="col-span-12 md:col-span-6 space-y-1 group/input">
+                    <label class="block text-xs md:text-[13px] font-bold text-gray-700">Dom. Procedencia</label>
+                    <div class="relative"><i data-lucide="navigation" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                        <input type="text" name="domicilio_procedencia" value="{{ form.domicilio_procedencia.value|default:'' }}" class="custom-field pl-9 pr-3 py-2 md:py-2.5 w-full">
+                    </div>
+                </div>
+                <div class="col-span-6 md:col-span-3 space-y-1 group/input">
+                    <label class="block text-xs md:text-[13px] font-bold text-gray-700">Teléfono</label>
+                    <div class="relative"><i data-lucide="smartphone" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                        <input type="text" name="telefono" value="{{ form.telefono.value|default:'' }}" class="custom-field pl-9 pr-3 py-2 md:py-2.5 w-full">
+                    </div>
+                </div>
+                <div class="col-span-6 md:col-span-3 space-y-1 group/input">
+                    <label class="block text-xs md:text-[13px] font-bold text-gray-700">DNI</label>
+                    <div class="relative"><i data-lucide="fingerprint" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                        <input type="text" name="documento_identidad" value="{{ form.documento_identidad.value|default:'' }}" class="custom-field pl-9 pr-3 py-2 md:py-2.5 w-full">
+                    </div>
+                </div>
+                <div class="col-span-6 md:col-span-3 space-y-1">
+                    <label class="block text-xs md:text-[13px] font-bold text-gray-700">Estado Civil</label>
+                    <select name="estado_civil" class="custom-field px-2 md:px-3 py-2 md:py-2.5 w-full">
+                        <option value="">Seleccione...</option>
+                        <option value="Soltero" {% if form.estado_civil.value == 'Soltero' %}selected{% endif %}>Soltero/a</option>
+                        <option value="Casado" {% if form.estado_civil.value == 'Casado' %}selected{% endif %}>Casado/a</option>
+                        <option value="Viudo" {% if form.estado_civil.value == 'Viudo' %}selected{% endif %}>Viudo/a</option>
+                        <option value="Divorciado" {% if form.estado_civil.value == 'Divorciado' %}selected{% endif %}>Divorciado/a</option>
+                        <option value="Conviviente" {% if form.estado_civil.value == 'Conviviente' %}selected{% endif %}>Conviviente</option>
+                    </select>
+                </div>
+                <div class="col-span-6 md:col-span-3 space-y-1 group/input">
+                    <label class="block text-xs md:text-[13px] font-bold text-gray-700">Grado Instrucción</label>
+                    <div class="relative"><i data-lucide="graduation-cap" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                        <input type="text" name="grado_instruccion" value="{{ form.grado_instruccion.value|default:'' }}" class="custom-field pl-9 pr-3 py-2 md:py-2.5 w-full">
+                    </div>
+                </div>
+                <div class="col-span-12 md:col-span-4 space-y-1 group/input">
+                    <label class="block text-xs md:text-[13px] font-bold text-gray-700">Ocupación</label>
+                    <div class="relative"><i data-lucide="briefcase" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                        <input type="text" name="ocupacion" value="{{ form.ocupacion.value|default:'' }}" class="custom-field pl-9 pr-3 py-2 md:py-2.5 w-full">
+                    </div>
+                </div>
+                <div class="col-span-12 md:col-span-6 space-y-1 group/input">
+                    <label class="block text-xs md:text-[13px] font-bold text-gray-700">Nombre del Padre</label>
+                    <div class="relative"><i data-lucide="user" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                        <input type="text" name="nombre_padre" value="{{ form.nombre_padre.value|default:'' }}" class="custom-field pl-9 pr-3 py-2 md:py-2.5 w-full">
+                    </div>
+                </div>
+                <div class="col-span-12 md:col-span-6 space-y-1 group/input">
+                    <label class="block text-xs md:text-[13px] font-bold text-gray-700">Nombre de la Madre</label>
+                    <div class="relative"><i data-lucide="user" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                        <input type="text" name="nombre_madre" value="{{ form.nombre_madre.value|default:'' }}" class="custom-field pl-9 pr-3 py-2 md:py-2.5 w-full">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h3 class="text-sm md:text-lg font-bold text-[#233b6e] border-b border-gray-100 pb-2 mb-3 md:mb-4 mt-4 md:mt-6 flex items-center">
+                <i data-lucide="users" class="text-[#233b6e] w-4 h-4 md:w-5 md:h-5 mr-2 bg-blue-50 p-1 rounded"></i> Datos del Acompañante
+            </h3>           
+            <div class="grid grid-cols-12 gap-x-2 gap-y-3 md:gap-x-6 md:gap-y-5">
+                <div class="col-span-12 md:col-span-5 space-y-1 group/input">
+                    <label class="block text-xs md:text-[13px] font-bold text-gray-700">Nombres y Apellidos</label>
+                    <div class="relative"><i data-lucide="user-check" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                        <input type="text" name="nombre_apellido_acompanante" value="{{ form.nombre_apellido_acompanante.value|default:'' }}" class="custom-field pl-9 pr-3 py-2 md:py-2.5 w-full">
+                    </div>
+                </div>              
+                <div class="col-span-5 md:col-span-3 space-y-1 group/input">
+                    <label class="block text-xs md:text-[13px] font-bold text-gray-700">DNI</label>
+                    <div class="relative"><i data-lucide="fingerprint" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                        <input type="text" name="documento_identidad_acompanante" value="{{ form.documento_identidad_acompanante.value|default:'' }}" class="custom-field pl-9 pr-3 py-2 md:py-2.5 w-full">
+                    </div>
+                </div>         
+                <div class="col-span-7 md:col-span-4 space-y-1 group/input">
+                    <label class="block text-xs md:text-[13px] font-bold text-gray-700">Domicilio</label>
+                    <div class="relative"><i data-lucide="home" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                        <input type="text" name="domicilio_acompanante_responsable" value="{{ form.domicilio_acompanante_responsable.value|default:'' }}" class="custom-field pl-9 pr-3 py-2 md:py-2.5 w-full">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h3 class="text-sm md:text-lg font-bold text-[#233b6e] border-b border-gray-100 pb-2 mb-3 md:mb-4 mt-4 md:mt-6 flex items-center">
+                <i data-lucide="calendar-clock" class="text-[#233b6e] w-4 h-4 md:w-5 md:h-5 mr-2 bg-blue-50 p-1 rounded"></i> Registro y Entrevista
+            </h3>           
+            <div class="grid grid-cols-12 gap-x-2 gap-y-3 md:gap-x-6 md:gap-y-5">
+                <div class="col-span-6 md:col-span-3 space-y-1">
+                    <label class="block text-xs md:text-[13px] font-bold text-gray-700">Fecha Ingreso</label>
+                    <input type="date" name="fecha_ingreso" value="{{ form.fecha_ingreso.value|default:'' }}" class="custom-field px-2 md:px-3 py-2 md:py-2.5 w-full text-xs md:text-sm">
+                </div>
+                <div class="col-span-6 md:col-span-3 space-y-1">
+                    <label class="block text-xs md:text-[13px] font-bold text-gray-700">Hora Ingreso</label>
+                    <input type="time" name="hora_ingreso" class="custom-field px-2 md:px-3 py-2 md:py-2.5 w-full text-xs md:text-sm">
+                </div>
+                <div class="col-span-6 md:col-span-3 space-y-1">
+                    <label class="block text-xs md:text-[13px] font-bold text-gray-700">Fecha Entrevista</label>
+                    <input type="date" name="fecha_entrevista" value="{{ form.fecha_entrevista.value|default:'' }}" class="custom-field px-2 md:px-3 py-2 md:py-2.5 w-full text-xs md:text-sm">
+                </div>
+                <div class="col-span-6 md:col-span-3 space-y-1">
+                    <label class="block text-xs md:text-[13px] font-bold text-gray-700">Hora Entrevista</label>
+                    <input type="time" name="hora_entrevista" class="custom-field px-2 md:px-3 py-2 md:py-2.5 w-full text-xs md:text-sm">
+                </div>            
+                <div class="col-span-12 md:col-span-4 space-y-1">
+                    <label class="block text-xs md:text-[13px] font-bold text-gray-700">Información Confiable</label>
+                    <select name="informacion_confiable" class="custom-field px-2 md:px-3 py-2 md:py-2.5 w-full">
+                        <option value="">Seleccione...</option>
+                        <option value="SI">SI</option>
+                        <option value="NO">NO</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="space-y-2 md:space-y-3 border border-gray-200 p-3 md:p-6 rounded-2xl bg-gray-50/50 mt-4 md:mt-6">
+            <label class="font-bold text-[#233b6e] flex items-center text-xs md:text-sm uppercase">
+                <i data-lucide="activity" class="w-4 h-4 mr-2 text-blue-500"></i> II. Enfermedad Actual (Relato)
+            </label>
+            <textarea name="enfermedad_actual" rows="3" class="custom-field w-full p-2 md:p-3 resize-none text-xs md:text-sm" placeholder="Escriba aquí los detalles de la enfermedad actual...">{{ form.enfermedad_actual.value|default:'' }}</textarea>
+        </div>
+        <div class="mt-4 md:mt-6 border-t border-gray-100 pt-4 md:pt-6">
+            <div class="grid grid-cols-12 gap-x-2 gap-y-3 md:gap-x-6 md:gap-y-5 bg-gray-50/50 p-3 md:p-6 rounded-2xl border border-gray-200">
+                <div class="col-span-12 md:col-span-6 space-y-1 group/input">
+                    <label class="block text-xs md:text-[13px] font-bold text-gray-700">Apellidos y Nombres</label>
+                    <div class="relative"><i data-lucide="user" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                        <input type="text" readonly value="{{ ingreso.paciente.apellido }} {{ ingreso.paciente.nombre }}" class="custom-field pl-9 pr-3 py-2 md:py-2.5 w-full bg-gray-100 text-gray-500 cursor-not-allowed">
+                    </div>
+                </div>
+                <div class="col-span-7 md:col-span-4 space-y-1 group/input">
+                    <label class="block text-xs md:text-[13px] font-bold text-gray-700">N° de Historia Clínica</label>
+                    <div class="relative"><i data-lucide="folder-open" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                        <input type="text" readonly value="{{ ingreso.numero_historia_clinica }}" class="custom-field pl-9 pr-3 py-2 md:py-2.5 w-full bg-gray-100 text-gray-500 cursor-not-allowed">
+                    </div>
+                </div>
+                <div class="col-span-5 md:col-span-2 space-y-1 group/input">
+                    <label class="block text-xs md:text-[13px] font-bold text-gray-700">Cama</label>
+                    <div class="relative"><i data-lucide="bed" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                        <input type="text" readonly value="{{ ingreso.cama }}" class="custom-field pl-9 pr-3 py-2 md:py-2.5 w-full bg-gray-100 text-gray-500 cursor-not-allowed">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col-reverse sm:flex-row justify-end gap-3 pt-4 md:pt-6 border-t border-gray-100">
+            <button type="button" onclick="window.history.back();" class="w-full sm:w-auto bg-white border border-gray-300 text-gray-700 font-bold py-2 md:py-2.5 px-6 rounded-xl hover:bg-gray-50 text-sm transition-all">
+                Cancelar
+            </button>
+            <button type="submit" class="w-full sm:w-auto bg-[#233b6e] text-white font-bold py-2 md:py-2.5 px-8 rounded-xl hover:bg-[#1a2c53] text-sm flex justify-center items-center group">
+                <i data-lucide="save" class="w-4 h-4 mr-2 group-hover:scale-110 transition-transform"></i> Guardar Registro
+            </button>
+        </div>
+    </form>
+</div>
+<style>
+    .custom-field {
+        background-color: #f9fafb; border: 1px solid #e5e7eb; border-radius: 0.6rem;
+        outline: none; font-size: 0.875rem; transition: all 0.3s ease;
+    }
+    .custom-field:hover:not(:read-only) { background-color: #ffffff; border-color: #d1d5db; }
+    .custom-field:focus:not(:read-only) { background-color: #ffffff; border-color: #233b6e; box-shadow: 0 0 0 3px rgba(35, 59, 110, 0.1); }
+    @keyframes fadeInLeft { 0% { opacity: 0; transform: translateX(-15px); } 100% { opacity: 1; transform: translateX(0); } }
+    @keyframes fadeInUp { 0% { opacity: 0; transform: translateY(15px); } 100% { opacity: 1; transform: translateY(0); } }
+    .animate-fade-in-left { animation: fadeInLeft 0.5s ease-out forwards; }
+    .animate-fade-in-up { animation: fadeInUp 0.5s ease-out forwards; }
+</style>
+<script>lucide.createIcons();</script>
+{% endblock content %}

@@ -89,10 +89,14 @@
 
                 <div class="space-y-4">
                     <div class="bg-blue-50 p-4 rounded-lg border border-blue-200 shadow-inner">
-                        <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div class="grid grid-cols-3 gap-4 mb-4">
                             <div>
                                 <label class="text-xs font-bold text-[#233b6e] uppercase">N° Historia Clínica</label>
                                 {{ form.numero_historial }}
+                            </div>
+                            <div>
+                                <label class="text-xs font-bold text-[#233b6e] uppercase">Fecha de Registro</label>
+                                <input type="date" name="fecha_registro" id="id_fecha_registro" class="border border-gray-300 rounded-lg px-3 py-2 w-full focus:outline-none focus:border-blue-500 bg-white text-gray-700">
                             </div>
                             <div>
                                 <label class="text-xs font-bold text-[#233b6e] uppercase">Especialidad</label>
@@ -100,6 +104,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label class="text-xs font-bold text-gray-600 uppercase">Sexo</label>
@@ -177,7 +182,6 @@
 </style>
 
 <script>
-    // 1. Botones de guardado e impresión
     document.getElementById('btn-guardar').addEventListener('click', function() { 
         document.getElementById('form-historial').target = '_self'; 
     });
@@ -187,25 +191,27 @@
         setTimeout(function() { window.location.href = "{% url 'historial_cl:historial_dashboard' %}"; }, 1000);
     });
 
-    // 2. Búsqueda por DNI (A prueba de balas)
     document.addEventListener("DOMContentLoaded", function() {
-        // Usamos name="" en lugar de id="" porque es más seguro en Django
+        // --- SCRIPT PARA AUTOCOMPLETAR LA FECHA DE REGISTRO ---
+        const fechaRegistroInput = document.getElementById('id_fecha_registro');
+        if(fechaRegistroInput && !fechaRegistroInput.value) {
+            const hoy = new Date().toISOString().split('T')[0];
+            fechaRegistroInput.value = hoy;
+        }
+        // --------------------------------------------------------
+
         const inputDni = document.querySelector('input[name="buscar_dni"]'); 
-        
         if (!inputDni) {
             console.error("ATENCIÓN: No se encontró el campo de búsqueda de DNI en el HTML.");
             return;
         }
 
         console.log("Campo de DNI detectado correctamente.");
-
         inputDni.addEventListener('keydown', function(event) {
             if (event.key === 'Enter') {
-                event.preventDefault(); // Evita recargar la página
+                event.preventDefault();
                 const dni = this.value.trim();
-                
                 console.log("Enter presionado. Buscando DNI:", dni);
-                
                 if (dni.length > 0) {
                     buscarPacienteAJAX(dni);
                 } else {
@@ -217,7 +223,6 @@
         function buscarPacienteAJAX(dni) {
             const url = "{% url 'historial_cl:buscar_paciente_api' %}?dni=" + dni;
             console.log("Consultando URL:", url);
-
             fetch(url)
                 .then(response => {
                     if (!response.ok) throw new Error("Error en el servidor: " + response.status);
@@ -225,15 +230,16 @@
                 })
                 .then(data => {
                     console.log("Respuesta recibida:", data);
-                    
                     if (data.encontrado) {
-                        // Llenamos los datos
                         document.getElementById('id_paciente_oculto').value = data.id_interno || "";
                         document.getElementById('display_nombre').value = data.nombre_completo || "";
                         document.getElementById('display_lugar_nacimiento').value = data.lugar_nacimiento || "";
                         document.getElementById('display_edad').value = data.edad || "";
                         document.getElementById('display_sexo').value = data.sexo || "";
-                        document.getElementById('display_dni').value = dni;
+                        
+                        const displayDni = document.getElementById('display_dni');
+                        if(displayDni) displayDni.value = dni;
+                        
                         document.getElementById('display_domicilio').value = data.domicilio_actual || "";
                         document.getElementById('display_procedencia').value = data.domicilio_procedencia || "";
                         document.getElementById('display_telefono').value = data.celular || "";

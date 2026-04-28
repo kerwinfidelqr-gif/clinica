@@ -59,6 +59,7 @@ def detalle_ingreso(request, pk):
         'terapias': ingreso.terapias.all().order_by('-fecha_hora_prescripcion'),
     }
     return render(request, 'historia_hp/detalle_ingreso.html', context)
+
 # --- 4. AGREGAR HOJAS AL EXPEDIENTE ---
 
 @login_required
@@ -74,7 +75,10 @@ def agregar_filiacion(request, pk):
             return redirect('detalle_ingreso', pk=ingreso.pk)
     else:
         form = HistoriaFiliacionForm()
-    return render(request, 'historia_hp/form_basico.html', {'form': form, 'titulo': 'Agregar Historia de Filiación', 'ingreso': ingreso})
+        
+    # -------- EL CAMBIO ESTÁ EN LA SIGUIENTE LÍNEA --------
+    # Cambiamos 'form_basico.html' por 'form_filiacion.html'
+    return render(request, 'historia_hp/form_filiacion.html', {'form': form, 'titulo': 'Agregar Historia de Filiación', 'ingreso': ingreso})
 
 @login_required
 def agregar_evolucion(request, pk):

@@ -6,8 +6,8 @@
 {% block content %}
 <script src="https://unpkg.com/lucide@latest"></script>
 
-<div class="mb-6 md:mb-8 animate-fade-in-left">
-    <div class="flex items-center space-x-3 mb-4 text-sm font-medium">
+<div class="mb-4 md:mb-8 animate-fade-in-left max-w-4xl mx-auto">
+    <div class="flex items-center space-x-3 mb-2 md:mb-4 text-sm font-medium">
         <a href="{% url 'pacientes:paciente_list' %}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-200 rounded-xl text-sm font-bold text-gray-500 hover:text-[#233b6e] hover:border-gray-300 hover:bg-gray-50 shadow-sm hover:shadow-md transition-all duration-300 group">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2 text-gray-400 group-hover:text-[#233b6e] group-hover:-translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
@@ -17,17 +17,17 @@
     </div>
 </div>
 
-<div class="max-w-4xl mx-auto bg-white p-6 md:p-10 rounded-3xl shadow-[0_25px_60px_-12px_rgba(0,0,0,0.18)] border border-gray-100 relative overflow-hidden animate-fade-in-up">
+<div class="max-w-4xl mx-auto bg-white p-5 sm:p-6 md:p-10 rounded-3xl shadow-[0_25px_60px_-12px_rgba(0,0,0,0.18)] border border-gray-100 relative overflow-hidden animate-fade-in-up">
     <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-[#233b6e] via-[#3b5ba5] to-[#233b6e]"></div>
-    <div class="text-center mt-2 mb-8 pb-6 border-b border-gray-100">
-        <h2 class="text-2xl md:text-3xl font-extrabold text-[#1e3a8a] tracking-tight">
+    <div class="text-center mt-2 mb-6 md:mb-8 pb-4 md:pb-6 border-b border-gray-100">
+        <h2 class="text-xl md:text-3xl font-extrabold text-[#1e3a8a] tracking-tight">
             {% if paciente %} 
                 Editar expediente: <span class="text-[#3b82f6]">{{ paciente.nombre }}</span>
             {% else %} 
                 Registrar Nuevo Paciente 
             {% endif %}
         </h2>
-        <p class="text-[#64748b] text-sm mt-2">
+        <p class="text-[#64748b] text-xs md:text-sm mt-2">
             {% if paciente %}
                 Modifique los datos correspondientes para actualizar el historial.
             {% else %}
@@ -36,55 +36,46 @@
         </p>
     </div>
 
-    <form method="post" class="space-y-8">
+    <form method="post" class="space-y-6 md:space-y-8">
         {% csrf_token %}
+        
         <div>
-            <h3 class="text-lg font-bold text-[#233b6e] border-b border-gray-100 pb-3 mb-6 flex items-center group">
-                <div class="bg-blue-50 p-2 rounded-lg mr-3 group-hover:scale-110 transition-transform duration-300 flex items-center justify-center w-10 h-10">
-                    <i data-lucide="id-card" class="text-[#233b6e] w-6 h-6"></i>
+            <h3 class="text-base md:text-lg font-bold text-[#233b6e] border-b border-gray-100 pb-2 md:pb-3 mb-4 md:mb-6 flex items-center group">
+                <div class="bg-blue-50 p-1.5 md:p-2 rounded-lg mr-2 md:mr-3 group-hover:scale-110 transition-transform duration-300 flex items-center justify-center w-8 h-8 md:w-10 md:h-10">
+                    <i data-lucide="id-card" class="text-[#233b6e] w-4 h-4 md:w-6 md:h-6"></i>
                 </div>
                 Identificación y Datos Personales
             </h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
-                <div class="space-y-1.5 group/input">
-                    <label for="{{ form.nombre.id_for_label }}" class="block text-[13px] font-bold text-gray-700 transition-colors group-focus-within/input:text-[#233b6e]">Nombre Completo <span class="text-red-500">*</span></label>
+            <div class="grid grid-cols-12 gap-x-3 gap-y-4 md:gap-x-6 md:gap-y-5">
+                <div class="col-span-12 md:col-span-7 space-y-1 md:space-y-1.5 group/input">
+                    <label for="{{ form.nombre.id_for_label }}" class="block text-xs md:text-[13px] font-bold text-gray-700 transition-colors group-focus-within/input:text-[#233b6e]">Nombre Completo <span class="text-red-500">*</span></label>
                     <div class="relative">
                         <i data-lucide="user" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 transition-colors duration-300 group-focus-within/input:text-[#233b6e]"></i>
-                        <input type="text" name="{{ form.nombre.html_name }}" id="{{ form.nombre.id_for_label }}" placeholder="Nombres y Apellidos"
-                            value="{{ form.nombre.value|default_if_none:'' }}"
-                            class="custom-field pl-10 pr-3 py-3 w-full">
+                        <input type="text" name="{{ form.nombre.html_name }}" id="{{ form.nombre.id_for_label }}" placeholder="Nombres y Apellidos" value="{{ form.nombre.value|default_if_none:'' }}" class="custom-field pl-10 pr-3 py-2 md:py-3 w-full">
                     </div>
                 </div>
-                <div class="space-y-1.5 group/input">
-                    <label for="{{ form.DNI.id_for_label }}" class="block text-[13px] font-bold text-gray-700 transition-colors group-focus-within/input:text-[#233b6e]">Documento de Identidad (DNI) <span class="text-red-500">*</span></label>
+                <div class="col-span-12 sm:col-span-6 md:col-span-5 space-y-1 md:space-y-1.5 group/input">
+                    <label for="{{ form.DNI.id_for_label }}" class="block text-xs md:text-[13px] font-bold text-gray-700 transition-colors group-focus-within/input:text-[#233b6e]">DNI <span class="text-red-500">*</span></label>
                     <div class="relative">
                         <i data-lucide="fingerprint" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 transition-colors duration-300 group-focus-within/input:text-[#233b6e]"></i>
-                        <input type="number" name="{{ form.DNI.html_name }}" id="{{ form.DNI.id_for_label }}" placeholder="Ej. 76543210"
-                            value="{{ form.DNI.value|default_if_none:'' }}"
-                            class="custom-field pl-10 pr-3 py-3 w-full">
+                        <input type="number" name="{{ form.DNI.html_name }}" id="{{ form.DNI.id_for_label }}" placeholder="Ej. 76543210" value="{{ form.DNI.value|default_if_none:'' }}" class="custom-field pl-10 pr-3 py-2 md:py-3 w-full">
                     </div>
                 </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="space-y-1.5 group/input">
-                        <label for="{{ form.edad.id_for_label }}" class="block text-[13px] font-bold text-gray-700 transition-colors group-focus-within/input:text-[#233b6e]">Edad</label>
-                        <input type="number" name="{{ form.edad.html_name }}" id="{{ form.edad.id_for_label }}" placeholder="Años"
-                            value="{{ form.edad.value|default_if_none:'' }}"
-                            class="custom-field px-4 py-3 w-full">
-                    </div>
-                    <div class="space-y-1.5">
-                        <label for="{{ form.sexo.id_for_label }}" class="block text-[13px] font-bold text-gray-700">Sexo</label>
-                        <select name="{{ form.sexo.html_name }}" id="{{ form.sexo.id_for_label }}"
-                            class="custom-field px-4 py-3 w-full appearance-none cursor-pointer">
-                            <option value="" disabled {% if not form.sexo.value %}selected{% endif %}>Seleccione...</option>
-                            <option value="Femenino" {% if form.sexo.value == 'Femenino' %}selected{% endif %}>Femenino</option>
-                            <option value="Masculino" {% if form.sexo.value == 'Masculino' %}selected{% endif %}>Masculino</option>
-                        </select>
-                    </div>
+                <div class="col-span-4 md:col-span-2 space-y-1 md:space-y-1.5 group/input">
+                    <label for="{{ form.edad.id_for_label }}" class="block text-xs md:text-[13px] font-bold text-gray-700 transition-colors group-focus-within/input:text-[#233b6e]">Edad</label>
+                    <input type="number" name="{{ form.edad.html_name }}" id="{{ form.edad.id_for_label }}" placeholder="Años" value="{{ form.edad.value|default_if_none:'' }}" class="custom-field px-3 py-2 md:py-3 w-full text-center">
                 </div>
-                <div class="space-y-1.5">
-                    <label for="{{ form.estado_civil.id_for_label }}" class="block text-[13px] font-bold text-gray-700">Estado Civil</label>
-                    <select name="{{ form.estado_civil.html_name }}" id="{{ form.estado_civil.id_for_label }}"
-                        class="custom-field px-4 py-3 w-full appearance-none cursor-pointer">
+                <div class="col-span-8 md:col-span-3 space-y-1 md:space-y-1.5">
+                    <label for="{{ form.sexo.id_for_label }}" class="block text-xs md:text-[13px] font-bold text-gray-700">Sexo</label>
+                    <select name="{{ form.sexo.html_name }}" id="{{ form.sexo.id_for_label }}" class="custom-field px-3 py-2 md:py-3 w-full appearance-none cursor-pointer">
+                        <option value="" disabled {% if not form.sexo.value %}selected{% endif %}>Seleccione...</option>
+                        <option value="Femenino" {% if form.sexo.value == 'Femenino' %}selected{% endif %}>Femenino</option>
+                        <option value="Masculino" {% if form.sexo.value == 'Masculino' %}selected{% endif %}>Masculino</option>
+                    </select>
+                </div>
+                <div class="col-span-12 sm:col-span-6 md:col-span-3 space-y-1 md:space-y-1.5">
+                    <label for="{{ form.estado_civil.id_for_label }}" class="block text-xs md:text-[13px] font-bold text-gray-700">Estado Civil</label>
+                    <select name="{{ form.estado_civil.html_name }}" id="{{ form.estado_civil.id_for_label }}" class="custom-field px-3 py-2 md:py-3 w-full appearance-none cursor-pointer">
                         <option value="" disabled {% if not form.estado_civil.value %}selected{% endif %}>Seleccione...</option>
                         <option value="Soltero" {% if form.estado_civil.value == 'Soltero' %}selected{% endif %}>Soltero/a</option>
                         <option value="Casado" {% if form.estado_civil.value == 'Casado' %}selected{% endif %}>Casado/a</option>
@@ -92,79 +83,121 @@
                         <option value="Divorciado" {% if form.estado_civil.value == 'Divorciado' %}selected{% endif %}>Divorciado/a</option>
                     </select>
                 </div>
-                <div class="space-y-1.5 group/input">
-                    <label for="{{ form.lugar_nacimiento.id_for_label }}" class="block text-[13px] font-bold text-gray-700 transition-colors group-focus-within/input:text-[#233b6e]">Lugar de Nacimiento</label>
+                <div class="col-span-12 md:col-span-4 space-y-1 md:space-y-1.5 group/input">
+                    <label for="{{ form.lugar_nacimiento.id_for_label }}" class="block text-xs md:text-[13px] font-bold text-gray-700 transition-colors group-focus-within/input:text-[#233b6e]">Lugar Nacimiento</label>
                     <div class="relative">
                         <i data-lucide="map-pin" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 transition-colors duration-300 group-focus-within/input:text-[#233b6e]"></i>
-                        <input type="text" name="{{ form.lugar_nacimiento.html_name }}" id="{{ form.lugar_nacimiento.id_for_label }}" placeholder="Ciudad, Departamento"
-                            value="{{ form.lugar_nacimiento.value|default_if_none:'' }}"
-                            class="custom-field pl-10 pr-3 py-3 w-full">
+                        <input type="text" name="{{ form.lugar_nacimiento.html_name }}" id="{{ form.lugar_nacimiento.id_for_label }}" placeholder="Ciudad, Departamento" value="{{ form.lugar_nacimiento.value|default_if_none:'' }}" class="custom-field pl-10 pr-3 py-2 md:py-3 w-full">
                     </div>
                 </div>
             </div>
         </div>
 
         <div>
-            <h3 class="text-lg font-bold text-[#233b6e] border-b border-gray-100 pb-3 mb-6 mt-8 flex items-center group">
-                <div class="bg-blue-50 p-2 rounded-lg mr-3 group-hover:scale-110 transition-transform duration-300 flex items-center justify-center w-10 h-10">
-                    <i data-lucide="contact" class="text-[#233b6e] w-6 h-6"></i>
+            <h3 class="text-base md:text-lg font-bold text-[#233b6e] border-b border-gray-100 pb-2 md:pb-3 mb-4 md:mb-6 mt-6 md:mt-8 flex items-center group">
+                <div class="bg-blue-50 p-1.5 md:p-2 rounded-lg mr-2 md:mr-3 group-hover:scale-110 transition-transform duration-300 flex items-center justify-center w-8 h-8 md:w-10 md:h-10">
+                    <i data-lucide="contact" class="text-[#233b6e] w-4 h-4 md:w-6 md:h-6"></i>
                 </div>
                 Contacto y Registro
             </h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
-                <div class="space-y-1.5 group/input"> 
-                    <label for="{{ form.domicilio_actual.id_for_label }}" class="block text-[13px] font-bold text-gray-700 transition-colors group-focus-within/input:text-[#233b6e]">Domicilio Actual</label>
+            <div class="grid grid-cols-12 gap-x-3 gap-y-4 md:gap-x-6 md:gap-y-5">
+                <div class="col-span-12 md:col-span-6 space-y-1 md:space-y-1.5 group/input"> 
+                    <label for="{{ form.domicilio_actual.id_for_label }}" class="block text-xs md:text-[13px] font-bold text-gray-700 transition-colors group-focus-within/input:text-[#233b6e]">Domicilio Actual</label>
                     <div class="relative">
                         <i data-lucide="home" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 transition-colors duration-300 group-focus-within/input:text-[#233b6e]"></i>
-                        <input type="text" name="{{ form.domicilio_actual.html_name }}" id="{{ form.domicilio_actual.id_for_label }}" placeholder="Dirección completa"
-                            value="{{ form.domicilio_actual.value|default_if_none:'' }}"
-                            class="custom-field pl-10 pr-3 py-3 w-full">
+                        <input type="text" name="{{ form.domicilio_actual.html_name }}" id="{{ form.domicilio_actual.id_for_label }}" placeholder="Dirección completa" value="{{ form.domicilio_actual.value|default_if_none:'' }}" class="custom-field pl-10 pr-3 py-2 md:py-3 w-full">
                     </div>
                 </div>
-                <div class="space-y-1.5 group/input">
-                    <label for="{{ form.domicilio_procedencia.id_for_label }}" class="block text-[13px] font-bold text-gray-700 transition-colors group-focus-within/input:text-[#233b6e]">Domicilio de Procedencia</label>
+                <div class="col-span-12 md:col-span-6 space-y-1 md:space-y-1.5 group/input">
+                    <label for="{{ form.domicilio_procedencia.id_for_label }}" class="block text-xs md:text-[13px] font-bold text-gray-700 transition-colors group-focus-within/input:text-[#233b6e]">Domicilio de Procedencia</label>
                     <div class="relative">
                         <i data-lucide="navigation" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 transition-colors duration-300 group-focus-within/input:text-[#233b6e]"></i>
-                        <input type="text" name="{{ form.domicilio_procedencia.html_name }}" id="{{ form.domicilio_procedencia.id_for_label }}" placeholder="Si es diferente al actual"
-                            value="{{ form.domicilio_procedencia.value|default_if_none:'' }}"
-                            class="custom-field pl-10 pr-3 py-3 w-full">
+                        <input type="text" name="{{ form.domicilio_procedencia.html_name }}" id="{{ form.domicilio_procedencia.id_for_label }}" placeholder="Si es diferente al actual" value="{{ form.domicilio_procedencia.value|default_if_none:'' }}" class="custom-field pl-10 pr-3 py-2 md:py-3 w-full">
                     </div>
                 </div>
-                <div class="space-y-1.5 group/input">
-                    <label for="{{ form.celular.id_for_label }}" class="block text-[13px] font-bold text-gray-700 transition-colors group-focus-within/input:text-[#233b6e]">Celular</label>
+                <div class="col-span-6 md:col-span-6 space-y-1 md:space-y-1.5 group/input">
+                    <label for="{{ form.celular.id_for_label }}" class="block text-xs md:text-[13px] font-bold text-gray-700 transition-colors group-focus-within/input:text-[#233b6e]">Celular</label>
                     <div class="relative">
                         <i data-lucide="smartphone" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 transition-colors duration-300 group-focus-within/input:text-[#233b6e]"></i>
-                        <input type="number" name="{{ form.celular.html_name }}" id="{{ form.celular.id_for_label }}" placeholder="Número de contacto"
-                            value="{{ form.celular.value|default_if_none:'' }}"
-                            class="custom-field pl-10 pr-3 py-3 w-full">
+                        <input type="number" name="{{ form.celular.html_name }}" id="{{ form.celular.id_for_label }}" placeholder="Número" value="{{ form.celular.value|default_if_none:'' }}" class="custom-field pl-10 pr-3 py-2 md:py-3 w-full">
                     </div>
                 </div>
-                <div class="space-y-1.5 group/input">
-                    <label for="{{ form.ocupacion.id_for_label }}" class="block text-[13px] font-bold text-gray-700 transition-colors group-focus-within/input:text-[#233b6e]">Ocupación</label>
+                <div class="col-span-6 md:col-span-6 space-y-1 md:space-y-1.5 group/input">
+                    <label for="{{ form.ocupacion.id_for_label }}" class="block text-xs md:text-[13px] font-bold text-gray-700 transition-colors group-focus-within/input:text-[#233b6e]">Ocupación</label>
                     <div class="relative">
                         <i data-lucide="briefcase" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 transition-colors duration-300 group-focus-within/input:text-[#233b6e]"></i>
-                        <input type="text" name="{{ form.ocupacion.html_name }}" id="{{ form.ocupacion.id_for_label }}" placeholder="Trabajo o profesión"
-                            value="{{ form.ocupacion.value|default_if_none:'' }}"
-                            class="custom-field pl-10 pr-3 py-3 w-full">
-                    </div>
-                </div>
-                <div class="space-y-1.5 group/input">
-                    <label for="{{ form.fecha_ingreso.id_for_label }}" class="block text-[13px] font-bold text-gray-700 transition-colors group-focus-within/input:text-[#233b6e]">Fecha de Registro</label>
-                    <div class="relative">
-                        <input type="date" name="{{ form.fecha_ingreso.html_name }}" id="{{ form.fecha_ingreso.id_for_label }}"
-                            value="{{ form.fecha_ingreso.value|date:'Y-m-d'|default_if_none:'' }}"
-                            class="custom-field px-4 py-3 w-full text-gray-600">
+                        <input type="text" name="{{ form.ocupacion.html_name }}" id="{{ form.ocupacion.id_for_label }}" placeholder="Trabajo" value="{{ form.ocupacion.value|default_if_none:'' }}" class="custom-field pl-10 pr-3 py-2 md:py-3 w-full">
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="flex flex-col-reverse sm:flex-row justify-end gap-3 pt-8 mt-4 border-t border-gray-100">
-            <a href="{% url 'pacientes:paciente_list' %}" class="w-full sm:w-auto text-center bg-white border border-gray-300 text-gray-700 font-bold py-3 px-6 rounded-xl hover:bg-gray-50 text-sm shadow-sm transition-all">
+        <div>
+            <h3 class="text-base md:text-lg font-bold text-[#233b6e] border-b border-gray-100 pb-2 md:pb-3 mb-4 md:mb-6 mt-6 md:mt-8 flex items-center group">
+                <div class="bg-blue-50 p-1.5 md:p-2 rounded-lg mr-2 md:mr-3 group-hover:scale-110 transition-transform duration-300 flex items-center justify-center w-8 h-8 md:w-10 md:h-10">
+                    <i data-lucide="users" class="text-[#233b6e] w-4 h-4 md:w-6 md:h-6"></i>
+                </div>
+                Adicional y Acompañante
+            </h3>
+            <div class="grid grid-cols-12 gap-x-3 gap-y-4 md:gap-x-6 md:gap-y-5">
+                <div class="col-span-6 md:col-span-6 space-y-1 md:space-y-1.5 group/input">
+                    <label for="{{ form.grado_instruccion.id_for_label }}" class="block text-xs md:text-[13px] font-bold text-gray-700 transition-colors group-focus-within/input:text-[#233b6e]">Grado Instrucción</label>
+                    <div class="relative">
+                        <i data-lucide="graduation-cap" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 transition-colors duration-300 group-focus-within/input:text-[#233b6e]"></i>
+                        <input type="text" name="{{ form.grado_instruccion.html_name }}" id="{{ form.grado_instruccion.id_for_label }}" placeholder="Ej. Superior" value="{{ form.grado_instruccion.value|default_if_none:'' }}" class="custom-field pl-10 pr-3 py-2 md:py-3 w-full">
+                    </div>
+                </div>
+                <div class="col-span-6 md:col-span-6 space-y-1 md:space-y-1.5 group/input">
+                    <label for="{{ form.religion.id_for_label }}" class="block text-xs md:text-[13px] font-bold text-gray-700 transition-colors group-focus-within/input:text-[#233b6e]">Religión</label>
+                    <div class="relative">
+                        <i data-lucide="book" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 transition-colors duration-300 group-focus-within/input:text-[#233b6e]"></i>
+                        <input type="text" name="{{ form.religion.html_name }}" id="{{ form.religion.id_for_label }}" placeholder="Religión" value="{{ form.religion.value|default_if_none:'' }}" class="custom-field pl-10 pr-3 py-2 md:py-3 w-full">
+                    </div>
+                </div>
+                <div class="col-span-12 md:col-span-6 space-y-1 md:space-y-1.5 group/input">
+                    <label for="{{ form.nombre_padre.id_for_label }}" class="block text-xs md:text-[13px] font-bold text-gray-700 transition-colors group-focus-within/input:text-[#233b6e]">Nombre Padre</label>
+                    <div class="relative">
+                        <i data-lucide="user" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 transition-colors duration-300 group-focus-within/input:text-[#233b6e]"></i>
+                        <input type="text" name="{{ form.nombre_padre.html_name }}" id="{{ form.nombre_padre.id_for_label }}" placeholder="Nombres y Apellidos" value="{{ form.nombre_padre.value|default_if_none:'' }}" class="custom-field pl-10 pr-3 py-2 md:py-3 w-full">
+                    </div>
+                </div>
+                <div class="col-span-12 md:col-span-6 space-y-1 md:space-y-1.5 group/input">
+                    <label for="{{ form.nombre_madre.id_for_label }}" class="block text-xs md:text-[13px] font-bold text-gray-700 transition-colors group-focus-within/input:text-[#233b6e]">Nombre Madre</label>
+                    <div class="relative">
+                        <i data-lucide="user" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 transition-colors duration-300 group-focus-within/input:text-[#233b6e]"></i>
+                        <input type="text" name="{{ form.nombre_madre.html_name }}" id="{{ form.nombre_madre.id_for_label }}" placeholder="Nombres y Apellidos" value="{{ form.nombre_madre.value|default_if_none:'' }}" class="custom-field pl-10 pr-3 py-2 md:py-3 w-full">
+                    </div>
+                </div>
+                <div class="col-span-12 md:col-span-6 space-y-1 md:space-y-1.5 group/input">
+                    <label for="{{ form.nombre_acompanante.id_for_label }}" class="block text-xs md:text-[13px] font-bold text-gray-700 transition-colors group-focus-within/input:text-[#233b6e]">Acompañante / Resp.</label>
+                    <div class="relative">
+                        <i data-lucide="user-check" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 transition-colors duration-300 group-focus-within/input:text-[#233b6e]"></i>
+                        <input type="text" name="{{ form.nombre_acompanante.html_name }}" id="{{ form.nombre_acompanante.id_for_label }}" placeholder="Nombres y Apellidos" value="{{ form.nombre_acompanante.value|default_if_none:'' }}" class="custom-field pl-10 pr-3 py-2 md:py-3 w-full">
+                    </div>
+                </div>
+                <div class="col-span-5 md:col-span-2 space-y-1 md:space-y-1.5 group/input">
+                    <label for="{{ form.dni_acompanante.id_for_label }}" class="block text-xs md:text-[13px] font-bold text-gray-700 transition-colors group-focus-within/input:text-[#233b6e]">DNI Acomp.</label>
+                    <div class="relative">
+                        <i data-lucide="fingerprint" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 transition-colors duration-300 group-focus-within/input:text-[#233b6e]"></i>
+                        <input type="text" name="{{ form.dni_acompanante.html_name }}" id="{{ form.dni_acompanante.id_for_label }}" placeholder="DNI" value="{{ form.dni_acompanante.value|default_if_none:'' }}" class="custom-field pl-10 pr-3 py-2 md:py-3 w-full">
+                    </div>
+                </div>
+                <div class="col-span-7 md:col-span-4 space-y-1 md:space-y-1.5 group/input">
+                    <label for="{{ form.domicilio_acompanante.id_for_label }}" class="block text-xs md:text-[13px] font-bold text-gray-700 transition-colors group-focus-within/input:text-[#233b6e]">Domicilio Acomp.</label>
+                    <div class="relative">
+                        <i data-lucide="home" class="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 transition-colors duration-300 group-focus-within/input:text-[#233b6e]"></i>
+                        <input type="text" name="{{ form.domicilio_acompanante.html_name }}" id="{{ form.domicilio_acompanante.id_for_label }}" placeholder="Dirección" value="{{ form.domicilio_acompanante.value|default_if_none:'' }}" class="custom-field pl-10 pr-3 py-2 md:py-3 w-full">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-col-reverse sm:flex-row justify-end gap-3 pt-6 md:pt-8 mt-2 md:mt-4 border-t border-gray-100">
+            <a href="{% url 'pacientes:paciente_list' %}" class="w-full sm:w-auto text-center bg-white border border-gray-300 text-gray-700 font-bold py-2.5 md:py-3 px-6 rounded-xl hover:bg-gray-50 text-sm shadow-sm transition-all">
                 Cancelar
             </a>
-            <button type="submit" class="w-full sm:w-auto bg-gradient-to-r from-[#233b6e] to-[#1a2c53] text-white font-bold py-3 px-8 rounded-xl hover:shadow-lg hover:-translate-y-0.5 transition-all text-sm flex justify-center items-center group relative overflow-hidden">
-                <i data-lucide="user-check" class="w-5 h-5 mr-2 group-hover:scale-110 transition-transform duration-300"></i> 
+            <button type="submit" class="w-full sm:w-auto bg-gradient-to-r from-[#233b6e] to-[#1a2c53] text-white font-bold py-2.5 md:py-3 px-8 rounded-xl hover:shadow-lg hover:-translate-y-0.5 transition-all text-sm flex justify-center items-center group relative overflow-hidden">
+                <i data-lucide="user-check" class="w-4 h-4 md:w-5 md:h-5 mr-2 group-hover:scale-110 transition-transform duration-300"></i> 
                 {% if paciente %}Actualizar expediente{% else %}Guardar Registro{% endif %}
                 <div class="absolute inset-0 w-full h-full bg-white/10 -translate-x-full group-hover:animate-shimmer"></div>
             </button>
@@ -192,13 +225,5 @@
 
 <script>
     lucide.createIcons();
-
-    document.addEventListener('DOMContentLoaded', function() {
-        const fechaInput = document.getElementById('{{ form.fecha_ingreso.id_for_label }}');
-        if(fechaInput && !fechaInput.value) {
-            const hoy = new Date().toISOString().split('T')[0];
-            fechaInput.value = hoy;
-        }
-    });
 </script>
 {% endblock content %}

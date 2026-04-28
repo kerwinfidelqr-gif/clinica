@@ -1,57 +1,148 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
-<div class="max-w-4xl mx-auto p-6">
-    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-        <div class="bg-blue-600 px-6 py-4">
-            <h2 class="text-xl font-bold text-white">{{ titulo }}</h2>
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<div class="max-w-[900px] mx-auto p-3 md:p-6 mt-2 md:mt-6">
+    
+    <div class="mb-4 md:mb-6 animate-fade-in-left">
+        {% if ingreso %}
+        <a href="{% url 'detalle_ingreso' ingreso.pk %}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-200 rounded-xl text-sm font-bold text-gray-500 hover:text-[#1e3a8a] hover:border-gray-300 hover:bg-gray-50 shadow-sm transition-all duration-300 group">
+            <i data-lucide="arrow-left" class="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform"></i> <span class="hidden sm:inline">Volver al Expediente</span><span class="sm:hidden">Volver</span>
+        </a>
+        {% else %}
+        <a href="{% url 'lista_ingresos' %}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-200 rounded-xl text-sm font-bold text-gray-500 hover:text-[#1e3a8a] hover:border-gray-300 hover:bg-gray-50 shadow-sm transition-all duration-300 group">
+            <i data-lucide="arrow-left" class="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform"></i> <span class="hidden sm:inline">Volver a Hospitalizados</span><span class="sm:hidden">Volver</span>
+        </a>
+        {% endif %}
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] overflow-hidden border-t-[6px] border-[#1e3a8a]">
+        
+        <div class="text-center px-5 pt-6 pb-4 md:px-8 md:pt-10 md:pb-6">
+            <h2 class="text-xl md:text-[28px] font-extrabold text-[#1e3a8a] tracking-tight">{{ titulo }}</h2>
             {% if ingreso %}
-            <p class="text-blue-100 text-sm mt-1">Paciente: {{ ingreso.paciente.nombre }} {{ ingreso.paciente.apellido }}</p>
+            <p class="text-gray-500 text-xs md:text-sm mt-1 md:mt-2">Paciente: <span class="font-bold">{{ ingreso.paciente.nombre }} {{ ingreso.paciente.apellido }}</span></p>
+            {% else %}
+            <p class="text-gray-500 text-xs md:text-sm mt-1 md:mt-2">Complete los datos a continuación para ingresar un nuevo registro al sistema.</p>
             {% endif %}
         </div>
         
-        <form method="POST" class="p-6 space-y-6">
+        <form method="POST" class="px-5 md:px-10 pb-6 md:pb-10 space-y-6 md:space-y-8" id="main-form">
             {% csrf_token %}
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {% for field in form %}
-                <div class="flex flex-col {% if field.field.widget.input_type == 'textarea' %} md:col-span-2 {% endif %}">
-                    <label class="mb-2 text-sm font-bold text-gray-700" for="{{ field.id_for_label }}">
-                        {{ field.label }}
-                    </label>
-                    
-                    <div class="w-full relative">
-                        {{ field }}
+            <div>
+                <h3 class="text-[15px] md:text-[16px] font-extrabold text-[#1e3a8a] border-b border-gray-200 pb-2 md:pb-3 mb-4 md:mb-6 flex items-center">
+                    <div class="bg-blue-50 p-1 md:p-1.5 rounded-lg mr-2 md:mr-3 flex items-center justify-center border border-blue-100">
+                        <i data-lucide="file-text" class="text-[#1e3a8a] w-4 h-4 md:w-5 md:h-5"></i>
                     </div>
-                    
-                    {% if field.help_text %}
-                        <p class="text-xs text-gray-500 mt-1">{{ field.help_text }}</p>
-                    {% endif %}
-                    {% for error in field.errors %}
-                        <p class="text-xs text-red-500 mt-1 font-semibold">{{ error }}</p>
+                    Detalles del Registro
+                </h3>
+                
+                <div class="grid grid-cols-2 md:grid-cols-2 gap-x-3 gap-y-4 md:gap-x-8 md:gap-y-6">
+                    {% for field in form %}
+                    <div class="flex flex-col space-y-1 md:space-y-1.5 {% if field.field.widget.input_type == 'textarea' %} col-span-2 {% else %} col-span-1 {% endif %}">
+                        <label class="block text-[11px] md:text-[13px] font-bold text-gray-700 truncate" for="{{ field.id_for_label }}">
+                            {{ field.label }} {% if field.field.required %}<span class="text-red-500">*</span>{% endif %}
+                        </label>
+                        
+                        <div class="w-full relative">
+                            {{ field }}
+                        </div>
+                        
+                        {% if field.help_text %}
+                            <p class="text-[10px] md:text-xs text-gray-500 leading-tight">{{ field.help_text }}</p>
+                        {% endif %}
+                        {% for error in field.errors %}
+                            <p class="text-[10px] md:text-xs text-red-500 font-semibold leading-tight">{{ error }}</p>
+                        {% endfor %}
+                    </div>
                     {% endfor %}
                 </div>
-                {% endfor %}
             </div>
             
-            <div class="flex justify-end gap-4 mt-8 pt-4 border-t border-gray-200">
-                <button type="button" onclick="window.history.back();" class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 font-semibold hover:bg-gray-50 transition">
+            <div class="flex flex-col-reverse sm:flex-row justify-end gap-3 md:gap-4 pt-4 md:pt-6 mt-2 md:mt-4 border-t border-gray-100">
+                <button type="button" onclick="window.history.back();" class="w-full sm:w-auto px-6 md:px-8 py-2 md:py-2.5 bg-white border border-gray-300 text-gray-700 font-bold rounded-lg hover:bg-gray-50 transition-colors text-[13px] md:text-[14px]">
                     Cancelar
                 </button>
-                <button type="submit" class="px-6 py-2 bg-blue-600 rounded-lg text-white font-bold hover:bg-blue-700 shadow-md transition">
-                    Guardar Registro
+                <button type="submit" class="w-full sm:w-auto px-6 md:px-8 py-2 md:py-2.5 bg-[#1e3a8a] text-white font-bold rounded-lg hover:bg-[#152a66] transition-colors text-[13px] md:text-[14px] flex items-center justify-center shadow-md">
+                    <i data-lucide="save" class="w-4 h-4 mr-2"></i> Guardar Registro
                 </button>
             </div>
         </form>
     </div>
 </div>
 
+<style>
+    @keyframes fadeInLeft { 0% { opacity: 0; transform: translateX(-15px); } 100% { opacity: 1; transform: translateX(0); } }
+    .animate-fade-in-left { animation: fadeInLeft 0.4s ease-out forwards; }
+
+    .custom-input {
+        width: 100%;
+        padding: 0.5rem 0.75rem;
+        background-color: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 0.5rem;
+        font-size: 0.85rem; 
+        color: #334155;
+        transition: all 0.2s ease;
+    }
+
+    @media (min-width: 768px) {
+        .custom-input {
+            padding: 0.65rem 1rem;
+            font-size: 0.95rem;
+        }
+    }
+
+    .custom-input:hover {
+        border-color: #cbd5e1;
+        background-color: #ffffff;
+    }
+
+    .custom-input:focus {
+        outline: none;
+        border-color: #1e3a8a;
+        background-color: #ffffff;
+        box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
+    }
+    
+    select.custom-input {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+        background-position: right 0.5rem center;
+        background-repeat: no-repeat;
+        background-size: 1.2em 1.2em;
+        cursor: pointer;
+    }
+
+    @media (min-width: 768px) {
+        select.custom-input {
+            background-position: right 0.75rem center;
+        }
+    }
+
+    input[type="date"].custom-input::-webkit-calendar-picker-indicator,
+    input[type="time"].custom-input::-webkit-calendar-picker-indicator {
+        opacity: 0.5;
+        cursor: pointer;
+    }
+</style>
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        let inputs = document.querySelectorAll('input, select, textarea');
+        lucide.createIcons();
+        let inputs = document.querySelectorAll('#main-form input, #main-form select, #main-form textarea');
         inputs.forEach(input => {
-            if (input.type !== 'checkbox' && input.type !== 'radio' && input.type !== 'hidden') {
-                input.classList.add('w-full', 'px-4', 'py-2', 'border', 'border-gray-300', 'rounded-lg', 'focus:outline-none', 'focus:ring-2', 'focus:ring-blue-500', 'focus:border-transparent', 'bg-gray-50');
+            if (input.type !== 'hidden' && input.type !== 'checkbox' && input.type !== 'radio') {
+                input.classList.remove('form-control');
+                input.classList.add('custom-input');
+                if (input.tagName === 'TEXTAREA') {
+                    input.style.resize = 'none';
+                    if (!input.getAttribute('rows')) {
+                        input.setAttribute('rows', '3');
+                    }
+                }
             }
         });
     });

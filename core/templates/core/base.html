@@ -1,90 +1,121 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}HIPOLITO UNANUE{% endblock %}</title>
+    <title>{% block title %}Hipólito Unanue{% endblock %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* Tipografía Refinada */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        body { font-family: 'Inter', sans-serif; }
+
+        /* Animación Zen de entrada suave */
+        @keyframes zenIn {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-zen { animation: zenIn 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+
+        /* Estilo del Dropdown Clásico con efecto Blur */
+        .user-dropdown-menu {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: top right;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+        }
+
+        .user-dropdown-menu.hidden {
+            display: none;
+            opacity: 0;
+            transform: scale(0.98) translateY(-5px);
+        }
+    </style>
 </head>
 
-<body class="bg-gray-100 font-sans">
-    <nav class="bg-[#233b6e] text-white shadow-md">
-        <div
-            class="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <a href="{% url 'dashboard' %}"
-                class="flex items-center space-x-3 text-2xl font-bold rounded-lg px-2 py-1 transition-all hover:bg-white/10">
-                <img src="https://lh3.googleusercontent.com/u/0/d/1VXIEEV39JySjehYhGT6Btw7f7nRufIC-"
-                    alt="HIPOLITO UNANUE" class="h-8 w-8 object-contain">
-                <span>Hipolito Unanue</span>
-            </a>
-            <div class="flex items-center space-x-6">
-                <div id="nav-links-desktop" class="hidden md:flex space-x-6">
-                </div>
-                <div class="relative">
-                    <button id="user-menu-button"
-                        class="flex items-center space-x-2 text-lg font-medium transition-all hover:bg-white/10 p-2 rounded-lg">
+<body class="bg-[#f9fafb] font-sans text-slate-800">
+    <nav class="bg-[#233b6e] text-white sticky top-0 z-[100] border-b border-white/5 shadow-lg animate-zen">
+        <div class="container mx-auto px-6 md:px-12">
+            <div class="flex justify-between items-center h-16 md:h-20">
+                
+                <a href="{% url 'dashboard' %}" class="flex items-center space-x-4 group outline-none">
+                    <img src="https://i.postimg.cc/XJBXcSKR/logo.png" alt="Logo" class="h-9 md:h-10 w-auto transition-transform group-hover:scale-105 duration-500">
+                    <div class="h-6 w-[1px] bg-white/20"></div>
+                    <div class="flex flex-col">
+                        <span class="text-lg md:text-xl font-bold tracking-tight uppercase leading-none">Hipólito Unanue</span>
+                        <span class="text-[9px] font-medium tracking-[0.3em] text-blue-200/60 uppercase mt-1">Gestión Médica Institucional</span>
+                    </div>
+                </a>
 
-                        <img src="https://ui-avatars.com/api/?name={{ user.first_name|default:user.username }}&background=ffffff&color=233b6e"
-                            alt="Perfil" class="w-8 h-8 rounded-full object-cover border-2 border-white/30">
-                        <span>Bienvenido, {{ user.first_name|default:user.username }}</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-chevron-down">
-                            <path d="m6 9 6 6 6-6">
-                        </svg>
-                    </button>
-                    <div id="user-menu-dropdown"
-                        class="user-dropdown-menu absolute right-0 mt-2 w-48 bg-white text-gray-800 rounded-md shadow-lgpy-1 z-50 hidden">
-                        <a href="#perfil" class="flex items-center px-4 py-2 hover:bg-gray-200">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                class="lucide lucide-circle-user">
-                                <circle cx="12" cy="12" r="10" />
-                                <circle cx="12" cy="10" r="3" />
-                                <path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662" />
+                <div class="flex items-center">
+                    <div class="relative">
+                        <button id="user-menu-button" class="flex items-center space-x-2 text-base font-medium transition-all hover:bg-white/10 p-2 rounded-lg outline-none">
+                            <img src="https://ui-avatars.com/api/?name={{ user.first_name|default:user.username }}&background=ffffff&color=233b6e&bold=true" 
+                                 alt="Perfil" class="w-8 h-8 rounded-full object-cover border-2 border-white/30 shadow-sm">
+                            <span class="hidden sm:inline">Bienvenido, {{ user.first_name|default:user.username }}</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                                class="lucide lucide-chevron-down transition-transform duration-300 chevron-icon opacity-70">
+                                <path d="m6 9 6 6 6-6"/>
                             </svg>
-                            <span class="ml-2">Perfil</span>
-                        </a>
-                        <a href="{% url 'logout' %}" class="flex items-center px-4 py-2 hover:bg-gray-200 text-red-600">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-log-out">
-                                <path d="M21 12H9" />
-                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-                                <polyline points="16 17 21 12 16 7" />
-                                <line x1="21" x2="9" y1="12" y2="12" />
-                            </svg>
-                            <span class="ml-2">Cerrar sesión</span>
-                        </a>
+                        </button>
+
+                        <div id="user-menu-dropdown" class="user-dropdown-menu absolute right-0 mt-2 w-52 bg-white text-gray-800 rounded-xl shadow-2xl py-1 z-50 hidden border border-gray-100 overflow-hidden">
+                            <a href="#perfil" class="flex items-center px-4 py-3 hover:bg-gray-100 transition-colors text-sm font-medium">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                    class="lucide lucide-circle-user mr-3 text-gray-400">
+                                    <circle cx="12" cy="12" r="10" />
+                                    <circle cx="12" cy="10" r="3" />
+                                    <path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662" />
+                                </svg>
+                                <span>Perfil</span>
+                            </a>
+                            <div class="h-px bg-gray-100 mx-2"></div>
+                            <a href="{% url 'logout' %}" class="flex items-center px-4 py-3 hover:bg-red-50 text-red-600 transition-colors text-sm font-bold">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="lucide lucide-log-out mr-3">
+                                    <path d="M21 12H9" />
+                                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                                    <polyline points="16 17 21 12 16 7" />
+                                    <line x1="21" x2="9" y1="12" y2="12" />
+                                </svg>
+                                <span>Cerrar sesión</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="hamburger-menu space-y-2 md:hidden cursor-pointer" id="hamburger-btn">
-                <span></span>
-                <span></span>
-                <span></span>
-
-            </div>
-        </div>
-        <div id="mobile-menu"
-            class="hidden md:hidden bg-[#233b6e] pb-4 px-4 text-center transition-all duration-300 ease-in-out">
-            <div id="nav-links_mobile" class="flex flex-col">
-
-            </div>
-            <div class="border-t border-gray-600 mt-4 pt-4">
-                <a href="#perfil" class="block py-2 text-lg font-medium transition-all hover:text-gray-300">Cerrar
-                    sesión</a>
-
-            </div>
         </div>
     </nav>
-    <main class="container mx-auto p-8">
-        {% block content %}
-        {% endblock content %}
-    </main>
-    <script src="{% static 'js/script.js' %}"></script>
-</body>
 
+    <main class="container mx-auto px-6 py-10 animate-zen" style="animation-delay: 0.1s;">
+        {% block content %}{% endblock content %}
+    </main>
+
+    <script>
+        // Lógica del Dropdown de Perfil (Única navegación necesaria)
+        const userBtn = document.getElementById('user-menu-button');
+        const userDropdown = document.getElementById('user-menu-dropdown');
+        const chevron = document.querySelector('.chevron-icon');
+
+        if (userBtn && userDropdown) {
+            userBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isHidden = userDropdown.classList.toggle('hidden');
+                if(chevron) chevron.style.transform = isHidden ? 'rotate(0deg)' : 'rotate(180deg)';
+            });
+            document.addEventListener('click', () => {
+                userDropdown.classList.add('hidden');
+                if(chevron) chevron.style.transform = 'rotate(0deg)';
+            });
+        }
+    </script>
+</body>
 </html>
