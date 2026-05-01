@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.utils import timezone
 from pacientes.models import Paciente
 
 class HistoriaClinica(models.Model):
@@ -23,6 +24,9 @@ class HistoriaClinica(models.Model):
     ]
     especialidad = models.CharField(max_length=100, choices=ESPECIALIDADES_CHOICES, verbose_name="Especialidad")
     
+    # --- FECHA DE REGISTRO ---
+    fecha_registro = models.DateField(verbose_name="Fecha de Registro", blank=True, null=True)
+    
     # --- CAMPOS OPCIONALES (Agregamos blank=True, null=True) ---
     hora = models.TimeField(verbose_name="Hora", blank=True, null=True)
     grado_instruccion = models.CharField(max_length=100, blank=True, null=True, verbose_name="Grado de Instrucción")
@@ -42,13 +46,22 @@ class HistoriaClinica(models.Model):
     examen_fisico = models.TextField(verbose_name="Examen Físico", blank=True, null=True)
 
     # AUDITORÍA
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(default=timezone.now)
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
 
     class Meta:
         verbose_name = 'Historia Clínica'
         verbose_name_plural = 'Historias Clínicas'
         ordering = ['-created_at']
+
+    def save(self, *args, **kwargs):
+        if self.fecha_registro:
+            from datetime import datetime, time
+            if self.created_at:
+                self.created_at = datetime.combine(self.fecha_registro, self.created_at.time())
+            else:
+                self.created_at = datetime.combine(self.fecha_registro, time.min)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"Historial {self.numero_historial} - {self.paciente.nombre}"

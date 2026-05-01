@@ -67,7 +67,17 @@ def historial_create(request):
             return redirect('historial_cl:historial_dashboard')
     else:
         form = HistoriaClinicaForm()
-    return render(request, 'historial_cl/historial_form.html', {'form': form})
+    
+    response = render(request, 'historial_cl/historial_form.html', {'form': form})
+    
+    # Inyectar el valor enviado en caso de error de validación
+    if request.method == 'POST' and request.POST.get('fecha_registro'):
+        content = response.content.decode('utf-8')
+        fecha_val = request.POST.get('fecha_registro')
+        content = content.replace('id="id_fecha_registro"', f'id="id_fecha_registro" value="{fecha_val}"')
+        return HttpResponse(content)
+        
+    return response
 @login_required
 def historial_edit(request, pk):
     historial = get_object_or_404(HistoriaClinica, pk=pk)
@@ -85,7 +95,22 @@ def historial_edit(request, pk):
             return redirect('historial_cl:historial_dashboard')
     else:
         form = HistoriaClinicaForm(instance=historial, initial={'buscar_dni': paciente.DNI})
-    return render(request, 'historial_cl/historial_form.html', {'form': form, 'historial': historial, 'paciente': paciente})
+        
+    response = render(request, 'historial_cl/historial_form.html', {'form': form, 'historial': historial, 'paciente': paciente})
+    
+    # Inyectar el valor de la base de datos o del POST directamente en la respuesta HTML
+    content = response.content.decode('utf-8')
+    fecha_val = ""
+    if request.method == 'POST' and request.POST.get('fecha_registro'):
+        fecha_val = request.POST.get('fecha_registro')
+    elif historial.fecha_registro:
+        fecha_val = historial.fecha_registro.strftime('%Y-%m-%d')
+        
+    if fecha_val:
+        content = content.replace('id="id_fecha_registro"', f'id="id_fecha_registro" value="{fecha_val}"')
+        return HttpResponse(content)
+        
+    return response
 
 @login_required
 def historial_delete(request, pk):

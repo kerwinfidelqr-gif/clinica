@@ -17,7 +17,7 @@ class HistoriaClinicaForm(forms.ModelForm):
     class Meta:
         model = HistoriaClinica
         fields = [
-            'numero_historial', 'especialidad', 'hora', 'grado_instruccion',
+            'numero_historial', 'fecha_registro', 'especialidad', 'hora', 'grado_instruccion',
             'pa', 'pulso', 'temperatura', 'f_respiratoria', 'peso', 'talla', 'imc', 'alergias',
             'enfermedad_actual', 'examen_fisico'
         ]

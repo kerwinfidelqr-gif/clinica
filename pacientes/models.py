@@ -14,8 +14,17 @@ class Paciente(models.Model):
     domicilio_procedencia = models.CharField(max_length=150, verbose_name="Domicilio de Procedencia")
     celular = models.CharField(max_length=20, verbose_name="Celular")
     ocupacion = models.CharField(max_length=100, verbose_name="Ocupación")
-    fecha_ingreso = models.DateField(verbose_name="Fecha de Ingreso")
+    fecha_ingreso = models.DateField(verbose_name="Fecha de Ingreso", auto_now_add=True, null=True)
     estado = models.CharField(max_length=50, verbose_name="Estado")
+    
+    # Nuevos campos del formulario HTML
+    grado_instruccion = models.CharField(max_length=100, blank=True, null=True, verbose_name="Grado de Instrucción")
+    religion = models.CharField(max_length=100, blank=True, null=True, verbose_name="Religión")
+    nombre_padre = models.CharField(max_length=150, blank=True, null=True, verbose_name="Nombre del Padre")
+    nombre_madre = models.CharField(max_length=150, blank=True, null=True, verbose_name="Nombre de la Madre")
+    nombre_acompanante = models.CharField(max_length=150, blank=True, null=True, verbose_name="Nombre del Acompañante")
+    dni_acompanante = models.CharField(max_length=15, blank=True, null=True, verbose_name="DNI Acompañante")
+    domicilio_acompanante = models.CharField(max_length=150, blank=True, null=True, verbose_name="Domicilio Acompañante")
     
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
