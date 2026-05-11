@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'pacientes',
     'historial_cl',
     'historia_hp',
+    'inventario',
 ]
 
 AUTH_USER_MODEL = 'usuarios.Usuario'

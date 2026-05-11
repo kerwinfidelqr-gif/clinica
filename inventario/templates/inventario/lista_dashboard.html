@@ -1,0 +1,279 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block title %}Dashboard Inventario - Clínica Hipólito Unanue{% endblock %}
+{% block content %}
+<script src="https://unpkg.com/lucide@latest"></script>
+<div class="max-w-7xl mx-auto p-4 sm:p-6">
+    <div class="mb-4 animate-fade-in-left">
+        <a href="{% url 'dashboard' %}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-200 rounded-xl text-sm font-bold text-gray-500 hover:text-[#233b6e] hover:border-gray-300 hover:bg-gray-50 hover:shadow-sm transition-all duration-300 group w-fit">
+            <i data-lucide="arrow-left" class="w-4 h-4 mr-2 text-gray-400 group-hover:text-[#233b6e] group-hover:-translate-x-1 transition-all duration-300"></i>
+            Volver al Menú Principal
+        </a>
+    </div>
+
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 border-b-2 border-gray-200 pb-4 animate-fade-in-left">
+        <div>
+            <h2 class="text-3xl font-bold text-[#233b6e] flex items-center tracking-tight">
+                <i data-lucide="package-search" class="w-8 h-8 mr-3 text-[#233b6e]"></i> Inventario Clínico
+            </h2>
+            <p class="text-gray-500 text-sm mt-2 md:ml-11">Gestión centralizada de medicamentos, insumos y equipos médicos.</p>
+        </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-10 animate-fade-in-up">
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col group h-48 md:h-56">
+            <div class="relative w-full h-full flex flex-col justify-end p-6">
+                <img src="https://plus.unsplash.com/premium_photo-1671721439342-5c5e081d4a7c?q=80&w=696&auto=format&fit=crop" alt="Droguería" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"> 
+                <div class="absolute inset-0 bg-[#3b0764] opacity-70 mix-blend-multiply transition-opacity duration-300 group-hover:opacity-80"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+                
+                <div class="relative z-10 flex justify-between items-end">
+                    <div>
+                        <div class="flex items-center text-white/80 mb-1">
+                            <i data-lucide="pill" class="w-5 h-5 mr-2"></i>
+                            <span class="text-sm font-bold uppercase tracking-wider">Medicamentos</span>
+                        </div>
+                        <h3 class="text-3xl font-extrabold text-white">Droguería</h3>
+                    </div>
+                    <a href="#" class="bg-white/20 hover:bg-white text-white hover:text-[#3b0764] backdrop-blur-sm border border-white/30 px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 shadow-lg flex items-center group/btn">
+                        <i data-lucide="plus" class="w-4 h-4 mr-1.5 transition-transform duration-300 group-hover/btn:rotate-90"></i> Registrar
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col group h-48 md:h-56">
+            <div class="relative w-full h-full flex flex-col justify-end p-6">
+                <img src="https://images.unsplash.com/photo-1605176173609-a0067079b419?q=80&w=1172&auto=format&fit=crop" alt="Insumos Médicos Stored" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                <div class="absolute inset-0 bg-[#0f766e] opacity-70 mix-blend-multiply transition-opacity duration-300 group-hover:opacity-80"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+                
+                <div class="relative z-10 flex justify-between items-end">
+                    <div>
+                        <div class="flex items-center text-white/80 mb-1">
+                            <i data-lucide="syringe" class="w-5 h-5 mr-2"></i>
+                            <span class="text-sm font-bold uppercase tracking-wider">Material Médico</span>
+                        </div>
+                        <h3 class="text-3xl font-extrabold text-white">Insumos</h3>
+                    </div>
+                    <a href="#" class="bg-white/20 hover:bg-white text-white hover:text-[#0f766e] backdrop-blur-sm border border-white/30 px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 shadow-lg flex items-center group/btn">
+                        <i data-lucide="plus" class="w-4 h-4 mr-1.5 transition-transform duration-300 group-hover/btn:rotate-90"></i> Registrar
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col group h-48 md:h-56">
+            <div class="relative w-full h-full flex flex-col justify-end p-6">
+                <img src="https://plus.unsplash.com/premium_photo-1678376871157-6cebdd957e22?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Equipos Médicos" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                <div class="absolute inset-0 bg-[#0369a1] opacity-70 mix-blend-multiply transition-opacity duration-300 group-hover:opacity-80"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+                <div class="relative z-10 flex justify-between items-end">
+                    <div>
+                        <div class="flex items-center text-white/80 mb-1">
+                            <i data-lucide="monitor" class="w-5 h-5 mr-2"></i>
+                            <span class="text-sm font-bold uppercase tracking-wider">Equipos Médicos</span>
+                        </div>
+                        <h3 class="text-3xl font-extrabold text-white">Máquinas</h3>
+                    </div>
+                    <a href="#" class="bg-white/20 hover:bg-white text-white hover:text-[#0369a1] backdrop-blur-sm border border-white/30 px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 shadow-lg flex items-center group/btn">
+                        <i data-lucide="plus" class="w-4 h-4 mr-1.5 transition-transform duration-300 group-hover/btn:rotate-90"></i> Registrar
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <h3 class="text-2xl font-bold text-[#233b6e] mb-4 border-b pb-2 animate-fade-in-up delay-100 flex items-center">
+        <i data-lucide="list-todo" class="w-6 h-6 mr-2"></i> Inventario General
+    </h3>
+
+    <div class="mb-6 p-5 border border-gray-100 rounded-2xl bg-white shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] animate-fade-in-up delay-100">
+        <form method="get" action="#" class="flex flex-col lg:flex-row items-end gap-4">
+            <div class="w-full lg:flex-grow">
+                <label class="block text-[11px] font-bold text-gray-500 uppercase tracking-wider mb-2.5">Buscar Producto (Código o Nombre)</label>
+                <div class="relative group/input">
+                    <i data-lucide="search" class="absolute left-3.5 top-1/2 transform -translate-y-1/2 text-gray-400 group-focus-within/input:text-[#233b6e] transition-colors duration-300 w-5 h-5"></i>
+                    <input type="text" name="q" value="{{ query|default:'' }}" placeholder="Ej: Paracetamol 500mg, Jeringa 5ml, Ecógrafo..."
+                        class="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-800 placeholder-gray-400 focus:bg-white focus:outline-none focus:border-[#233b6e] focus:ring-4 focus:ring-[#233b6e]/10 transition-all duration-300">
+                </div>
+            </div>
+            
+            <div class="w-full lg:w-1/4">
+                <label class="block text-[11px] font-bold text-gray-500 uppercase tracking-wider mb-2.5">Categoría</label>
+                <div class="relative group/input">
+                    <select name="categoria" class="w-full pl-4 pr-10 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-800 focus:bg-white focus:outline-none focus:border-[#233b6e] focus:ring-4 focus:ring-[#233b6e]/10 transition-all duration-300 appearance-none cursor-pointer">
+                        <option value="">Todas las categorías</option>
+                        <option value="drogueria">Droguería</option>
+                        <option value="insumos">Insumos</option>
+                        <option value="maquinas">Equipos / Máquinas</option>
+                    </select>
+                    <i data-lucide="chevron-down" class="absolute right-3.5 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none"></i>
+                </div>
+            </div>
+
+            <div class="w-full lg:w-auto flex flex-col sm:flex-row gap-3">
+                <a href="#" class="w-full sm:w-auto px-6 py-3 bg-gray-100 border border-gray-200 text-gray-700 rounded-xl text-sm font-bold hover:bg-gray-200 hover:border-gray-300 transition-all duration-300 flex items-center justify-center">
+                    <i data-lucide="eraser" class="w-4 h-4 mr-2"></i> Limpiar
+                </a>
+                <button type="submit" class="w-full sm:w-auto px-8 py-3 bg-[#233b6e] text-white rounded-xl text-sm font-bold shadow-md hover:bg-[#1a2c53] hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center">
+                    <i data-lucide="filter" class="w-4 h-4 mr-2"></i> Filtrar
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-[0_2px_15px_-4px_rgba(0,0,0,0.05)] border border-gray-100 overflow-visible animate-fade-in-up delay-200">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-slate-50/80 border-b border-gray-200">
+                        <th class="px-6 py-4 text-[11px] font-bold text-[#233b6e] uppercase tracking-wider">Código</th>
+                        <th class="px-6 py-4 text-[11px] font-bold text-[#233b6e] uppercase tracking-wider">Producto / Artículo</th>
+                        <th class="px-6 py-4 text-[11px] font-bold text-[#233b6e] uppercase tracking-wider text-center">Tipo</th>
+                        <th class="px-6 py-4 text-[11px] font-bold text-[#233b6e] uppercase tracking-wider text-center">Stock / Cantidad</th>
+                        <th class="px-6 py-4 text-[11px] font-bold text-[#233b6e] uppercase tracking-wider text-center">Estado</th>
+                        <th class="px-6 py-4 text-[11px] font-bold text-[#233b6e] uppercase tracking-wider text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100">
+                    
+                    <tr class="transition-all duration-400 ease-out group animate-stagger hover:bg-blue-50/30 hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] hover:-translate-y-1 relative z-0 hover:z-10 cursor-default" style="--anim-order: 0;">
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-500 group-hover:text-[#233b6e] transition-colors">
+                            MED-0012
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="text-sm font-bold text-gray-900 group-hover:text-[#233b6e] transition-colors">Paracetamol 500mg</div>
+                            <div class="text-xs text-gray-500 mt-0.5">Presentación: Caja x 100 Tabletas</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-center">
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-md text-[10px] uppercase font-bold bg-purple-50 text-purple-700 border border-purple-200">
+                                Droguería
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-center">
+                            <span class="text-[15px] font-black text-gray-800">450</span>
+                            <span class="text-xs text-gray-500 font-semibold ml-1">Cajas</span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-center">
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-600 border border-emerald-200">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5 animate-pulse"></span> Óptimo
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-center">
+                            <a href="#" class="inline-flex items-center px-3 py-1.5 bg-[#233b6e] text-white rounded-lg text-xs font-bold shadow-sm hover:bg-[#1a2c53] hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+                                <i data-lucide="arrow-right-left" class="w-3.5 h-3.5 mr-1.5"></i> Movimientos
+                            </a>
+                        </td>
+                    </tr>
+
+                    <tr class="transition-all duration-400 ease-out group animate-stagger hover:bg-blue-50/30 hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] hover:-translate-y-1 relative z-0 hover:z-10 cursor-default" style="--anim-order: 1;">
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-500 group-hover:text-[#233b6e] transition-colors">
+                            INS-0455
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="text-sm font-bold text-gray-900 group-hover:text-[#233b6e] transition-colors">Jeringa Descartable 5ml</div>
+                            <div class="text-xs text-gray-500 mt-0.5">Presentación: Unidad</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-center">
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-md text-[10px] uppercase font-bold bg-teal-50 text-teal-700 border border-teal-200">
+                                Insumo
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-center">
+                            <span class="text-[15px] font-black text-gray-800">12</span>
+                            <span class="text-xs text-gray-500 font-semibold ml-1">Unid.</span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-center">
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-600 border border-amber-200">
+                                <span class="w-1.5 h-1.5 rounded-full bg-amber-500 mr-1.5"></span> Bajo Stock
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-center">
+                            <a href="#" class="inline-flex items-center px-3 py-1.5 bg-[#233b6e] text-white rounded-lg text-xs font-bold shadow-sm hover:bg-[#1a2c53] hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+                                <i data-lucide="arrow-right-left" class="w-3.5 h-3.5 mr-1.5"></i> Movimientos
+                            </a>
+                        </td>
+                    </tr>
+                    
+                    <tr class="transition-all duration-400 ease-out group animate-stagger hover:bg-blue-50/30 hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] hover:-translate-y-1 relative z-0 hover:z-10 cursor-default" style="--anim-order: 2;">
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-500 group-hover:text-[#233b6e] transition-colors">
+                            MED-0890
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="text-sm font-bold text-gray-900 group-hover:text-[#233b6e] transition-colors">Amoxicilina 250mg/5ml</div>
+                            <div class="text-xs text-gray-500 mt-0.5">Presentación: Frasco x 60ml</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-center">
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-md text-[10px] uppercase font-bold bg-purple-50 text-purple-700 border border-purple-200">
+                                Droguería
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-center">
+                            <span class="text-[15px] font-black text-red-600">0</span>
+                            <span class="text-xs text-gray-500 font-semibold ml-1">Frascos</span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-center">
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-red-50 text-red-600 border border-red-200">
+                                <span class="w-1.5 h-1.5 rounded-full bg-red-600 mr-1.5"></span> Agotado
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-center">
+                            <a href="#" class="inline-flex items-center px-3 py-1.5 bg-[#233b6e] text-white rounded-lg text-xs font-bold shadow-sm hover:bg-[#1a2c53] hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+                                <i data-lucide="arrow-right-left" class="w-3.5 h-3.5 mr-1.5"></i> Movimientos
+                            </a>
+                        </td>
+                    </tr>
+                    <tr class="transition-all duration-400 ease-out group animate-stagger hover:bg-blue-50/30 hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] hover:-translate-y-1 relative z-0 hover:z-10 cursor-default" style="--anim-order: 3;">
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-500 group-hover:text-[#233b6e] transition-colors">
+                            MAQ-0120
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="text-sm font-bold text-gray-900 group-hover:text-[#233b6e] transition-colors">Ecógrafo Portátil Mindray DP-10</div>
+                            <div class="text-xs text-gray-500 mt-0.5">Ubicación: Consultorio 3 (Ginecología)</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-center">
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-md text-[10px] uppercase font-bold bg-sky-50 text-sky-700 border border-sky-200">
+                                Equipo Médico
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-center">
+                            <span class="text-[15px] font-black text-gray-800">2</span>
+                            <span class="text-xs text-gray-500 font-semibold ml-1">Unid.</span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-center">
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-600 border border-emerald-200">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5 animate-pulse"></span> Operativo
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-center">
+                            <a href="#" class="inline-flex items-center px-3 py-1.5 bg-[#233b6e] text-white rounded-lg text-xs font-bold shadow-sm hover:bg-[#1a2c53] hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+                                <i data-lucide="arrow-right-left" class="w-3.5 h-3.5 mr-1.5"></i> Movimientos
+                            </a>
+                        </td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<style>
+    @keyframes fadeInLeft { 0% { opacity: 0; transform: translateX(-20px); } 100% { opacity: 1; transform: translateX(0); } }
+    @keyframes fadeInUp { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
+    .animate-fade-in-left { animation: fadeInLeft 0.5s ease-out forwards; }
+    .animate-fade-in-up { animation: fadeInUp 0.5s ease-out forwards; opacity: 0; }
+    .delay-100 { animation-delay: 0.1s; }
+    .delay-200 { animation-delay: 0.2s; }
+    .animate-stagger {
+        opacity: 0;
+        animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        animation-delay: calc(0.15s + var(--anim-order, 0) * 0.08s);
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        lucide.createIcons();
+    });
+</script>
+{% endblock content %}
