@@ -1,0 +1,236 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block title %}Dashboard Citas - Clínica Hipólito Unanue{% endblock %}
+
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<div class="max-w-7xl mx-auto p-4 sm:p-6">
+    
+    <div class="mb-4 animate-fade-in-left">
+        <a href="{% url 'dashboard' %}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-200 rounded-xl text-sm font-bold text-gray-500 hover:text-[#233b6e] hover:border-gray-300 hover:bg-gray-50 hover:shadow-sm transition-all duration-300 group w-fit">
+            <i data-lucide="arrow-left" class="w-4 h-4 mr-2 text-gray-400 group-hover:text-[#233b6e] group-hover:-translate-x-1 transition-all duration-300"></i>
+            Volver al Menú Principal
+        </a>
+    </div>
+
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 border-b-2 border-gray-200 pb-4 animate-fade-in-left">
+        <div>
+            <div class="flex items-center gap-3">
+                <h2 class="text-3xl font-bold text-[#233b6e] flex items-center tracking-tight">
+                    <i data-lucide="calendar-clock" class="w-8 h-8 mr-3 text-[#233b6e]"></i> Gestión de Citas
+                </h2>
+            </div>
+            <p class="text-gray-500 text-sm mt-2 md:ml-11">Programación y control de citas médicas por especialidad.</p>
+        </div>
+        
+        <button onclick="abrirModal()" class="mt-4 md:mt-0 bg-[#233b6e] hover:bg-[#1a2c53] text-white text-sm font-bold py-3 px-6 rounded-xl shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 flex items-center whitespace-nowrap">
+            <i data-lucide="plus" class="w-5 h-5 mr-2"></i> Agendar Cita
+        </button>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 animate-fade-in-up">
+        
+        <div class="lg:col-span-2 bg-white rounded-2xl shadow-[0_2px_15px_-4px_rgba(0,0,0,0.05)] border border-gray-100 p-5">
+            <div id="calendario" class="w-full h-[600px] font-sans"></div>
+        </div>
+
+        <div class="lg:col-span-1 flex flex-col gap-4">
+            
+            <h3 class="text-lg font-bold text-[#233b6e] flex items-center border-b border-gray-100 pb-2">
+                <i data-lucide="clock-4" class="w-5 h-5 mr-2 text-gray-400"></i> Citas para Hoy
+            </h3>
+
+            <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow cursor-default group">
+                <div class="flex justify-between items-start mb-2">
+                    <span class="inline-flex items-center px-2 py-1 rounded-md text-[10px] uppercase font-bold bg-purple-50 text-purple-700 border border-purple-200">
+                        Confirmada
+                    </span>
+                    <span class="text-xs font-bold text-gray-500"><i data-lucide="clock" class="w-3 h-3 inline mr-1"></i>09:00 AM</span>
+                </div>
+                <h4 class="font-bold text-gray-800 group-hover:text-[#233b6e] transition-colors">María Gonzáles</h4>
+                <p class="text-xs text-gray-500 mt-1">Dra. Ramírez - Ginecología</p>
+                <div class="mt-3 flex gap-2">
+                    <button class="flex-1 bg-gray-50 hover:bg-gray-100 text-gray-600 text-xs font-bold py-2 rounded-lg transition-colors">Detalles</button>
+                    <button class="flex-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-xs font-bold py-2 rounded-lg transition-colors border border-emerald-200">Atender</button>
+                </div>
+            </div>
+
+            <div class="bg-white p-4 rounded-xl border border-emerald-100 shadow-sm hover:shadow-md transition-shadow cursor-default group relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-1 h-full bg-emerald-500"></div>
+                <div class="flex justify-between items-start mb-2 pl-2">
+                    <span class="inline-flex items-center px-2 py-1 rounded-md text-[10px] uppercase font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5 animate-pulse"></span> En Consultorio
+                    </span>
+                    <span class="text-xs font-bold text-gray-500"><i data-lucide="clock" class="w-3 h-3 inline mr-1"></i>09:30 AM</span>
+                </div>
+                <h4 class="font-bold text-gray-800 group-hover:text-emerald-700 transition-colors pl-2">Carlos Mendoza</h4>
+                <p class="text-xs text-gray-500 mt-1 pl-2">Dr. Martínez - Pediatría</p>
+            </div>
+
+            <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow cursor-default group">
+                <div class="flex justify-between items-start mb-2">
+                    <span class="inline-flex items-center px-2 py-1 rounded-md text-[10px] uppercase font-bold bg-amber-50 text-amber-700 border border-amber-200">
+                        Pendiente
+                    </span>
+                    <span class="text-xs font-bold text-gray-500"><i data-lucide="clock" class="w-3 h-3 inline mr-1"></i>11:15 AM</span>
+                </div>
+                <h4 class="font-bold text-gray-800 group-hover:text-[#233b6e] transition-colors">Lucía Fernández</h4>
+                <p class="text-xs text-gray-500 mt-1">Dr. Soto - Medicina General</p>
+                <div class="mt-3 flex gap-2">
+                    <button class="flex-1 bg-gray-50 hover:bg-gray-100 text-gray-600 text-xs font-bold py-2 rounded-lg transition-colors">Detalles</button>
+                    <button class="flex-1 bg-purple-50 hover:bg-purple-100 text-purple-700 text-xs font-bold py-2 rounded-lg transition-colors border border-purple-200">Confirmar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div id="modalCita" class="fixed inset-0 z-[100] hidden items-center justify-center p-4">
+    <div class="absolute inset-0 bg-[#233b6e]/40 backdrop-blur-sm transition-opacity" onclick="cerrarModal()"></div>
+    
+    <div class="relative bg-white w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden animate-modal-in">
+        <div class="bg-[#233b6e] p-5 text-white">
+            <div class="flex justify-between items-center">
+                <h3 class="text-lg font-bold flex items-center">
+                    <i data-lucide="calendar-plus" class="w-5 h-5 mr-3"></i> Nueva Cita Médica
+                </h3>
+                <button onclick="cerrarModal()" class="p-1.5 hover:bg-white/10 rounded-lg transition-colors">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <p class="text-white/70 text-[10px] mt-0.5 ml-8 uppercase font-bold tracking-widest">Clínica Hipólito Unanue</p>
+        </div>
+
+        <div class="p-6">
+            <div class="grid grid-cols-1 gap-4">
+                
+                <div>
+                    <label class="block text-[10px] font-black text-gray-400 uppercase tracking-wider mb-1.5">Paciente (DNI o Nombre)</label>
+                    <div class="relative">
+                        <i data-lucide="user" class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400"></i>
+                        <input type="text" placeholder="Ej: 72458912 o Juan Pérez..." 
+                               class="w-full pl-10 pr-3 py-2 bg-gray-50 border border-gray-100 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#233b6e]/10 focus:border-[#233b6e] transition-all">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-[10px] font-black text-gray-400 uppercase tracking-wider mb-1.5">Especialidad</label>
+                        <select class="w-full px-3 py-2 bg-gray-50 border border-gray-100 rounded-lg text-sm focus:outline-none focus:border-[#233b6e] appearance-none">
+                            <option>Ginecología</option>
+                            <option>Pediatría</option>
+                            <option>Medicina General</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-black text-gray-400 uppercase tracking-wider mb-1.5">Médico</label>
+                        <select class="w-full px-3 py-2 bg-gray-50 border border-gray-100 rounded-lg text-sm focus:outline-none focus:border-[#233b6e] appearance-none">
+                            <option>Dra. Ramírez</option>
+                            <option>Dr. Martínez</option>
+                            <option>Dr. Soto</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-[10px] font-black text-gray-400 uppercase tracking-wider mb-1.5">Fecha</label>
+                        <input type="date" class="w-full px-3 py-2 bg-gray-50 border border-gray-100 rounded-lg text-sm focus:outline-none focus:border-[#233b6e]">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-black text-gray-400 uppercase tracking-wider mb-1.5">Hora sugerida</label>
+                        <input type="time" class="w-full px-3 py-2 bg-gray-50 border border-gray-100 rounded-lg text-sm focus:outline-none focus:border-[#233b6e]">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-black text-gray-400 uppercase tracking-wider mb-1.5">Motivo de consulta</label>
+                    <textarea rows="1" class="w-full px-3 py-2 bg-gray-50 border border-gray-100 rounded-lg text-sm focus:outline-none focus:border-[#233b6e] placeholder-gray-300 resize-none" placeholder="Breve descripción..."></textarea>
+                </div>
+            </div>
+
+            <div class="flex gap-3 mt-5">
+                <button onclick="cerrarModal()" class="flex-1 px-4 py-2.5 bg-gray-100 text-gray-500 rounded-lg text-sm font-bold hover:bg-gray-200 transition-colors">
+                    Cancelar
+                </button>
+                <button onclick="cerrarModal()" class="flex-1 px-4 py-2.5 bg-[#233b6e] text-white rounded-lg text-sm font-bold shadow-md hover:bg-[#1a2c53] transition-all hover:-translate-y-0.5">
+                    Agendar Cita
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Animaciones suaves */
+    @keyframes fadeInLeft { 0% { opacity: 0; transform: translateX(-20px); } 100% { opacity: 1; transform: translateX(0); } }
+    @keyframes fadeInUp { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
+    .animate-fade-in-left { animation: fadeInLeft 0.5s ease-out forwards; }
+    .animate-fade-in-up { animation: fadeInUp 0.5s ease-out forwards; opacity: 0; }
+
+    /* Animación del Modal */
+    @keyframes modalIn {
+        0% { opacity: 0; transform: scale(0.9) translateY(20px); }
+        100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .animate-modal-in { animation: modalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+    /* Ajustes estéticos FullCalendar */
+    .fc { font-family: inherit; }
+    .fc-theme-standard th { padding: 10px 0; background-color: #f8fafc; border-color: #f1f5f9; color: #64748b; text-transform: uppercase; font-size: 0.75rem; font-weight: 700; }
+    .fc-theme-standard td { border-color: #f1f5f9; }
+    .fc .fc-button-primary { background-color: #233b6e; border-color: #233b6e; text-transform: capitalize; font-weight: 600; border-radius: 0.5rem; }
+    .fc .fc-button-primary:not(:disabled):active, .fc .fc-button-primary:not(:disabled).fc-button-active { background-color: #1a2c53; border-color: #1a2c53; }
+    .fc .fc-button-primary:hover { background-color: #1a2c53; border-color: #1a2c53; }
+    .fc-daygrid-event { border-radius: 4px; font-size: 0.75rem; font-weight: 600; padding: 2px 4px; border: none; }
+</style>
+
+<script>
+    // Funciones del Modal
+    function abrirModal() {
+        const modal = document.getElementById('modalCita');
+        document.body.appendChild(modal); 
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function cerrarModal() {
+        const modal = document.getElementById('modalCita');
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = 'auto';
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        lucide.createIcons();
+
+        // Inicializar el Calendario (con los datos que pediste no alterar)
+        var calendarEl = document.getElementById('calendario');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            locale: 'es', // Lo ponemos en español
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            },
+            buttonText: {
+                today: 'Hoy',
+                month: 'Mes',
+                week: 'Semana',
+                day: 'Día'
+            },
+            events: [
+                { title: 'María Gonzáles (Gineco)', start: new Date().toISOString().split('T')[0] + 'T09:00:00', backgroundColor: '#f3e8ff', textColor: '#7e22ce' },
+                { title: 'Carlos Mendoza (Pedia)', start: new Date().toISOString().split('T')[0] + 'T09:30:00', backgroundColor: '#d1fae5', textColor: '#047857' },
+                { title: 'Lucía Fernández (MedGen)', start: new Date().toISOString().split('T')[0] + 'T11:15:00', backgroundColor: '#fef3c7', textColor: '#b45309' }
+            ]
+        });
+        calendar.render();
+    });
+</script>
+{% endblock content %}

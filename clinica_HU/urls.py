@@ -27,4 +27,5 @@ urlpatterns = [
     path('historial/', include('historial_cl.urls')),
     path('hp/', include('historia_hp.urls')),
     path('inventario/', include('inventario.urls')),
+    path('citas/', include('citas.urls')),
 ]
