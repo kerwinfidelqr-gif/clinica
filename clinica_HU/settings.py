@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'historia_hp',
     'inventario',
     'citas',
+    'proveedores',
 ]
 
 AUTH_USER_MODEL = 'usuarios.Usuario'

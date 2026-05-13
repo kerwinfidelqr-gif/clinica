@@ -28,4 +28,5 @@ urlpatterns = [
     path('hp/', include('historia_hp.urls')),
     path('inventario/', include('inventario.urls')),
     path('citas/', include('citas.urls')),
+    path('proveedores/', include('proveedores.urls')),
 ]
