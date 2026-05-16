@@ -1,0 +1,239 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block title %}Dashboard Citas - Clínica Hipólito Unanue{% endblock %}
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<div class="max-w-7xl mx-auto p-4 sm:p-6">
+    <div class="mb-4 animate-fade-in-left">
+        <a href="{% url 'dashboard' %}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-200 rounded-xl text-sm font-bold text-gray-500 hover:text-[#233b6e] hover:border-gray-300 hover:bg-gray-50 hover:shadow-sm transition-all duration-300 group w-fit">
+            <i data-lucide="arrow-left" class="w-4 h-4 mr-2 text-gray-400 group-hover:text-[#233b6e] group-hover:-translate-x-1 transition-all duration-300"></i>
+            Volver al Menú Principal
+        </a>
+    </div>
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 border-b-2 border-gray-200 pb-4 animate-fade-in-left">
+        <div>
+            <div class="flex items-center gap-3">
+                <h2 class="text-3xl font-bold text-[#233b6e] flex items-center tracking-tight">
+                    <i data-lucide="calendar-clock" class="w-8 h-8 mr-3 text-[#233b6e]"></i> Gestión de Citas
+                </h2>
+            </div>
+            <p class="text-gray-500 text-sm mt-2 md:ml-11">Programación y control de citas médicas por especialidad.</p>
+        </div>
+        <button onclick="abrirModal()" class="mt-4 md:mt-0 bg-[#233b6e] hover:bg-[#1a2c53] text-white text-sm font-bold py-3 px-6 rounded-xl shadow-md transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 flex items-center whitespace-nowrap">
+            <i data-lucide="plus" class="w-5 h-5 mr-2"></i> Agendar Cita
+        </button>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 animate-fade-in-up">
+        <div class="lg:col-span-2 bg-white rounded-2xl shadow-[0_2px_15px_-4px_rgba(0,0,0,0.05)] border border-gray-100 p-4 sm:p-5 overflow-hidden">
+            <div id="calendario" class="w-full font-sans"></div>
+        </div>
+
+        <div class="lg:col-span-1 flex flex-col gap-4">
+            
+            <h3 class="text-lg font-bold text-[#233b6e] flex items-center border-b border-gray-100 pb-2">
+                <i data-lucide="clock-4" class="w-5 h-5 mr-2 text-gray-400"></i> Citas para Hoy
+            </h3>
+
+            {% for cita in citas_hoy %}
+            <div class="bg-white p-4 rounded-xl border {% if cita.estado == 'En Consultorio' %}border-emerald-100{% else %}border-gray-100{% endif %} shadow-sm hover:shadow-md transition-shadow cursor-default group {% if cita.estado == 'En Consultorio' %}relative overflow-hidden{% endif %}">
+                {% if cita.estado == 'En Consultorio' %}
+                <div class="absolute top-0 left-0 w-1 h-full bg-emerald-500"></div>
+                {% endif %}
+                <div class="flex justify-between items-start mb-2 {% if cita.estado == 'En Consultorio' %}pl-2{% endif %}">
+                    <span class="inline-flex items-center px-2 py-1 rounded-md text-[10px] uppercase font-bold 
+                        {% if cita.estado == 'Confirmada' %}bg-purple-50 text-purple-700 border border-purple-200
+                        {% elif cita.estado == 'En Consultorio' %}bg-emerald-50 text-emerald-700 border border-emerald-200
+                        {% else %}bg-amber-50 text-amber-700 border border-amber-200{% endif %}">
+                        {% if cita.estado == 'En Consultorio' %}<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5 animate-pulse"></span>{% endif %}
+                        {{ cita.estado }}
+                    </span>
+                    <span class="text-xs font-bold text-gray-500"><i data-lucide="clock" class="w-3 h-3 inline mr-1"></i>{{ cita.hora|time:"h:i A" }}</span>
+                </div>
+                <h4 class="font-bold text-gray-800 group-hover:{% if cita.estado == 'En Consultorio' %}text-emerald-700{% else %}text-[#233b6e]{% endif %} transition-colors {% if cita.estado == 'En Consultorio' %}pl-2{% endif %}">{{ cita.paciente_nombre }}</h4>
+                <p class="text-xs text-gray-500 mt-1 {% if cita.estado == 'En Consultorio' %}pl-2{% endif %}">{{ cita.medico_nombre }} - {{ cita.especialidad }}</p>
+                {% if cita.estado != 'En Consultorio' %}
+                <div class="mt-3 flex gap-2">
+                    <button class="flex-1 bg-gray-50 hover:bg-gray-100 text-gray-600 text-xs font-bold py-2 rounded-lg transition-colors">Detalles</button>
+                    {% if cita.estado == 'Confirmada' %}
+                    <button class="flex-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-xs font-bold py-2 rounded-lg transition-colors border border-emerald-200">Atender</button>
+                    {% else %}
+                    <button class="flex-1 bg-purple-50 hover:bg-purple-100 text-purple-700 text-xs font-bold py-2 rounded-lg transition-colors border border-purple-200">Confirmar</button>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+            {% empty %}
+            <div class="text-center text-gray-500 py-4 text-sm font-medium">No hay citas registradas para hoy.</div>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+
+<div id="modalCita" class="fixed inset-0 z-[100] hidden items-center justify-center p-4">
+    <div class="absolute inset-0 bg-[#233b6e]/40 backdrop-blur-sm transition-opacity" onclick="cerrarModal()"></div>
+    
+    <div class="relative bg-white w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden animate-modal-in">
+        <form method="POST" action="">
+            {% csrf_token %}
+            <div class="bg-[#233b6e] p-5 text-white">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-lg font-bold flex items-center">
+                        <i data-lucide="calendar-plus" class="w-5 h-5 mr-3"></i> Nueva Cita Médica
+                    </h3>
+                    <button type="button" onclick="cerrarModal()" class="p-1.5 hover:bg-white/10 rounded-lg transition-colors">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+                <p class="text-white/70 text-[10px] mt-0.5 ml-8 uppercase font-bold tracking-widest">Clínica Hipólito Unanue</p>
+            </div>
+
+            <div class="p-6">
+                <div class="grid grid-cols-1 gap-4">
+                    
+                    <div>
+                        <label class="block text-[10px] font-black text-gray-400 uppercase tracking-wider mb-1.5">Paciente (DNI o Nombre)</label>
+                        <div class="relative">
+                            <i data-lucide="user" class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400"></i>
+                            <input type="text" name="paciente_nombre" placeholder="Ej: 72458912 o Juan Pérez..." required
+                                class="w-full pl-10 pr-3 py-2 bg-gray-50 border border-gray-100 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#233b6e]/10 focus:border-[#233b6e] transition-all">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-[10px] font-black text-gray-400 uppercase tracking-wider mb-1.5">Especialidad</label>
+                            <select name="especialidad" class="w-full px-3 py-2 bg-gray-50 border border-gray-100 rounded-lg text-sm focus:outline-none focus:border-[#233b6e] appearance-none" required>
+                                <option value="Ginecología">Ginecología</option>
+                                <option value="Pediatría">Pediatría</option>
+                                <option value="Medicina General">Medicina General</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-black text-gray-400 uppercase tracking-wider mb-1.5">Médico</label>
+                            <select name="medico_nombre" class="w-full px-3 py-2 bg-gray-50 border border-gray-100 rounded-lg text-sm focus:outline-none focus:border-[#233b6e] appearance-none" required>
+                                <option value="Dra. Ramírez">Dra. Ramírez</option>
+                                <option value="Dr. Martínez">Dr. Martínez</option>
+                                <option value="Dr. Soto">Dr. Soto</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-[10px] font-black text-gray-400 uppercase tracking-wider mb-1.5">Fecha</label>
+                            <input type="date" name="fecha" class="w-full px-3 py-2 bg-gray-50 border border-gray-100 rounded-lg text-sm focus:outline-none focus:border-[#233b6e]" required>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-black text-gray-400 uppercase tracking-wider mb-1.5">Hora sugerida</label>
+                            <input type="time" name="hora" class="w-full px-3 py-2 bg-gray-50 border border-gray-100 rounded-lg text-sm focus:outline-none focus:border-[#233b6e]" required>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-[10px] font-black text-gray-400 uppercase tracking-wider mb-1.5">Motivo de consulta</label>
+                        <textarea name="motivo" rows="1" class="w-full px-3 py-2 bg-gray-50 border border-gray-100 rounded-lg text-sm focus:outline-none focus:border-[#233b6e] placeholder-gray-300 resize-none" placeholder="Breve descripción..."></textarea>
+                    </div>
+                </div>
+
+                <div class="flex gap-3 mt-5">
+                    <button type="button" onclick="cerrarModal()" class="flex-1 px-4 py-2.5 bg-gray-100 text-gray-500 rounded-lg text-sm font-bold hover:bg-gray-200 transition-colors">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="flex-1 px-4 py-2.5 bg-[#233b6e] text-white rounded-lg text-sm font-bold shadow-md hover:bg-[#1a2c53] transition-all hover:-translate-y-0.5">
+                        Agendar Cita
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    @keyframes fadeInLeft { 0% { opacity: 0; transform: translateX(-20px); } 100% { opacity: 1; transform: translateX(0); } }
+    @keyframes fadeInUp { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
+    .animate-fade-in-left { animation: fadeInLeft 0.5s ease-out forwards; }
+    .animate-fade-in-up { animation: fadeInUp 0.5s ease-out forwards; opacity: 0; }
+    @keyframes modalIn { 0% { opacity: 0; transform: scale(0.9) translateY(20px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
+    .animate-modal-in { animation: modalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .fc { font-family: inherit; }
+    .fc-theme-standard th { padding: 10px 0; background-color: #f8fafc; border-color: #f1f5f9; color: #64748b; text-transform: uppercase; font-size: 0.75rem; font-weight: 700; }
+    .fc-theme-standard td { border-color: #f1f5f9; }
+    .fc .fc-button-primary { background-color: #233b6e; border-color: #233b6e; text-transform: capitalize; font-weight: 600; border-radius: 0.5rem; }
+    .fc .fc-button-primary:not(:disabled):active, .fc .fc-button-primary:not(:disabled).fc-button-active { background-color: #1a2c53; border-color: #1a2c53; }
+    .fc .fc-button-primary:hover { background-color: #1a2c53; border-color: #1a2c53; }
+    .fc-daygrid-event { border-radius: 4px; font-size: 0.75rem; font-weight: 600; padding: 2px 4px; border: none; }
+    @media (max-width: 640px) {
+        .fc-header-toolbar {
+            display: flex !important;
+            flex-wrap: wrap;
+            justify-content: center !important;
+            gap: 10px;
+            margin-bottom: 1rem !important;
+        }
+        .fc-toolbar-chunk:nth-child(2) {
+            order: -1;
+            width: 100%;
+            text-align: center;
+        }
+        .fc-toolbar-title {
+            font-size: 1.3rem !important;
+        }
+        .fc .fc-button {
+            padding: 0.4rem 0.6rem;
+            font-size: 0.8rem;
+        }
+    }
+</style>
+
+<script>
+    function abrirModal() {
+        const modal = document.getElementById('modalCita');
+        document.body.appendChild(modal); 
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function cerrarModal() {
+        const modal = document.getElementById('modalCita');
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = 'auto';
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        lucide.createIcons();
+        var calendarEl = document.getElementById('calendario');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            locale: 'es',
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            },
+            buttonText: {
+                today: 'Hoy',
+                month: 'Mes',
+                week: 'Semana',
+                day: 'Día'
+            },
+            events: [
+                {% for cita in citas_cal %}
+                { 
+                    title: '{{ cita.paciente_nombre }} ({{ cita.especialidad|slice:":5" }})', 
+                    start: '{{ cita.fecha|date:"Y-m-d" }}T{{ cita.hora|time:"H:i:s" }}', 
+                    backgroundColor: '{% if cita.estado == "Confirmada" %}#f3e8ff{% elif cita.estado == "En Consultorio" %}#d1fae5{% else %}#fef3c7{% endif %}', 
+                    textColor: '{% if cita.estado == "Confirmada" %}#7e22ce{% elif cita.estado == "En Consultorio" %}#047857{% else %}#b45309{% endif %}' 
+                },
+                {% endfor %}
+            ],
+            height: 'auto',
+            contentHeight: 'auto'
+        });
+        calendar.render();
+    });
+</script>
+{% endblock content %}

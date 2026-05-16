@@ -19,8 +19,8 @@
             <p class="text-gray-500 text-sm mt-2 md:ml-11">Gestión centralizada de medicamentos, insumos y equipos médicos.</p>
         </div>
     </div>
+
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-10 animate-fade-in-up">
-        <!-- Tarjeta 1 -->
         <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col group h-48 md:h-56">
             <div class="relative w-full h-full flex flex-col justify-end p-6">
                 <img src="https://plus.unsplash.com/premium_photo-1671721439342-5c5e081d4a7c?q=80&w=696&auto=format&fit=crop" alt="Droguería" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"> 
@@ -35,14 +35,12 @@
                         </div>
                         <h3 class="text-3xl font-extrabold text-white">Droguería</h3>
                     </div>
-                    <!-- Botón Modificado -->
-                    <button onclick="abrirModalProducto()" class="bg-white/20 hover:bg-white text-white hover:text-[#3b0764] backdrop-blur-sm border border-white/30 px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 shadow-lg flex items-center group/btn">
+                    <button onclick="abrirModalProducto('Droguería')" class="bg-white/20 hover:bg-white text-white hover:text-[#3b0764] backdrop-blur-sm border border-white/30 px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 shadow-lg flex items-center group/btn">
                         <i data-lucide="plus" class="w-4 h-4 mr-1.5 transition-transform duration-300 group-hover/btn:rotate-90"></i> Registrar
                     </button>
                 </div>
             </div>
         </div>
-        <!-- Tarjeta 2 -->
         <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col group h-48 md:h-56">
             <div class="relative w-full h-full flex flex-col justify-end p-6">
                 <img src="https://images.unsplash.com/photo-1605176173609-a0067079b419?q=80&w=1172&auto=format&fit=crop" alt="Insumos Médicos Stored" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
@@ -57,14 +55,12 @@
                         </div>
                         <h3 class="text-3xl font-extrabold text-white">Insumos</h3>
                     </div>
-                    <!-- Botón Modificado -->
-                    <button onclick="abrirModalProducto()" class="bg-white/20 hover:bg-white text-white hover:text-[#0f766e] backdrop-blur-sm border border-white/30 px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 shadow-lg flex items-center group/btn">
+                    <button onclick="abrirModalProducto('Insumos')" class="bg-white/20 hover:bg-white text-white hover:text-[#0f766e] backdrop-blur-sm border border-white/30 px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 shadow-lg flex items-center group/btn">
                         <i data-lucide="plus" class="w-4 h-4 mr-1.5 transition-transform duration-300 group-hover/btn:rotate-90"></i> Registrar
                     </button>
                 </div>
             </div>
         </div>
-        <!-- Tarjeta 3 -->
         <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col group h-48 md:h-56">
             <div class="relative w-full h-full flex flex-col justify-end p-6">
                 <img src="https://plus.unsplash.com/premium_photo-1678376871157-6cebdd957e22?q=80&w=870&auto=format&fit=crop" alt="Equipos Médicos" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
@@ -78,14 +74,12 @@
                         </div>
                         <h3 class="text-3xl font-extrabold text-white">Máquinas</h3>
                     </div>
-                    <!-- Botón Modificado -->
-                    <button onclick="abrirModalProducto()" class="bg-white/20 hover:bg-white text-white hover:text-[#0369a1] backdrop-blur-sm border border-white/30 px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 shadow-lg flex items-center group/btn">
+                    <button onclick="abrirModalProducto('Máquinas')" class="bg-white/20 hover:bg-white text-white hover:text-[#0369a1] backdrop-blur-sm border border-white/30 px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 shadow-lg flex items-center group/btn">
                         <i data-lucide="plus" class="w-4 h-4 mr-1.5 transition-transform duration-300 group-hover/btn:rotate-90"></i> Registrar
                     </button>
                 </div>
             </div>
         </div>
-
     </div>
 
     <h3 class="text-2xl font-bold text-[#233b6e] mb-4 border-b pb-2 animate-fade-in-up delay-100 flex items-center">
@@ -93,12 +87,12 @@
     </h3>
 
     <div class="mb-6 p-5 border border-gray-100 rounded-2xl bg-white shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] animate-fade-in-up delay-100">
-        <form method="get" action="#" class="flex flex-col lg:flex-row items-end gap-4">
+        <form method="get" action="{% url 'lista_dashboard' %}" class="flex flex-col lg:flex-row items-end gap-4">
             <div class="w-full lg:flex-grow">
                 <label class="block text-[11px] font-bold text-gray-500 uppercase tracking-wider mb-2.5">Buscar Producto (Código o Nombre)</label>
                 <div class="relative group/input">
                     <i data-lucide="search" class="absolute left-3.5 top-1/2 transform -translate-y-1/2 text-gray-400 group-focus-within/input:text-[#233b6e] transition-colors duration-300 w-5 h-5"></i>
-                    <input type="text" name="q" value="{{ query|default:'' }}" placeholder="Ej: Paracetamol 500mg, Jeringa 5ml, Ecógrafo..."
+                    <input type="text" name="q" value="{{ query }}" placeholder="Ej: Paracetamol 500mg, Jeringa 5ml, Ecógrafo..."
                         class="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-800 placeholder-gray-400 focus:bg-white focus:outline-none focus:border-[#233b6e] focus:ring-4 focus:ring-[#233b6e]/10 transition-all duration-300">
                 </div>
             </div>
@@ -108,16 +102,16 @@
                 <div class="relative group/input">
                     <select name="categoria" class="w-full pl-4 pr-10 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-800 focus:bg-white focus:outline-none focus:border-[#233b6e] focus:ring-4 focus:ring-[#233b6e]/10 transition-all duration-300 appearance-none cursor-pointer">
                         <option value="">Todas las categorías</option>
-                        <option value="drogueria">Droguería</option>
-                        <option value="insumos">Insumos</option>
-                        <option value="maquinas">Equipos / Máquinas</option>
+                        <option value="Droguería" {% if categoria_filtro == "Droguería" %}selected{% endif %}>Droguería</option>
+                        <option value="Insumos" {% if categoria_filtro == "Insumos" %}selected{% endif %}>Insumos</option>
+                        <option value="Máquinas" {% if categoria_filtro == "Máquinas" %}selected{% endif %}>Equipos / Máquinas</option>
                     </select>
                     <i data-lucide="chevron-down" class="absolute right-3.5 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none"></i>
                 </div>
             </div>
 
             <div class="w-full lg:w-auto flex flex-col sm:flex-row gap-3">
-                <a href="#" class="w-full sm:w-auto px-6 py-3 bg-gray-100 border border-gray-200 text-gray-700 rounded-xl text-sm font-bold hover:bg-gray-200 hover:border-gray-300 transition-all duration-300 flex items-center justify-center">
+                <a href="{% url 'lista_dashboard' %}" class="w-full sm:w-auto px-6 py-3 bg-gray-100 border border-gray-200 text-gray-700 rounded-xl text-sm font-bold hover:bg-gray-200 hover:border-gray-300 transition-all duration-300 flex items-center justify-center">
                     <i data-lucide="eraser" class="w-4 h-4 mr-2"></i> Limpiar
                 </a>
                 <button type="submit" class="w-full sm:w-auto px-8 py-3 bg-[#233b6e] text-white rounded-xl text-sm font-bold shadow-md hover:bg-[#1a2c53] hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center">
@@ -141,24 +135,33 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100">
-                    <!-- Fila 1 -->
-                    <tr class="transition-all duration-400 ease-out group animate-stagger hover:bg-blue-50/30 hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] hover:-translate-y-1 relative z-0 hover:z-10 cursor-default" style="--anim-order: 0;">
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-500 group-hover:text-[#233b6e] transition-colors">MED-0012</td>
+                    {% for producto in productos %}
+                    <tr class="transition-all duration-400 ease-out group animate-stagger hover:bg-blue-50/30 hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] hover:-translate-y-1 relative z-0 hover:z-10 cursor-default" style="--anim-order: {{ forloop.counter0 }};">
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-500 group-hover:text-[#233b6e] transition-colors">
+                            {{ producto.codigo }}
+                        </td>
                         <td class="px-6 py-4">
-                            <div class="text-sm font-bold text-gray-900 group-hover:text-[#233b6e] transition-colors">Paracetamol 500mg</div>
-                            <div class="text-xs text-gray-500 mt-0.5">Presentación: Caja x 100 Tabletas</div>
+                            <div class="text-sm font-bold text-gray-900 group-hover:text-[#233b6e] transition-colors">{{ producto.nombre }}</div>
+                            <div class="text-xs text-gray-500 mt-0.5">Precio: S/. {{ producto.precio_unitario }}</div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-center">
-                            <span class="inline-flex items-center px-2.5 py-1 rounded-md text-[10px] uppercase font-bold bg-purple-50 text-purple-700 border border-purple-200">Droguería</span>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-center">
-                            <span class="text-[15px] font-black text-gray-800">450</span>
-                            <span class="text-xs text-gray-500 font-semibold ml-1">Cajas</span>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-center">
-                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-600 border border-emerald-200">
-                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5 animate-pulse"></span> Óptimo
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-md text-[10px] uppercase font-bold bg-purple-50 text-purple-700 border border-purple-200">
+                                {{ producto.categoria.nombre|default:"General" }}
                             </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-center">
+                            <span class="text-[15px] font-black text-gray-800">{{ producto.stock_actual }}</span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-center">
+                            {% if producto.esta_en_bajo_stock %}
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-rose-50 text-rose-600 border border-rose-200">
+                                <span class="w-1.5 h-1.5 rounded-full bg-rose-500 mr-1.5 animate-pulse"></span> Bajo Stock
+                            </span>
+                            {% else %}
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-600 border border-emerald-200">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1.5"></span> Óptimo
+                            </span>
+                            {% endif %}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-center">
                             <a href="#" class="inline-flex items-center px-3 py-1.5 bg-[#233b6e] text-white rounded-lg text-xs font-bold shadow-sm hover:bg-[#1a2c53] hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
@@ -166,14 +169,20 @@
                             </a>
                         </td>
                     </tr>
-                    <!-- Puedes mantener tus otras filas aquí... -->
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="px-6 py-10 text-center text-sm text-gray-500">
+                            <i data-lucide="package-x" class="w-8 h-8 mx-auto mb-2 text-gray-400"></i>
+                            No hay artículos registrados en el inventario que coincidan con la búsqueda.
+                        </td>
+                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
     </div>
 </div>
 
-<!-- MODAL: REGISTRAR NUEVO PRODUCTO -->
 <div id="modalProducto" class="fixed inset-0 z-[100] hidden items-center justify-center p-4">
     <div class="absolute inset-0 bg-[#233b6e]/40 backdrop-blur-sm transition-opacity" onclick="cerrarModalProducto()"></div>
     
@@ -190,68 +199,52 @@
             <p class="text-white/70 text-[10px] mt-0.5 ml-8 uppercase font-bold tracking-widest">Inventario Clínico</p>
         </div>
 
-        <div class="p-6">
+        <form method="post" action="{% url 'lista_dashboard' %}" class="p-6 m-0">
+            {% csrf_token %}
             <div class="grid grid-cols-1 gap-4">
                 
                 <div class="grid grid-cols-2 gap-3">
                     <div>
                         <label class="block text-[10px] font-black text-gray-400 uppercase tracking-wider mb-1.5">Código (Autogenerado)</label>
-                        <input type="text" value="MED-0013" disabled class="w-full px-3 py-2 bg-gray-100 border border-gray-200 rounded-lg text-sm font-bold text-gray-500 cursor-not-allowed">
+                        <input type="text" value="MED-AUTOGEN" disabled class="w-full px-3 py-2 bg-gray-100 border border-gray-200 rounded-lg text-sm font-bold text-gray-500 cursor-not-allowed">
                     </div>
                     <div>
                         <label class="block text-[10px] font-black text-gray-400 uppercase tracking-wider mb-1.5">Categoría</label>
-                        <select class="w-full px-3 py-2 bg-gray-50 border border-gray-100 rounded-lg text-sm focus:outline-none focus:border-[#233b6e] appearance-none">
-                            <option>Droguería</option>
-                            <option>Insumo Médico</option>
-                            <option>Equipo Médico</option>
-                        </select>
+                        <input type="text" id="categoria_display" disabled class="w-full px-3 py-2 bg-gray-100 border border-gray-200 rounded-lg text-sm font-bold text-gray-500 cursor-not-allowed">
+                        <input type="hidden" name="categoria_nombre" id="categoria_hidden">
                     </div>
                 </div>
 
                 <div>
                     <label class="block text-[10px] font-black text-gray-400 uppercase tracking-wider mb-1.5">Nombre del Producto</label>
-                    <input type="text" placeholder="Ej: Ibuprofeno 400mg..." class="w-full px-3 py-2 bg-gray-50 border border-gray-100 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#233b6e]/10 focus:border-[#233b6e] transition-all">
+                    {{ form.nombre }}
                 </div>
 
-                <!-- ESTE ES EL CAMPO CLAVE PARA TU BACKEND -->
-                <div>
-                    <label class="block text-[10px] font-black text-[#233b6e] uppercase tracking-wider mb-1.5 flex items-center">
-                        <i data-lucide="truck" class="w-3 h-3 mr-1"></i> Proveedor Asignado
-                    </label>
-                    <select class="w-full px-3 py-2 bg-blue-50/50 border border-blue-100 rounded-lg text-sm focus:outline-none focus:border-[#233b6e] appearance-none font-semibold text-[#233b6e]">
-                        <option value="">-- Seleccionar Proveedor --</option>
-                        <!-- Aquí tu backend cargará la lista real -->
-                        <option value="1">Distribuidora Farmacéutica del Sur S.A.C.</option>
-                        <option value="2">Insumos Médicos Arequipa</option>
-                        <option value="3">MedTech Equipamientos</option>
-                    </select>
-                </div>
-
-                <div class="grid grid-cols-2 gap-3">
+                <div class="grid grid-cols-3 gap-3">
                     <div>
                         <label class="block text-[10px] font-black text-gray-400 uppercase tracking-wider mb-1.5">Stock Inicial</label>
-                        <input type="number" placeholder="0" class="w-full px-3 py-2 bg-gray-50 border border-gray-100 rounded-lg text-sm focus:outline-none focus:border-[#233b6e]">
+                        {{ form.stock_actual }}
                     </div>
                     <div>
-                        <label class="block text-[10px] font-black text-gray-400 uppercase tracking-wider mb-1.5">Unidad de Medida</label>
-                        <select class="w-full px-3 py-2 bg-gray-50 border border-gray-100 rounded-lg text-sm focus:outline-none focus:border-[#233b6e] appearance-none">
-                            <option>Cajas</option>
-                            <option>Unidades</option>
-                            <option>Frascos</option>
-                        </select>
+                        <label class="block text-[10px] font-black text-gray-400 uppercase tracking-wider mb-1.5">Stock Mínimo</label>
+                        {{ form.stock_minimo }}
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-black text-gray-400 uppercase tracking-wider mb-1.5">Precio (S/.)</label>
+                        {{ form.precio_unitario }}
                     </div>
                 </div>
             </div>
 
-            <div class="flex gap-3 mt-5">
-                <button onclick="cerrarModalProducto()" class="flex-1 px-4 py-2.5 bg-gray-100 text-gray-500 rounded-lg text-sm font-bold hover:bg-gray-200 transition-colors">
+            <div class="flex gap-3 mt-6">
+                <button type="button" onclick="cerrarModalProducto()" class="flex-1 px-4 py-2.5 bg-gray-100 text-gray-500 rounded-lg text-sm font-bold hover:bg-gray-200 transition-colors">
                     Cancelar
                 </button>
-                <button onclick="cerrarModalProducto()" class="flex-1 px-4 py-2.5 bg-[#233b6e] text-white rounded-lg text-sm font-bold shadow-md hover:bg-[#1a2c53] transition-all hover:-translate-y-0.5">
+                <button type="submit" class="flex-1 px-4 py-2.5 bg-[#233b6e] text-white rounded-lg text-sm font-bold shadow-md hover:bg-[#1a2c53] transition-all hover:-translate-y-0.5">
                     Guardar Producto
                 </button>
             </div>
-        </div>
+        </form>
     </div>
 </div>
 
@@ -267,7 +260,6 @@
         animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         animation-delay: calc(0.15s + var(--anim-order, 0) * 0.08s);
     }
-    /* Modal Animation */
     @keyframes modalIn {
         0% { opacity: 0; transform: scale(0.9) translateY(20px); }
         100% { opacity: 1; transform: scale(1) translateY(0); }
@@ -276,12 +268,21 @@
 </style>
 
 <script>
-    function abrirModalProducto() {
+    function abrirModalProducto(categoriaSeleccionada) {
         const modal = document.getElementById('modalProducto');
         document.body.appendChild(modal); 
         modal.classList.remove('hidden');
         modal.classList.add('flex');
         document.body.style.overflow = 'hidden';
+        
+        // Autocompletar la categoría basándose en qué botón se hizo clic
+        const inputCategoriaDisplay = document.getElementById('categoria_display');
+        const inputCategoriaHidden = document.getElementById('categoria_hidden');
+        
+        if (inputCategoriaDisplay && inputCategoriaHidden && categoriaSeleccionada) {
+            inputCategoriaDisplay.value = categoriaSeleccionada;
+            inputCategoriaHidden.value = categoriaSeleccionada;
+        }
     }
 
     function cerrarModalProducto() {
